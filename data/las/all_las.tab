@@ -1,0 +1,456 @@
+New GSS code 	Old ONS code 	Name 	Entity 	County (England) 	Region
+E09000001 	00AA 	City of London 	London borough 		London
+E09000002 	00AB 	Barking and Dagenham 	London borough 		London
+E09000003 	00AC 	Barnet 	London borough 		London
+E09000004 	00AD 	Bexley 	London borough 		London
+E09000005 	00AE 	Brent 	London borough 		London
+E09000006 	00AF 	Bromley 	London borough 		London
+E09000007 	00AG 	Camden 	London borough 		London
+E09000008 	00AH 	Croydon 	London borough 		London
+E09000009 	00AJ 	Ealing 	London borough 		London
+E09000010 	00AK 	Enfield 	London borough 		London
+E09000011 	00AL 	Greenwich 	London borough 		London
+E09000012 	00AM 	Hackney 	London borough 		London
+E09000013 	00AN 	Hammersmith and Fulham 	London borough 		London
+E09000014 	00AP 	Haringey 	London borough 		London
+E09000015 	00AQ 	Harrow 	London borough 		London
+E09000016 	00AR 	Havering 	London borough 		London
+E09000017 	00AS 	Hillingdon 	London borough 		London
+E09000018 	00AT 	Hounslow 	London borough 		London
+E09000019 	00AU 	Islington 	London borough 		London
+E09000020 	00AW 	Kensington and Chelsea 	London borough 		London
+E09000021 	00AX 	Kingston upon Thames 	London borough 		London
+E09000022 	00AY 	Lambeth 	London borough 		London
+E09000023 	00AZ 	Lewisham 	London borough 		London
+E09000024 	00BA 	Merton 	London borough 		London
+E09000025 	00BB 	Newham 	London borough 		London
+E09000026 	00BC 	Redbridge 	London borough 		London
+E09000027 	00BD 	Richmond Upon Thames 	London borough 		London
+E09000028 	00BE 	Southwark 	London borough 		London
+E09000029 	00BF 	Sutton 	London borough 		London
+E09000030 	00BG 	Tower Hamlets 	London borough 		London
+E09000031 	00BH 	Waltham Forest 	London borough 		London
+E09000032 	00BJ 	Wandsworth 	London borough 		London
+E09000033 	00BK 	Westminster 	London borough 		London
+E08000001 	00BL 	Bolton 	Metropolitan district 	Greater Manchester 	North West England
+E08000002 	00BM 	Bury 	Metropolitan district 	Greater Manchester 	North West England
+E08000003 	00BN 	Manchester 	Metropolitan district 	Greater Manchester 	North West England
+E08000004 	00BP 	Oldham 	Metropolitan district 	Greater Manchester 	North West England
+E08000005 	00BQ 	Rochdale 	Metropolitan district 	Greater Manchester 	North West England
+E08000006 	00BR 	Salford 	Metropolitan district 	Greater Manchester 	North West England
+E08000007 	00BS 	Stockport 	Metropolitan district 	Greater Manchester 	North West England
+E08000008 	00BT 	Tameside 	Metropolitan district 	Greater Manchester 	North West England
+E08000009 	00BU 	Trafford 	Metropolitan district 	Greater Manchester 	North West England
+E08000010 	00BW 	Wigan 	Metropolitan district 	Greater Manchester 	North West England
+E08000011 	00BX 	Knowsley 	Metropolitan district 	Merseyside 	North West England
+E08000012 	00BY 	Liverpool 	Metropolitan district 	Merseyside 	North West England
+E08000013 	00BZ 	St Helens 	Metropolitan district 	Merseyside 	North West England
+E08000014 	00CA 	Sefton 	Metropolitan district 	Merseyside 	North West England
+E08000015 	00CB 	Wirral 	Metropolitan district 	Merseyside 	North West England
+E08000016 	00CC 	Barnsley 	Metropolitan district 	South Yorkshire 	Yorkshire and the Humber
+E08000017 	00CE 	Doncaster 	Metropolitan district 	South Yorkshire 	Yorkshire and the Humber
+E08000018 	00CF 	Rotherham 	Metropolitan district 	South Yorkshire 	Yorkshire and the Humber
+E08000019 	00CG 	Sheffield 	Metropolitan district 	South Yorkshire 	Yorkshire and the Humber
+E08000037	00CH 	Gateshead 	Metropolitan district 	Tyne and Wear 	North East England
+E08000021 	00CJ 	Newcastle upon Tyne 	Metropolitan district 	Tyne and Wear 	North East England
+E08000022 	00CK 	North Tyneside 	Metropolitan district 	Tyne and Wear 	North East England
+E08000023 	00CL 	South Tyneside 	Metropolitan district 	Tyne and Wear 	North East England
+E08000024 	00CM 	Sunderland 	Metropolitan district 	Tyne and Wear 	North East England
+E08000025 	00CN 	Birmingham 	Metropolitan district 	West Midlands 	West Midlands
+E08000026 	00CQ 	Coventry 	Metropolitan district 	West Midlands 	West Midlands
+E08000027 	00CR 	Dudley 	Metropolitan district 	West Midlands 	West Midlands
+E08000028 	00CS 	Sandwell 	Metropolitan district 	West Midlands 	West Midlands
+E08000029 	00CT 	Solihull 	Metropolitan district 	West Midlands 	West Midlands
+E08000030 	00CU 	Walsall 	Metropolitan district 	West Midlands 	West Midlands
+E08000031 	00CW 	Wolverhampton 	Metropolitan district 	West Midlands 	West Midlands
+E08000032 	00CX 	Bradford 	Metropolitan district 	West Yorkshire 	Yorkshire and the Humber
+E08000033 	00CY 	Calderdale 	Metropolitan district 	West Yorkshire 	Yorkshire and the Humber
+E08000034 	00CZ 	Kirklees 	Metropolitan district 	West Yorkshire 	Yorkshire and the Humber
+E08000035 	00DA 	Leeds 	Metropolitan district 	West Yorkshire 	Yorkshire and the Humber
+E08000036 	00DB 	Wakefield 	Metropolitan district 	West Yorkshire 	Yorkshire and the Humber
+E06000001 	00EB 	Hartlepool 	unitary 		North East England
+E06000002 	00EC 	Middlesbrough 	unitary 		North East England
+E06000003 	00EE 	Redcar and Cleveland 	unitary 		North East England
+E06000004 	00EF 	Stockton-on-Tees 	unitary 		North East England
+E06000005 	00EH 	Darlington 	unitary 		North East England
+E06000047 	00EJ 	County Durham 	unitary 		North East England
+E06000057	00EM 	Northumberland 	unitary 		North East England
+E06000049 	00EQ 	Cheshire East 	unitary 		North West England
+E06000006 	00ET 	Halton 	unitary 		North West England
+E06000007 	00EU 	Warrington 	unitary 		North West England
+E06000050 	00EW 	Cheshire West and Chester 	unitary 		North West England
+E06000008 	00EX 	Blackburn with Darwen 	unitary 		North West England
+E06000009 	00EY 	Blackpool 	unitary 		North West England
+E06000010 	00FA 	Kingston Upon Hull 	unitary 		Yorkshire and the Humber
+E06000011 	00FB 	East Riding of Yorkshire 	unitary 		Yorkshire and the Humber
+E06000012 	00FC 	North East Lincolnshire 	unitary 		Yorkshire and the Humber
+E06000013 	00FD 	North Lincolnshire 	unitary 		Yorkshire and the Humber
+E06000014 	00FF 	York 	unitary 		Yorkshire and the Humber
+E06000015 	00FK 	Derby 	unitary 		East Midlands
+E06000016 	00FN 	Leicester 	unitary 		East Midlands
+E06000017 	00FP 	Rutland 	unitary 		East Midlands
+E06000018 	00FY 	Nottingham 	unitary 		East Midlands
+E06000019 	00GA 	Herefordshire 	unitary 		West Midlands
+E06000020 	00GF 	Telford and Wrekin 	unitary 		West Midlands
+E06000051 	00GG 	Shropshire 	unitary 		West Midlands
+E06000021 	00GL 	Stoke-on-Trent 	unitary 		West Midlands
+E06000022 	00HA 	Bath and North East Somerset 	unitary 		South West England
+E06000023 	00HB 	Bristol 	unitary 		South West England
+E06000024 	00HC 	North Somerset 	unitary 		South West England
+E06000025 	00HD 	South Gloucestershire 	unitary 		South West England
+E06000052 	00HE 	Cornwall 	unitary 		South West England
+E06000053 	00HF 	Isles of Scilly 	unitary 		South West England
+E06000026 	00HG 	Plymouth 	unitary 		South West England
+E06000027 	00HH 	Torbay 	unitary 		South West England
+E06000028 	00HN 	Bournemouth 	unitary 		South West England
+E06000029 	00HP 	Poole 	unitary 		South West England
+E06000030 	00HX 	Swindon 	unitary 		South West England
+E06000054 	00HY 	Wiltshire 	unitary 		South West England
+E06000031 	00JA 	Peterborough 	unitary 		East of England
+E06000032 	00KA 	Luton 	unitary 		East of England
+E06000055 	00KB 	Bedford 	unitary 		East of England
+E06000056 	00KC 	Central Bedfordshire 	unitary 		East of England
+E06000033 	00KF 	Southend-on-Sea 	unitary 		East of England
+E06000034 	00KG 	Thurrock 	unitary 		East of England
+E06000035 	00LC 	Medway 	unitary 		South East England
+E06000036 	00MA 	Bracknell Forest 	unitary 		South East England
+E06000037 	00MB 	West Berkshire 	unitary 		South East England
+E06000038 	00MC 	Reading 	unitary 		South East England
+E06000039 	00MD 	Slough 	unitary 		South East England
+E06000040 	00ME 	Windsor and Maidenhead 	unitary 		South East England
+E06000041 	00MF 	Wokingham 	unitary 		South East England
+E06000042 	00MG 	Milton Keynes 	unitary 		South East England
+E06000043 	00ML 	Brighton and Hove 	unitary 		South East England
+E06000044 	00MR 	Portsmouth 	unitary 		South East England
+E06000045 	00MS 	Southampton 	unitary 		South East England
+E06000046 	00MW 	Isle of Wight 	unitary 		South East England
+W06000001 	00NA 	Ynys Môn 	W district 		Wales
+W06000002 	00NC 	Gwynedd 	W district 		Wales
+W06000003 	00NE 	Conwy 	W district 		Wales
+W06000004 	00NG 	Denbighshire 	W district 		Wales
+W06000005 	00NJ 	Flintshire 	W district 		Wales
+W06000006 	00NL 	Wrexham 	W district 		Wales
+W06000023 	00NN 	Powys 	W district 		Wales
+W06000008 	00NQ 	Ceredigion 	W district 		Wales
+W06000009 	00NS 	Pembrokeshire 	W district 		Wales
+W06000010 	00NU 	Carmarthenshire 	W district 		Wales
+W06000011 	00NX 	Swansea 	W district 		Wales
+W06000012 	00NZ 	Neath Port Talbot 	W district 		Wales
+W06000013 	00PB 	Bridgend 	W district 		Wales
+W06000014 	00PD 	Vale of Glamorgan 	W district 		Wales
+W06000016 	00PF 	Rhondda Cynon Taf 	W district 		Wales
+W06000024 	00PH 	Merthyr Tydfil 	W district 		Wales
+W06000018 	00PK 	Caerphilly 	W district 		Wales
+W06000019 	00PL 	Blaenau Gwent 	W district 		Wales
+W06000020 	00PM 	Torfaen 	W district 		Wales
+W06000021 	00PP 	Monmouthshire 	W district 		Wales
+W06000022 	00PR 	Newport 	W district 		Wales
+W06000015 	00PT 	Cardiff 	W district 		Wales
+S12000033 	00QA 	Aberdeen 	Sc district 		Scotland
+S12000034 	00QB 	Aberdeenshire 	Sc district 		Scotland
+S12000041 	00QC 	Angus 	Sc district 		Scotland
+S12000035 	00QD 	Argyll and Bute 	Sc district 		Scotland
+S12000026 	00QE 	Scottish Borders 	Sc district 		Scotland
+S12000005 	00QF 	Clackmannanshire 	Sc district 		Scotland
+S12000039 	00QG 	West Dunbartonshire 	Sc district 		Scotland
+S12000006 	00QH 	Dumfries and Galloway 	Sc district 		Scotland
+S12000042 	00QJ 	Dundee 	Sc district 		Scotland
+S12000008 	00QK 	East Ayrshire 	Sc district 		Scotland
+S12000045 	00QL 	East Dunbartonshire 	Sc district 		Scotland
+S12000010 	00QM 	East Lothian 	Sc district 		Scotland
+S12000011 	00QN 	East Renfrewshire 	Sc district 		Scotland
+S12000036 	00QP 	Edinburgh 	Sc district 		Scotland
+S12000014 	00QQ 	Falkirk 	Sc district 		Scotland
+S12000015 	00QR 	Fife 	Sc district 		Scotland
+S12000043 	00QS 	Glasgow 	Sc district 		Scotland
+S12000017 	00QT 	Highland 	Sc district 		Scotland
+S12000018 	00QU 	Inverclyde 	Sc district 		Scotland
+S12000019 	00QW 	Midlothian 	Sc district 		Scotland
+S12000020 	00QX 	Moray 	Sc district 		Scotland
+S12000021 	00QY 	North Ayrshire 	Sc district 		Scotland
+S12000044 	00QZ 	North Lanarkshire 	Sc district 		Scotland
+S12000023 	00RA 	Orkney Islands 	Sc district 		Scotland
+S12000024 	00RB 	Perth and Kinross 	Sc district 		Scotland
+S12000038 	00RC 	Renfrewshire 	Sc district 		Scotland
+S12000027 	00RD 	Shetland Islands 	Sc district 		Scotland
+S12000028 	00RE 	South Ayrshire 	Sc district 		Scotland
+S12000029 	00RF 	South Lanarkshire 	Sc district 		Scotland
+S12000030 	00RG 	Stirling 	Sc district 		Scotland
+S12000040 	00RH 	West Lothian 	Sc district 		Scotland
+S12000013 	00RJ 	Eileanan an lar (Western Isles) 	Sc district 		Scotland
+E10000002 	11	Buckinghamshire 	county 	Buckinghamshire 	South East England
+E07000004 	11UB 	Aylesbury Vale 	district 	Buckinghamshire 	South East England
+E07000005 	11UC 	Chiltern 	district 	Buckinghamshire 	South East England
+E07000006 	11UE 	South Bucks 	district 	Buckinghamshire 	South East England
+E07000007 	11UF 	Wycombe 	district 	Buckinghamshire 	South East England
+E10000003 	12	Cambridgeshire 	county 	Cambridgeshire 	East of England
+E07000008 	12UB 	Cambridge 	district 	Cambridgeshire 	East of England
+E07000009 	12UC 	East Cambridgeshire 	district 	Cambridgeshire 	East of England
+E07000010 	12UD 	Fenland 	district 	Cambridgeshire 	East of England
+E07000011 	12UE 	Huntingdonshire 	district 	Cambridgeshire 	East of England
+E07000012 	12UG 	South Cambridgeshire 	district 	Cambridgeshire 	East of England
+E10000006 	16	Cumbria 	county 	Cumbria 	North West England
+E07000026 	16UB 	Allerdale 	district 	Cumbria 	North West England
+E07000027 	16UC 	Barrow-in-Furness 	district 	Cumbria 	North West England
+E07000028 	16UD 	Carlisle 	district 	Cumbria 	North West England
+E07000029 	16UE 	Copeland 	district 	Cumbria 	North West England
+E07000030 	16UF 	Eden 	district 	Cumbria 	North West England
+E07000031 	16UG 	South Lakeland 	district 	Cumbria 	North West England
+E10000007 	17	Derbyshire 	county 	Derbyshire 	East Midlands
+E07000032 	17UB 	Amber Valley 	district 	Derbyshire 	East Midlands
+E07000033 	17UC 	Bolsover 	district 	Derbyshire 	East Midlands
+E07000034 	17UD 	Chesterfield 	district 	Derbyshire 	East Midlands
+E07000035 	17UF 	Derbyshire Dales 	district 	Derbyshire 	East Midlands
+E07000036 	17UG 	Erewash 	district 	Derbyshire 	East Midlands
+E07000037 	17UH 	High Peak 	district 	Derbyshire 	East Midlands
+E07000038 	17UJ 	North East Derbyshire 	district 	Derbyshire 	East Midlands
+E07000039 	17UK 	South Derbyshire 	district 	Derbyshire 	East Midlands
+E10000008 	18	Devon 	county 	Devon 	South West England
+E07000040 	18UB 	East Devon 	district 	Devon 	South West England
+E07000041 	18UC 	Exeter 	district 	Devon 	South West England
+E07000042 	18UD 	Mid Devon 	district 	Devon 	South West England
+E07000043 	18UE 	North Devon 	district 	Devon 	South West England
+E07000044 	18UG 	South Hams 	district 	Devon 	South West England
+E07000045 	18UH 	Teignbridge 	district 	Devon 	South West England
+E07000046 	18UK 	Torridge 	district 	Devon 	South West England
+E07000047 	18UL 	West Devon 	district 	Devon 	South West England
+E10000009 	19	Dorset 	county 	Dorset 	South West England
+E07000048 	19UC 	Christchurch 	district 	Dorset 	South West England
+E07000049 	19UD 	East Dorset 	district 	Dorset 	South West England
+E07000050 	19UE 	North Dorset 	district 	Dorset 	South West England
+E07000051 	19UG 	Purbeck 	district 	Dorset 	South West England
+E07000052 	19UH 	West Dorset 	district 	Dorset 	South West England
+E07000053 	19UJ 	Weymouth and Portland 	district 	Dorset 	South West England
+E10000011 	21	East Sussex 	county 	East Sussex 	South East England
+E07000061 	21UC 	Eastbourne 	district 	East Sussex 	South East England
+E07000062 	21UD 	Hastings 	district 	East Sussex 	South East England
+E07000063 	21UF 	Lewes 	district 	East Sussex 	South East England
+E07000064 	21UG 	Rother 	district 	East Sussex 	South East England
+E07000065 	21UH 	Wealden 	district 	East Sussex 	South East England
+E10000012 	22	Essex 	county 	Essex 	East of England
+E07000066 	22UB 	Basildon 	district 	Essex 	East of England
+E07000067 	22UC 	Braintree 	district 	Essex 	East of England
+E07000068 	22UD 	Brentwood 	district 	Essex 	East of England
+E07000069 	22UE 	Castle Point 	district 	Essex 	East of England
+E07000070 	22UF 	Chelmsford 	district 	Essex 	East of England
+E07000071 	22UG 	Colchester 	district 	Essex 	East of England
+E07000072 	22UH 	Epping Forest 	district 	Essex 	East of England
+E07000073 	22UJ 	Harlow 	district 	Essex 	East of England
+E07000074 	22UK 	Maldon 	district 	Essex 	East of England
+E07000075 	22UL 	Rochford 	district 	Essex 	East of England
+E07000076 	22UN 	Tendring 	district 	Essex 	East of England
+E07000077 	22UQ 	Uttlesford 	district 	Essex 	East of England
+E10000013 	23	Gloucestershire 	county 	Gloucestershire 	South West England
+E07000078 	23UB 	Cheltenham 	district 	Gloucestershire 	South West England
+E07000079 	23UC 	Cotswold 	district 	Gloucestershire 	South West England
+E07000080 	23UD 	Forest of Dean 	district 	Gloucestershire 	South West England
+E07000081 	23UE 	Gloucester 	district 	Gloucestershire 	South West England
+E07000082 	23UF 	Stroud 	district 	Gloucestershire 	South West England
+E07000083 	23UG 	Tewkesbury 	district 	Gloucestershire 	South West England
+E10000014 	24	Hampshire 	county 	Hampshire 	South East England
+E07000084 	24UB 	Basingstoke and Deane 	district 	Hampshire 	South East England
+E07000085 	24UC 	East Hampshire 	district 	Hampshire 	South East England
+E07000086 	24UD 	Eastleigh 	district 	Hampshire 	South East England
+E07000087 	24UE 	Fareham 	district 	Hampshire 	South East England
+E07000088 	24UF 	Gosport 	district 	Hampshire 	South East England
+E07000089 	24UG 	Hart 	district 	Hampshire 	South East England
+E07000090 	24UH 	Havant 	district 	Hampshire 	South East England
+E07000091 	24UJ 	New Forest 	district 	Hampshire 	South East England
+E07000092 	24UL 	Rushmoor 	district 	Hampshire 	South East England
+E07000093 	24UN 	Test Valley 	district 	Hampshire 	South East England
+E07000094 	24UP 	Winchester 	district 	Hampshire 	South East England
+E10000015 	26	Hertfordshire 	county 	Hertfordshire 	East of England
+E07000095 	26UB 	Broxbourne 	district 	Hertfordshire 	East of England
+E07000096 	26UC 	Dacorum 	district 	Hertfordshire 	East of England
+E07000242 	26UD 	East Hertfordshire 	district 	Hertfordshire 	East of England
+E07000098 	26UE 	Hertsmere 	district 	Hertfordshire 	East of England
+E07000099 	26UF 	North Hertfordshire 	district 	Hertfordshire 	East of England
+E07000240 	26UG 	St Albans 	district 	Hertfordshire 	East of England
+E07000243 	26UH 	Stevenage 	district 	Hertfordshire 	East of England
+E07000102 	26UJ 	Three Rivers 	district 	Hertfordshire 	East of England
+E07000103 	26UK 	Watford 	district 	Hertfordshire 	East of England
+E07000241 	26UL 	Welwyn Hatfield 	district 	Hertfordshire 	East of England
+E10000016 	29	Kent 	county 	Kent 	South East England
+E07000105 	29UB 	Ashford 	district 	Kent 	South East England
+E07000106 	29UC 	Canterbury 	district 	Kent 	South East England
+E07000107 	29UD 	Dartford 	district 	Kent 	South East England
+E07000108 	29UE 	Dover 	district 	Kent 	South East England
+E07000109 	29UG 	Gravesham 	district 	Kent 	South East England
+E07000110 	29UH 	Maidstone 	district 	Kent 	South East England
+E07000111 	29UK 	Sevenoaks 	district 	Kent 	South East England
+E07000112 	29UL 	Shepway 	district 	Kent 	South East England
+E07000113 	29UM 	Swale 	district 	Kent 	South East England
+E07000114 	29UN 	Thanet 	district 	Kent 	South East England
+E07000115 	29UP 	Tonbridge and Malling 	district 	Kent 	South East England
+E07000116 	29UQ 	Tunbridge Wells 	district 	Kent 	South East England
+E11000001 	2A 	Greater Manchester 	met county 	Greater Manchester 	North West England
+E11000002 	2B 	Merseyside 	met county 	Merseyside 	North West England
+E11000003 	2C 	South Yorkshire 	met county 	South Yorkshire 	Yorkshire and the Humber
+E11000004 	2D 	Tyne and Wear 	met county 	Tyne and Wear 	North East England
+E11000005 	2E 	West Midlands 	met county 	West Midlands 	West Midlands
+E11000006 	2F 	West Yorkshire 	met county 	West Yorkshire 	Yorkshire and the Humber
+E10000017 	30	Lancashire 	county 	Lancashire 	North West England
+E07000117 	30UD 	Burnley 	district 	Lancashire 	North West England
+E07000118 	30UE 	Chorley 	district 	Lancashire 	North West England
+E07000119 	30UF 	Fylde 	district 	Lancashire 	North West England
+E07000120 	30UG 	Hyndburn 	district 	Lancashire 	North West England
+E07000121 	30UH 	Lancaster 	district 	Lancashire 	North West England
+E07000122 	30UJ 	Pendle 	district 	Lancashire 	North West England
+E07000123 	30UK 	Preston 	district 	Lancashire 	North West England
+E07000124 	30UL 	Ribble Valley 	district 	Lancashire 	North West England
+E07000125 	30UM 	Rossendale 	district 	Lancashire 	North West England
+E07000126 	30UN 	South Ribble 	district 	Lancashire 	North West England
+E07000127 	30UP 	West Lancashire 	district 	Lancashire 	North West England
+E07000128 	30UQ 	Wyre 	district 	Lancashire 	North West England
+E10000018 	31	Leicestershire 	county 	Leicestershire 	East Midlands
+E07000129 	31UB 	Blaby 	district 	Leicestershire 	East Midlands
+E07000130 	31UC 	Charnwood 	district 	Leicestershire 	East Midlands
+E07000131 	31UD 	Harborough 	district 	Leicestershire 	East Midlands
+E07000132 	31UE 	Hinckley and Bosworth 	district 	Leicestershire 	East Midlands
+E07000133 	31UG 	Melton 	district 	Leicestershire 	East Midlands
+E07000134 	31UH 	North West Leicestershire 	district 	Leicestershire 	East Midlands
+E07000135 	31UJ 	Oadby and Wigston 	district 	Leicestershire 	East Midlands
+E10000019 	32	Lincolnshire 	county 	Lincolnshire 	East of England
+E07000136 	32UB 	Boston 	district 	Lincolnshire 	East of England
+E07000137 	32UC 	East Lindsey 	district 	Lincolnshire 	East of England
+E07000138 	32UD 	Lincoln 	district 	Lincolnshire 	East of England
+E07000139 	32UE 	North Kesteven 	district 	Lincolnshire 	East of England
+E07000140 	32UF 	South Holland 	district 	Lincolnshire 	East of England
+E07000141 	32UG 	South Kesteven 	district 	Lincolnshire 	East of England
+E07000142 	32UH 	West Lindsey 	district 	Lincolnshire 	East of England
+E10000020 	33	Norfolk 	county 	Norfolk 	East of England
+E07000143 	33UB 	Breckland 	district 	Norfolk 	East of England
+E07000144 	33UC 	Broadland 	district 	Norfolk 	East of England
+E07000145 	33UD 	Great Yarmouth 	district 	Norfolk 	East of England
+E07000146 	33UE 	King's Lynn and West Norfolk 	district 	Norfolk 	East of England
+E07000147 	33UF 	North Norfolk 	district 	Norfolk 	East of England
+E07000148 	33UG 	Norwich 	district 	Norfolk 	East of England
+E07000149 	33UH 	South Norfolk 	district 	Norfolk 	East of England
+E10000021 	34	Northamptonshire 	county 	Northamptonshire 	East Midlands
+E07000150 	34UB 	Corby 	district 	Northamptonshire 	East Midlands
+E07000151 	34UC 	Daventry 	district 	Northamptonshire 	East Midlands
+E07000152 	34UD 	East Northamptonshire 	district 	Northamptonshire 	East Midlands
+E07000153 	34UE 	Kettering 	district 	Northamptonshire 	East Midlands
+E07000154 	34UF 	Northampton 	district 	Northamptonshire 	East Midlands
+E07000155 	34UG 	South Northamptonshire 	district 	Northamptonshire 	East Midlands
+E07000156 	34UH 	Wellingborough 	district 	Northamptonshire 	East Midlands
+E10000023 	36	North Yorkshire 	county 	North Yorkshire 	Yorkshire and the Humber
+E07000163 	36UB 	Craven 	district 	North Yorkshire 	Yorkshire and the Humber
+E07000164 	36UC 	Hambleton 	district 	North Yorkshire 	Yorkshire and the Humber
+E07000165 	36UD 	Harrogate 	district 	North Yorkshire 	Yorkshire and the Humber
+E07000166 	36UE 	Richmondshire 	district 	North Yorkshire 	Yorkshire and the Humber
+E07000167 	36UF 	Ryedale 	district 	North Yorkshire 	Yorkshire and the Humber
+E07000168 	36UG 	Scarborough 	district 	North Yorkshire 	Yorkshire and the Humber
+E07000169 	36UH 	Selby 	district 	North Yorkshire 	Yorkshire and the Humber
+E10000024 	37	Nottinghamshire 	county 	Nottinghamshire 	East Midlands
+E07000170 	37UB 	Ashfield 	district 	Nottinghamshire 	East Midlands
+E07000171 	37UC 	Bassetlaw 	district 	Nottinghamshire 	East Midlands
+E07000172 	37UD 	Broxtowe 	district 	Nottinghamshire 	East Midlands
+E07000173 	37UE 	Gedling 	district 	Nottinghamshire 	East Midlands
+E07000174 	37UF 	Mansfield 	district 	Nottinghamshire 	East Midlands
+E07000175 	37UG 	Newark and Sherwood 	district 	Nottinghamshire 	East Midlands
+E07000176 	37UJ 	Rushcliffe 	district 	Nottinghamshire 	East Midlands
+E10000025 	38	Oxfordshire 	county 	Oxfordshire 	South East England
+E07000177 	38UB 	Cherwell 	district 	Oxfordshire 	South East England
+E07000178 	38UC 	Oxford 	district 	Oxfordshire 	South East England
+E07000179 	38UD 	South Oxfordshire 	district 	Oxfordshire 	South East England
+E07000180 	38UE 	Vale of White Horse 	district 	Oxfordshire 	South East England
+E07000181 	38UF 	West Oxfordshire 	district 	Oxfordshire 	South East England
+E10000027 	40	Somerset 	county 	Somerset 	South West England
+E07000187 	40UB 	Mendip 	district 	Somerset 	South West England
+E07000188 	40UC 	Sedgemoor 	district 	Somerset 	South West England
+E07000189 	40UD 	South Somerset 	district 	Somerset 	South West England
+E07000190 	40UE 	Taunton Deane 	district 	Somerset 	South West England
+E07000191 	40UF 	West Somerset 	district 	Somerset 	South West England
+E10000028 	41	Staffordshire 	county 	Staffordshire 	West Midlands
+E07000192 	41UB 	Cannock Chase 	district 	Staffordshire 	West Midlands
+E07000193 	41UC 	East Staffordshire 	district 	Staffordshire 	West Midlands
+E07000194 	41UD 	Lichfield 	district 	Staffordshire 	West Midlands
+E07000195 	41UE 	Newcastle-under-Lyme 	district 	Staffordshire 	West Midlands
+E07000196 	41UF 	South Staffordshire 	district 	Staffordshire 	West Midlands
+E07000197 	41UG 	Stafford 	district 	Staffordshire 	West Midlands
+E07000198 	41UH 	Staffordshire Moorlands 	district 	Staffordshire 	West Midlands
+E07000199 	41UK 	Tamworth 	district 	Staffordshire 	West Midlands
+E10000029 	42	Suffolk 	county 	Suffolk 	East of England
+E07000200 	42UB 	Babergh 	district 	Suffolk 	East of England
+E07000201 	42UC 	Forest Heath 	district 	Suffolk 	East of England
+E07000202 	42UD 	Ipswich 	district 	Suffolk 	East of England
+E07000203 	42UE 	Mid Suffolk 	district 	Suffolk 	East of England
+E07000204 	42UF 	St Edmundsbury 	district 	Suffolk 	East of England
+E07000205 	42UG 	Suffolk Coastal 	district 	Suffolk 	East of England
+E07000206 	42UH 	Waveney 	district 	Suffolk 	East of England
+E10000030 	43	Surrey 	county 	Surrey 	South East England
+E07000207 	43UB 	Elmbridge 	district 	Surrey 	South East England
+E07000208 	43UC 	Epsom and Ewell 	district 	Surrey 	South East England
+E07000209 	43UD 	Guildford 	district 	Surrey 	South East England
+E07000210 	43UE 	Mole Valley 	district 	Surrey 	South East England
+E07000211 	43UF 	Reigate and Banstead 	district 	Surrey 	South East England
+E07000212 	43UG 	Runnymede 	district 	Surrey 	South East England
+E07000213 	43UH 	Spelthorne 	district 	Surrey 	South East England
+E07000214 	43UJ 	Surrey Heath 	district 	Surrey 	South East England
+E07000215 	43UK 	Tandridge 	district 	Surrey 	South East England
+E07000216 	43UL 	Waverley 	district 	Surrey 	South East England
+E07000217 	43UM 	Woking (borough) 	district 	Surrey 	South East England
+E10000031 	44	Warwickshire 	county 	Warwickshire 	West Midlands
+E07000218 	44UB 	North Warwickshire 	district 	Warwickshire 	West Midlands
+E07000219 	44UC 	Nuneaton and Bedworth 	district 	Warwickshire 	West Midlands
+E07000220 	44UD 	Rugby 	district 	Warwickshire 	West Midlands
+E07000221 	44UE 	Stratford-on-Avon 	district 	Warwickshire 	West Midlands
+E07000222 	44UF 	Warwick 	district 	Warwickshire 	West Midlands
+E10000032 	45	West Sussex 	county 	West Sussex 	South East England
+E07000223 	45UB 	Adur 	district 	West Sussex 	South East England
+E07000224 	45UC 	Arun 	district 	West Sussex 	South East England
+E07000225 	45UD 	Chichester 	district 	West Sussex 	South East England
+E07000226 	45UE 	Crawley 	district 	West Sussex 	South East England
+E07000227 	45UF 	Horsham 	district 	West Sussex 	South East England
+E07000228 	45UG 	Mid Sussex 	district 	West Sussex 	South East England
+E07000229 	45UH 	Worthing 	district 	West Sussex 	South East England
+E10000034 	47	Worcestershire 	county 	Worcestershire 	West Midlands
+E07000234 	47UB 	Bromsgrove 	district 	Worcestershire 	West Midlands
+E07000235 	47UC 	Malvern Hills 	district 	Worcestershire 	West Midlands
+E07000236 	47UD 	Redditch 	district 	Worcestershire 	West Midlands
+E07000237 	47UE 	Worcester 	district 	Worcestershire 	West Midlands
+E07000238 	47UF 	Wychavon 	district 	Worcestershire 	West Midlands
+E07000239 	47UG 	Wyre Forest 	district 	Worcestershire 	West Midlands
+– 	95A 	Derry 	NI district 		N. Ireland
+– 	95B 	Limavady 	NI district 		N. Ireland
+– 	95C 	Coleraine 	NI district 		N. Ireland
+– 	95D 	Ballymoney 	NI district 		N. Ireland
+– 	95E 	Moyle 	NI district 		N. Ireland
+– 	95F 	Larne 	NI district 		N. Ireland
+– 	95G 	Ballymena 	NI district 		N. Ireland
+– 	95H 	Magherafelt 	NI district 		N. Ireland
+– 	95I 	Cookstown 	NI district 		N. Ireland
+– 	95J 	Strabane 	NI district 		N. Ireland
+– 	95K 	Omagh 	NI district 		N. Ireland
+– 	95L 	Fermanagh 	NI district 		N. Ireland
+– 	95M 	Dungannon and South Tyrone 	NI district 		N. Ireland
+– 	95N 	Craigavon 	NI district 		N. Ireland
+– 	95O 	Armagh 	NI district 		N. Ireland
+– 	95P 	Newry and Mourne 	NI district 		N. Ireland
+– 	95Q 	Banbridge 	NI district 		N. Ireland
+– 	95R 	Down 	NI district 		N. Ireland
+– 	95S 	Lisburn 	NI district 		N. Ireland
+– 	95T 	Antrim 	NI district 		N. Ireland
+– 	95U 	Newtownabbey 	NI district 		N. Ireland
+– 	95V 	Carrickfergus 	NI district 		N. Ireland
+– 	95W 	North Down 	NI district 		N. Ireland
+– 	95X 	Ards 	NI district 		N. Ireland
+– 	95Y 	Castlereagh 	NI district 		N. Ireland
+N09000003 	95Z 	Belfast 	NI district 		N. Ireland
+E12000001 	A 	North East England	region 		North East England
+E12000002 	B 	North West England	region 		North West England
+E12000003 	D 	Yorkshire and the Humber	region 		Yorkshire and the Humber
+E12000004 	E 	East Midlands	region 		East Midlands
+E12000005 	F 	West Midlands	region 		West Midlands
+E12000006 	G 	East of England	region 		East of England
+E12000007 	H 	London 	region 		London
+E12000008 	J 	South East England	region 		South East England
+E12000009 	K 	South West England	region 		South West England
+E92000001 		England 	country 		
+K02000001 		United Kingdom 	cross border area 		
+K03000001 		Great Britain 	cross border area 		
+K04000001 		England and Wales 	cross border area 		
+N92000002 		Northern Ireland 	country 		N. Ireland
+S92000003 		Scotland 	country 		Scotland
+W92000004 		Wales 	country 		Wales

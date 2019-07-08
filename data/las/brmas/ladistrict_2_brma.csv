@@ -1,0 +1,852 @@
+BRMALA,LA,LANAME,BRMA,BRMANAME
+138,00QA,Aberdeen City,81031,ABDN&SHIRE
+139,00QB,Aberdeenshire,81011,HLNDISLES
+139,00QB,Aberdeenshire,81031,ABDN&SHIRE
+139,00QB,Aberdeenshire,81071,DDEEANGUS
+392,45UB,Adur,82,Brighton and Hove                       
+392,45UB,Adur,165,Worthing                                
+195,16UB,Allerdale,70,West Cumbria                            
+195,16UB,Allerdale,71,North Cumbria                           
+201,17UB,Amber Valley,122,Derby                                   
+201,17UB,Amber Valley,123,Peaks & Dales                           
+201,17UB,Amber Valley,138,Nottingham                              
+140,00QC,Angus,81031,ABDN&SHIRE
+140,00QC,Angus,81071,DDEEANGUS
+141,00QD,Argyll & Bute,82033,ARGYLL & BUTE
+393,45UC,Arun,165,Worthing                                
+393,45UC,Arun,166,Chichester                              
+339,37UB,Ashfield,122,Derby                                   
+339,37UB,Ashfield,126,North Nottingham                        
+339,37UB,Ashfield,138,Nottingham                              
+274,29UB,Ashford,15,Canterbury                              
+274,29UB,Ashford,83,High Weald                              
+274,29UB,Ashford,86,Ashford                                 
+173,11UB,Aylesbury Vale,105,Milton Keynes                           
+173,11UB,Aylesbury Vale,106,Luton                                   
+173,11UB,Aylesbury Vale,107,Aylesbury                               
+173,11UB,Aylesbury Vale,108,Chilterns                               
+173,11UB,Aylesbury Vale,110,Cherwell Valley                         
+369,42UB,Babergh,7,Ipswich                                 
+369,42UB,Babergh,8,Colchester                              
+369,42UB,Babergh,92,Bury St Edmunds                         
+2,00AB,Barking and Dagenham,149,Outer North East London                 
+3,00AC,Barnet,147,North West London                       
+3,00AC,Barnet,150,Outer North London                      
+3,00AC,Barnet,161,Inner North London                      
+49,00CC,Barnsley,2,Sheffield                               
+49,00CC,Barnsley,116,Doncaster                               
+49,00CC,Barnsley,120,Kirklees                                
+49,00CC,Barnsley,121,Barnsley                                
+196,16UC,Barrow-in-Furness,154,Barrow-in-Furness                       
+235,22UB,Basildon,90,South West Essex                        
+253,24UB,Basingstoke and Deane,31,Reading                                 
+253,24UB,Basingstoke and Deane,32,Newbury                                 
+253,24UB,Basingstoke and Deane,40,Winchester                              
+253,24UB,Basingstoke and Deane,41,Basingstoke                             
+340,37UC,Bassetlaw,116,Doncaster                               
+340,37UC,Bassetlaw,126,North Nottingham                        
+340,37UC,Bassetlaw,130,Grantham & Newark                       
+91,00HA,Bath and North East Somerset,27,Bath                                    
+91,00HA,Bath and North East Somerset,28,Bristol                                 
+171,09UD,Bedford,94,Bedford                                 
+171,09UD,Bedford,103,Northants Central                       
+171,09UD,Bedford,156,Huntingdon                              
+4,00AD,Bexley,151,Outer South East London                 
+58,00CN,Birmingham,19,Birmingham                              
+298,31UB,Blaby,169,Leicester                               
+77,00EX,Blackburn with Darwen,25,Bolton and Bury                         
+77,00EX,Blackburn with Darwen,56,East Lancs                              
+78,00EY,Blackpool,33,Fylde Coast                             
+133,00PL,Blaenau Gwent,96600,Blaenau Gwent
+202,17UC,Bolsover,124,Chesterfield                            
+202,17UC,Bolsover,126,North Nottingham                        
+34,00BL,Bolton,22,Wigan                                   
+34,00BL,Bolton,25,Bolton and Bury                         
+34,00BL,Bolton,57,Central Lancs                           
+98,00HP,Poole,38,Bournemouth                             
+305,32UB,Boston,133,Lincolnshire Fens                       
+97,00HN,Bournemouth,38,Bournemouth                             
+105,00MA,Bracknell Forest,31,Reading                                 
+105,00MA,Bracknell Forest,80,Blackwater Valley                       
+105,00MA,Bracknell Forest,109,East Thames Valley                      
+65,00CX,Bradford,114,Leeds                                   
+65,00CX,Bradford,129,Bradford & South Dales                  
+236,22UC,Braintree,8,Colchester                              
+236,22UC,Braintree,91,Chelmsford                              
+236,22UC,Braintree,92,Bury St Edmunds                         
+236,22UC,Braintree,93,Cambridge                               
+312,33UB,Breckland,92,Bury St Edmunds                         
+312,33UB,Breckland,100,Kings Lynn                              
+312,33UB,Breckland,102,Central Norfolk & Norwich               
+5,00AE,Brent,147,North West London                       
+5,00AE,Brent,159,Inner West London                       
+5,00AE,Brent,161,Inner North London                      
+237,22UD,Brentwood,90,South West Essex                        
+237,22UD,Brentwood,91,Chelmsford                              
+237,22UD,Brentwood,95,Harlow & Stortford                      
+237,22UD,Brentwood,149,Outer North East London                 
+128,00PB,Bridgend,96200,Bridgend
+112,00ML,Brighton and Hove,82,Brighton and Hove                       
+92,00HB,Bristol,28,Bristol                                 
+313,33UC,Broadland,102,Central Norfolk & Norwich               
+6,00AF,Bromley,144,Inner South East London                 
+6,00AF,Bromley,151,Outer South East London                 
+403,47UB,Bromsgrove,18,Black Country                           
+403,47UB,Bromsgrove,19,Birmingham                              
+403,47UB,Bromsgrove,20,Solihull                                
+403,47UB,Bromsgrove,45,Worcester North                         
+264,26UB,Broxbourne,97,South East Herts                        
+341,37UD,Broxtowe,138,Nottingham                              
+286,30UD,Burnley,34,West Pennine                            
+286,30UD,Burnley,56,East Lancs                              
+35,00BM,Bury,25,Bolton and Bury                         
+35,00BM,Bury,61,Central Greater Manchester              
+132,00PK,Caerphilly,96500,Caerphilly
+66,00CY,Calderdale,119,Halifax                                 
+66,00CY,Calderdale,120,Kirklees                                
+66,00CY,Calderdale,129,Bradford & South Dales                  
+177,12UB,Cambridge,93,Cambridge                               
+7,00AG,Camden,146,Central London                          
+7,00AG,Camden,161,Inner North London                      
+361,41UB,Cannock Chase,50,Mid Staffs                              
+275,29UC,Canterbury,15,Canterbury                              
+275,29UC,Canterbury,85,Dover-Shepway                           
+137,00PT,Cardiff,97000,Cardiff
+197,16UD,Carlisle,64,Tyneside                                
+197,16UD,Carlisle,71,North Cumbria                           
+125,00NU,Carmarthenshire,95900,Carmarthenshire
+238,22UE,Castle Point,74,Southend                                
+170,09UC,Mid Bedfordshire,94,Bedford                                 
+170,09UC,Mid Bedfordshire,96,Stevenage & North Herts                 
+170,09UC,Mid Bedfordshire,105,Milton Keynes                           
+170,09UC,Mid Bedfordshire,106,Luton                                   
+172,09UE,South Bedfordshire,105,Milton Keynes                           
+172,09UE,South Bedfordshire,106,Luton                                   
+123,00NQ,Ceredigion,95600,Ceredigion
+299,31UC,Charnwood,169,Leicester                               
+239,22UF,Chelmsford,90,South West Essex                        
+239,22UF,Chelmsford,91,Chelmsford                              
+247,23UB,Cheltenham,30,Cheltenham                              
+346,38UB,Cherwell,110,Cherwell Valley                         
+346,38UB,Cherwell,111,Oxford                                  
+183,13UC,Congleton,24,South Cheshire                          
+183,13UC,Congleton,51,Staffordshire North                     
+184,13UD,Crewe and Nantwich,24,South Cheshire                          
+186,13UG,Macclesfield,16,West Cheshire                           
+186,13UG,Macclesfield,24,South Cheshire                          
+186,13UG,Macclesfield,58,East Cheshire                           
+186,13UG,Macclesfield,59,Southern Greater Manchester             
+185,13UE,Ellesmere Port and Neston,16,West Cheshire                           
+185,13UE,Ellesmere Port and Neston,17,Wirral                                  
+182,13UB,Chester,16,West Cheshire                           
+187,13UH,Vale Royal,16,West Cheshire                           
+187,13UH,Vale Royal,24,South Cheshire                          
+187,13UH,Vale Royal,58,East Cheshire                           
+187,13UH,Vale Royal,73,North Cheshire                          
+203,17UD,Chesterfield,124,Chesterfield                            
+394,45UD,Chichester,75,Portsmouth                              
+394,45UD,Chichester,79,Guildford                               
+394,45UD,Chichester,166,Chichester                              
+174,11UC,Chiltern,98,South West Herts                        
+174,11UC,Chiltern,108,Chilterns                               
+287,30UE,Chorley,25,Bolton and Bury                         
+287,30UE,Chorley,57,Central Lancs                           
+217,19UC,Christchurch,38,Bournemouth                             
+151,00QP,"Edinburgh, City of",80020,LOTHIANS
+1,00AA,City of London,146,Central London                          
+33,00BK,"Westminster, City of",146,Central London                          
+33,00BK,"Westminster, City of",161,Inner North London                      
+143,00QF,Clackmannanshire,81010,FIFE
+143,00QF,Clackmannanshire,82130,FORTH VALLEY
+240,22UG,Colchester,8,Colchester                              
+118,00NE,Conwy,95100,North Clwyd
+198,16UE,Copeland,70,West Cumbria                            
+198,16UE,Copeland,154,Barrow-in-Furness                       
+319,34UB,Corby,103,Northants Central                       
+188,15UB,Caradon,3,Kernow West                             
+188,15UB,Caradon,4,Plymouth                                
+188,15UB,Caradon,163,North Cornwall & Devon Borders          
+189,15UC,Carrick,3,Kernow West                             
+190,15UD,Kerrier,3,Kernow West                             
+191,15UE,North Cornwall,3,Kernow West                             
+191,15UE,North Cornwall,4,Plymouth                                
+191,15UE,North Cornwall,163,North Cornwall & Devon Borders          
+192,15UF,Penwith,3,Kernow West                             
+193,15UG,Restormel,3,Kernow West                             
+193,15UG,Restormel,163,North Cornwall & Devon Borders          
+248,23UC,Cotswold,26,West Wiltshire                          
+248,23UC,Cotswold,29,Warwickshire South                      
+248,23UC,Cotswold,30,Cheltenham                              
+248,23UC,Cotswold,48,Gloucester                              
+59,00CQ,Coventry,52,Coventry                                
+332,36UB,Craven,56,East Lancs                              
+332,36UB,Craven,128,Lancaster                               
+332,36UB,Craven,129,Bradford & South Dales                  
+395,45UE,Crawley,78,Crawley & Reigate                       
+8,00AH,Croydon,144,Inner South East London                 
+8,00AH,Croydon,153,Outer South London                      
+265,26UC,Dacorum,98,South West Herts                        
+265,26UC,Dacorum,107,Aylesbury                               
+265,26UC,Dacorum,108,Chilterns                               
+74,00EH,Darlington,67,Darlington                              
+276,29UD,Dartford,89,North West Kent                         
+320,34UC,Daventry,53,Rugby & East                            
+320,34UC,Daventry,103,Northants Central                       
+320,34UC,Daventry,104,Northampton                             
+320,34UC,Daventry,110,Cherwell Valley                         
+320,34UC,Daventry,169,Leicester                               
+119,00NG,Denbighshire,95100,North Clwyd
+119,00NG,Denbighshire,95300,Wrexham
+84,00FK,Derby City,122,Derby                                   
+204,17UF,Derbyshire Dales,2,Sheffield                               
+204,17UF,Derbyshire Dales,49,Eastern Staffordshire                   
+204,17UF,Derbyshire Dales,122,Derby                                   
+204,17UF,Derbyshire Dales,123,Peaks & Dales                           
+50,00CE,Doncaster,116,Doncaster                               
+50,00CE,Doncaster,125,Rotherham                               
+277,29UE,Dover,15,Canterbury                              
+277,29UE,Dover,85,Dover-Shepway                           
+60,00CR,Dudley,18,Black Country                           
+145,00QH,Dumfries & Galloway,82119,SOUTH LANARKSHIRE
+145,00QH,Dumfries & Galloway,82361,DUMFRIES&GALLOWAY
+146,00QJ,Dundee City,81071,DDEEANGUS
+223,20UB,Chester-le-Street,66,Durham                                  
+224,20UD,Derwentside,66,Durham                                  
+225,20UE,Durham,66,Durham                                  
+226,20UF,Easington,65,Sunderland                              
+226,20UF,Easington,66,Durham                                  
+227,20UG,Sedgefield,66,Durham                                  
+227,20UG,Sedgefield,67,Darlington                              
+228,20UH,Teesdale,66,Durham                                  
+228,20UH,Teesdale,67,Darlington                              
+229,20UJ,Wear Valley,64,Tyneside                                
+229,20UJ,Wear Valley,66,Durham                                  
+9,00AJ,Ealing,147,North West London                       
+9,00AJ,Ealing,159,Inner West London                       
+9,00AJ,Ealing,160,Outer West London                       
+9,00AJ,Ealing,161,Inner North London                      
+147,00QK,East Ayrshire,82212,AYRSHIRE
+178,12UC,East Cambridgeshire,92,Bury St Edmunds                         
+178,12UC,East Cambridgeshire,93,Cambridge                               
+178,12UC,East Cambridgeshire,100,Kings Lynn                              
+178,12UC,East Cambridgeshire,101,Peterborough                            
+209,18UB,East Devon,11,Mid & East Devon                        
+209,18UB,East Devon,112,Exeter                                  
+218,19UD,East Dorset,38,Bournemouth                             
+218,19UD,East Dorset,42,Salisbury                               
+148,00QL,East Dunbartonshire,82040,EAST DUNBARTON
+148,00QL,East Dunbartonshire,82110,NORTH LANARKSHIRE
+254,24UC,East Hampshire,40,Winchester                              
+254,24UC,East Hampshire,41,Basingstoke                             
+254,24UC,East Hampshire,75,Portsmouth                              
+254,24UC,East Hampshire,79,Guildford                               
+254,24UC,East Hampshire,80,Blackwater Valley                       
+266,26UD,East Hertfordshire,95,Harlow & Stortford                      
+266,26UD,East Hertfordshire,96,Stevenage & North Herts                 
+266,26UD,East Hertfordshire,97,South East Herts                        
+306,32UC,East Lindsey,131,Lincoln                                 
+306,32UC,East Lindsey,132,Grimsby                                 
+306,32UC,East Lindsey,133,Lincolnshire Fens                       
+306,32UC,East Lindsey,139,Wolds and Coast                         
+149,00QM,East Lothian,80020,LOTHIANS
+321,34UD,East Northamptonshire,101,Peterborough                            
+321,34UD,East Northamptonshire,103,Northants Central                       
+150,00QN,East Renfrewshire,82217,RENFREWSHIRE/INVERCLYDE
+150,00QN,East Renfrewshire,82301,GREATER GLASGOW
+80,00FB,East Riding of Yorkshire,116,Doncaster                               
+80,00FB,East Riding of Yorkshire,136,York                                    
+80,00FB,East Riding of Yorkshire,168,Hull & East Riding                      
+362,41UC,East Staffordshire,49,Eastern Staffordshire                   
+362,41UC,East Staffordshire,51,Staffordshire North                     
+362,41UC,East Staffordshire,123,Peaks & Dales                           
+230,21UC,Eastbourne,164,Eastbourne                              
+255,24UD,Eastleigh,39,Southampton                             
+199,16UF,Eden,70,West Cumbria                            
+199,16UF,Eden,71,North Cumbria                           
+169,00RJ,Eilean Siar,81011,HLNDISLES
+376,43UB,Elmbridge,140,Walton                                  
+376,43UB,Elmbridge,152,Outer South West London                 
+10,00AK,Enfield,150,Outer North London                      
+241,22UH,Epping Forest,95,Harlow & Stortford                      
+241,22UH,Epping Forest,97,South East Herts                        
+241,22UH,Epping Forest,149,Outer North East London                 
+377,43UC,Epsom and Ewell,152,Outer South West London                 
+377,43UC,Epsom and Ewell,153,Outer South London                      
+205,17UG,Erewash,122,Derby                                   
+205,17UG,Erewash,138,Nottingham                              
+210,18UC,Exeter,112,Exeter                                  
+152,00QQ,Falkirk,80005,WESTLOTHIAN
+152,00QQ,Falkirk,82130,FORTH VALLEY
+256,24UE,Fareham,39,Southampton                             
+256,24UE,Fareham,75,Portsmouth                              
+179,12UD,Fenland,100,Kings Lynn                              
+179,12UD,Fenland,101,Peterborough                            
+153,00QR,Fife,81010,FIFE
+120,00NJ,Flintshire,16,West Cheshire                           
+120,00NJ,Flintshire,95100,North Clwyd
+120,00NJ,Flintshire,95200,Flintshire
+370,42UC,Forest Heath,92,Bury St Edmunds                         
+370,42UC,Forest Heath,93,Cambridge                               
+249,23UD,Forest of Dean,44,Herefordshire                           
+249,23UD,Forest of Dean,48,Gloucester                              
+249,23UD,Forest of Dean,96800,Monmouthshire
+288,30UF,Fylde,33,Fylde Coast                             
+288,30UF,Fylde,57,Central Lancs                           
+53,00CH,Gateshead,64,Tyneside                                
+342,37UE,Gedling,126,North Nottingham                        
+342,37UE,Gedling,138,Nottingham                              
+154,00QS,Glasgow City,82119,SOUTH LANARKSHIRE
+154,00QS,Glasgow City,82217,RENFREWSHIRE/INVERCLYDE
+154,00QS,Glasgow City,82301,GREATER GLASGOW
+250,23UE,Gloucester,48,Gloucester                              
+257,24UF,Gosport,75,Portsmouth                              
+278,29UG,Gravesham,88,Medway & Swale                          
+278,29UG,Gravesham,89,North West Kent                         
+314,33UD,Great Yarmouth,99,Lowestoft & Great Yarmouth              
+314,33UD,Great Yarmouth,102,Central Norfolk & Norwich               
+11,00AL,Greenwich,144,Inner South East London                 
+11,00AL,Greenwich,151,Outer South East London                 
+378,43UD,Guildford,79,Guildford                               
+378,43UD,Guildford,80,Blackwater Valley                       
+117,00NC,Gwynedd,95000,North West Wales
+117,00NC,Gwynedd,95400,South Gwynedd
+12,00AM,Hackney,142,Inner East London                       
+12,00AM,Hackney,146,Central London                          
+12,00AM,Hackney,161,Inner North London                      
+75,00ET,Halton,23,Greater Liverpool                       
+75,00ET,Halton,73,North Cheshire                          
+333,36UC,Hambleton,67,Darlington                              
+333,36UC,Hambleton,68,Richmond & Hambleton                    
+333,36UC,Hambleton,69,Teesside                                
+333,36UC,Hambleton,118,Harrogate                               
+333,36UC,Hambleton,136,York                                    
+13,00AN,Hammersmith and Fulham,146,Central London                          
+13,00AN,Hammersmith and Fulham,159,Inner West London                       
+13,00AN,Hammersmith and Fulham,161,Inner North London                      
+300,31UD,Harborough,53,Rugby & East                            
+300,31UD,Harborough,103,Northants Central                       
+300,31UD,Harborough,169,Leicester                               
+14,00AP,Haringey,150,Outer North London                      
+14,00AP,Haringey,161,Inner North London                      
+242,22UJ,Harlow,95,Harlow & Stortford                      
+334,36UD,Harrogate,68,Richmond & Hambleton                    
+334,36UD,Harrogate,114,Leeds                                   
+334,36UD,Harrogate,118,Harrogate                               
+334,36UD,Harrogate,136,York                                    
+15,00AQ,Harrow,147,North West London                       
+258,24UG,Hart,31,Reading                                 
+258,24UG,Hart,41,Basingstoke                             
+258,24UG,Hart,80,Blackwater Valley                       
+70,00EB,Hartlepool,69,Teesside                                
+231,21UD,Hastings,84,Sussex East                             
+259,24UH,Havant,75,Portsmouth                              
+259,24UH,Havant,166,Chichester                              
+16,00AR,Havering,90,South West Essex                        
+16,00AR,Havering,149,Outer North East London                 
+88,00GA,"Herefordshire, County of",44,Herefordshire                           
+88,00GA,"Herefordshire, County of",45,Worcester North                         
+88,00GA,"Herefordshire, County of",46,Worcester South                         
+88,00GA,"Herefordshire, County of",48,Gloucester                              
+88,00GA,"Herefordshire, County of",167,Shropshire                              
+88,00GA,"Herefordshire, County of",95700,Brecon and Radnor
+267,26UE,Hertsmere,97,South East Herts                        
+267,26UE,Hertsmere,98,South West Herts                        
+267,26UE,Hertsmere,150,Outer North London                      
+206,17UH,High Peak,59,Southern Greater Manchester             
+206,17UH,High Peak,123,Peaks & Dales                           
+206,17UH,High Peak,158,Tameside & Glossop                      
+155,00QT,Highland,81011,HLNDISLES
+155,00QT,Highland,82033,ARGYLL & BUTE
+17,00AS,Hillingdon,98,South West Herts                        
+17,00AS,Hillingdon,147,North West London                       
+17,00AS,Hillingdon,160,Outer West London                       
+301,31UE,Hinckley and Bosworth,52,Coventry                                
+301,31UE,Hinckley and Bosworth,169,Leicester                               
+396,45UF,Horsham,78,Crawley & Reigate                       
+396,45UF,Horsham,82,Brighton and Hove                       
+396,45UF,Horsham,165,Worthing                                
+396,45UF,Horsham,166,Chichester                              
+18,00AT,Hounslow,152,Outer South West London                 
+18,00AT,Hounslow,159,Inner West London                       
+18,00AT,Hounslow,160,Outer West London                       
+180,12UE,Huntingdonshire,93,Cambridge                               
+180,12UE,Huntingdonshire,101,Peterborough                            
+180,12UE,Huntingdonshire,103,Northants Central                       
+180,12UE,Huntingdonshire,156,Huntingdon                              
+289,30UG,Hyndburn,56,East Lancs                              
+371,42UD,Ipswich,7,Ipswich                                 
+116,00NA,Anglesey,95000,North West Wales
+115,00MW,Isle of Wight,1,Isle of Wight                           
+194,15UH,Isles of Scilly,3,Kernow West                             
+19,00AU,Islington,142,Inner East London                       
+19,00AU,Islington,146,Central London                          
+19,00AU,Islington,150,Outer North London                      
+19,00AU,Islington,161,Inner North London                      
+20,00AW,Kensington and Chelsea,146,Central London                          
+20,00AW,Kensington and Chelsea,161,Inner North London                      
+322,34UE,Kettering,103,Northants Central                       
+322,34UE,Kettering,169,Leicester                               
+315,33UE,King's Lynn and West Norfolk,92,Bury St Edmunds                         
+315,33UE,King's Lynn and West Norfolk,100,Kings Lynn                              
+79,00FA,Kingston upon Hull,168,Hull & East Riding                      
+21,00AX,Kingston-upon-Thames,152,Outer South West London                 
+21,00AX,Kingston-upon-Thames,153,Outer South London                      
+67,00CZ,Kirklees,120,Kirklees                                
+67,00CZ,Kirklees,129,Bradford & South Dales                  
+44,00BX,Knowsley,23,Greater Liverpool                       
+44,00BX,Knowsley,62,St Helens                               
+44,00BX,Knowsley,73,North Cheshire                          
+22,00AY,Lambeth,144,Inner South East London                 
+22,00AY,Lambeth,145,Inner South West London                 
+290,30UH,Lancaster,128,Lancaster                               
+290,30UH,Lancaster,155,Kendal                                  
+68,00DA,Leeds,114,Leeds                                   
+68,00DA,Leeds,129,Bradford & South Dales                  
+85,00FN,Leicester City,169,Leicester                               
+232,21UF,Lewes,78,Crawley & Reigate                       
+232,21UF,Lewes,82,Brighton and Hove                       
+232,21UF,Lewes,164,Eastbourne                              
+23,00AZ,Lewisham,144,Inner South East London                 
+23,00AZ,Lewisham,151,Outer South East London                 
+363,41UD,Lichfield,19,Birmingham                              
+363,41UD,Lichfield,50,Mid Staffs                              
+307,32UD,Lincoln,131,Lincoln                                 
+45,00BY,Liverpool,23,Greater Liverpool                       
+101,00KA,Luton,106,Luton                                   
+279,29UH,Maidstone,87,Maidstone                               
+279,29UH,Maidstone,88,Medway & Swale                          
+243,22UK,Maldon,8,Colchester                              
+243,22UK,Maldon,91,Chelmsford                              
+404,47UC,Malvern Hills,30,Cheltenham                              
+404,47UC,Malvern Hills,45,Worcester North                         
+404,47UC,Malvern Hills,46,Worcester South                         
+404,47UC,Malvern Hills,48,Gloucester                              
+36,00BN,Manchester,59,Southern Greater Manchester             
+36,00BN,Manchester,61,Central Greater Manchester              
+343,37UF,Mansfield,126,North Nottingham                        
+104,00LC,Medway Towns,87,Maidstone                               
+104,00LC,Medway Towns,88,Medway & Swale                          
+302,31UG,Melton,130,Grantham & Newark                       
+302,31UG,Melton,138,Nottingham                              
+302,31UG,Melton,169,Leicester                               
+356,40UB,Mendip,13,Mendip                                  
+356,40UB,Mendip,26,West Wiltshire                          
+356,40UB,Mendip,27,Bath                                    
+356,40UB,Mendip,35,Yeovil                                  
+131,00PH,Merthyr Tydfil,96400,Merthyr Cynon
+24,00BA,Merton,145,Inner South West London                 
+24,00BA,Merton,152,Outer South West London                 
+24,00BA,Merton,153,Outer South London                      
+211,18UD,Mid Devon,9,North Devon                             
+211,18UD,Mid Devon,10,Taunton & West Somerset                 
+211,18UD,Mid Devon,11,Mid & East Devon                        
+211,18UD,Mid Devon,112,Exeter                                  
+372,42UE,Mid Suffolk,7,Ipswich                                 
+372,42UE,Mid Suffolk,92,Bury St Edmunds                         
+372,42UE,Mid Suffolk,102,Central Norfolk & Norwich               
+397,45UG,Mid Sussex,78,Crawley & Reigate                       
+397,45UG,Mid Sussex,82,Brighton and Hove                       
+71,00EC,Middlesbrough,69,Teesside                                
+157,00QW,Midlothian,80020,LOTHIANS
+111,00MG,Milton Keynes,105,Milton Keynes                           
+379,43UE,Mole Valley,78,Crawley & Reigate                       
+379,43UE,Mole Valley,79,Guildford                               
+379,43UE,Mole Valley,140,Walton                                  
+135,00PP,Monmouthshire,96800,Monmouthshire
+158,00QX,Moray,81011,HLNDISLES
+158,00QX,Moray,81031,ABDN&SHIRE
+127,00NZ,Neath Port Talbot,96100,Neath Port Talbot
+260,24UJ,New Forest,38,Bournemouth                             
+260,24UJ,New Forest,39,Southampton                             
+260,24UJ,New Forest,42,Salisbury                               
+344,37UG,Newark and Sherwood,126,North Nottingham                        
+344,37UG,Newark and Sherwood,130,Grantham & Newark                       
+344,37UG,Newark and Sherwood,131,Lincoln                                 
+344,37UG,Newark and Sherwood,138,Nottingham                              
+364,41UE,Newcastle-under-Lyme,51,Staffordshire North                     
+364,41UE,Newcastle-under-Lyme,167,Shropshire                              
+54,00CJ,Newcastle-upon-Tyne,64,Tyneside                                
+25,00BB,Newham,148,Outer East London                       
+136,00PR,Newport,97100,Newport
+159,00QY,North Ayrshire,82212,AYRSHIRE
+212,18UE,North Devon,9,North Devon                             
+212,18UE,North Devon,10,Taunton & West Somerset                 
+212,18UE,North Devon,11,Mid & East Devon                        
+219,19UE,North Dorset,35,Yeovil                                  
+219,19UE,North Dorset,42,Salisbury                               
+207,17UJ,North East Derbyshire,2,Sheffield                               
+207,17UJ,North East Derbyshire,123,Peaks & Dales                           
+207,17UJ,North East Derbyshire,124,Chesterfield                            
+207,17UJ,North East Derbyshire,126,North Nottingham                        
+81,00FC,North East Lincolnshire,132,Grimsby                                 
+268,26UF,North Hertfordshire,96,Stevenage & North Herts                 
+268,26UF,North Hertfordshire,97,South East Herts                        
+268,26UF,North Hertfordshire,98,South West Herts                        
+268,26UF,North Hertfordshire,106,Luton                                   
+308,32UE,North Kesteven,130,Grantham & Newark                       
+308,32UE,North Kesteven,131,Lincoln                                 
+308,32UE,North Kesteven,139,Wolds and Coast                         
+160,00QZ,North Lanarkshire,82110,NORTH LANARKSHIRE
+160,00QZ,North Lanarkshire,82119,SOUTH LANARKSHIRE
+82,00FD,North Lincolnshire,116,Doncaster                               
+82,00FD,North Lincolnshire,132,Grimsby                                 
+82,00FD,North Lincolnshire,137,Scunthorpe                              
+316,33UF,North Norfolk,99,Lowestoft & Great Yarmouth              
+316,33UF,North Norfolk,100,Kings Lynn                              
+316,33UF,North Norfolk,102,Central Norfolk & Norwich               
+93,00HC,North Somerset,6,Weston-S-Mare                           
+93,00HC,North Somerset,27,Bath                                    
+93,00HC,North Somerset,28,Bristol                                 
+55,00CK,North Tyneside,64,Tyneside                                
+387,44UB,North Warwickshire,19,Birmingham                              
+387,44UB,North Warwickshire,20,Solihull                                
+387,44UB,North Warwickshire,50,Mid Staffs                              
+387,44UB,North Warwickshire,52,Coventry                                
+303,31UH,North West Leicestershire,49,Eastern Staffordshire                   
+303,31UH,North West Leicestershire,122,Derby                                   
+303,31UH,North West Leicestershire,169,Leicester                               
+323,34UF,Northampton,104,Northampton                             
+326,35UB,Alnwick,63,Northumberland                          
+326,35UB,Alnwick,64,Tyneside                                
+327,35UC,Berwick-upon-Tweed,63,Northumberland                          
+328,35UD,Blyth Valley,63,Northumberland                          
+329,35UE,Castle Morpeth,63,Northumberland                          
+329,35UE,Castle Morpeth,64,Tyneside                                
+330,35UF,Tynedale,64,Tyneside                                
+330,35UF,Tynedale,66,Durham                                  
+330,35UF,Tynedale,71,North Cumbria                           
+331,35UG,Wansbeck,63,Northumberland                          
+317,33UG,Norwich,102,Central Norfolk & Norwich               
+87,00FY,Nottingham,138,Nottingham                              
+388,44UC,Nuneaton and Bedworth,52,Coventry                                
+304,31UJ,Oadby and Wigston,169,Leicester                               
+37,00BP,Oldham,61,Central Greater Manchester              
+37,00BP,Oldham,157,Oldham & Rochdale                       
+37,00BP,Oldham,158,Tameside & Glossop                      
+161,00RA,Orkney Islands,81011,HLNDISLES
+347,38UC,Oxford,111,Oxford                                  
+124,00NS,Pembrokeshire,95600,Ceredigion
+124,00NS,Pembrokeshire,95800,Pembrokeshire
+291,30UJ,Pendle,34,West Pennine                            
+291,30UJ,Pendle,129,Bradford & South Dales                  
+162,00RB,Perth & Kinross,81010,FIFE
+162,00RB,Perth & Kinross,81051,PERTHKROSS
+162,00RB,Perth & Kinross,81071,DDEEANGUS
+162,00RB,Perth & Kinross,82130,FORTH VALLEY
+100,00JA,Peterborough,101,Peterborough                            
+95,00HG,Plymouth,4,Plymouth                                
+113,00MR,Portsmouth,75,Portsmouth                              
+122,00NN,Powys,95500,North Powys
+122,00NN,Powys,95700,Brecon and Radnor
+122,00NN,Powys,96100,Neath Port Talbot
+292,30UK,Preston,57,Central Lancs                           
+220,19UG,Purbeck,38,Bournemouth                             
+107,00MC,Reading,31,Reading                                 
+26,00BC,Redbridge,148,Outer East London                       
+26,00BC,Redbridge,149,Outer North East London                 
+72,00EE,Redcar and Cleveland,69,Teesside                                
+405,47UD,Redditch,45,Worcester North                         
+405,47UD,Redditch,46,Worcester South                         
+380,43UF,Reigate and Banstead,78,Crawley & Reigate                       
+380,43UF,Reigate and Banstead,153,Outer South London                      
+163,00RC,Renfrewshire,82212,AYRSHIRE
+163,00RC,Renfrewshire,82217,RENFREWSHIRE/INVERCLYDE
+130,00PF,"Rhondda, Cynon, Taff",96300,Taff Rhondda
+130,00PF,"Rhondda, Cynon, Taff",96400,Merthyr Cynon
+293,30UL,Ribble Valley,34,West Pennine                            
+293,30UL,Ribble Valley,56,East Lancs                              
+293,30UL,Ribble Valley,57,Central Lancs                           
+27,00BD,Richmond-upon-Thames,145,Inner South West London                 
+27,00BD,Richmond-upon-Thames,152,Outer South West London                 
+27,00BD,Richmond-upon-Thames,160,Outer West London                       
+335,36UE,Richmondshire,67,Darlington                              
+335,36UE,Richmondshire,68,Richmond & Hambleton                    
+38,00BQ,Rochdale,25,Bolton and Bury                         
+38,00BQ,Rochdale,61,Central Greater Manchester              
+38,00BQ,Rochdale,157,Oldham & Rochdale                       
+244,22UL,Rochford,74,Southend                                
+244,22UL,Rochford,90,South West Essex                        
+294,30UM,Rossendale,25,Bolton and Bury                         
+294,30UM,Rossendale,56,East Lancs                              
+294,30UM,Rossendale,157,Oldham & Rochdale                       
+233,21UG,Rother,83,High Weald                              
+233,21UG,Rother,84,Sussex East                             
+233,21UG,Rother,164,Eastbourne                              
+51,00CF,Rotherham,2,Sheffield                               
+51,00CF,Rotherham,125,Rotherham                               
+389,44UD,Rugby,52,Coventry                                
+389,44UD,Rugby,53,Rugby & East                            
+381,43UG,Runnymede,109,East Thames Valley                      
+381,43UG,Runnymede,140,Walton                                  
+345,37UJ,Rushcliffe,130,Grantham & Newark                       
+345,37UJ,Rushcliffe,138,Nottingham                              
+345,37UJ,Rushcliffe,169,Leicester                               
+261,24UL,Rushmoor,80,Blackwater Valley                       
+86,00FP,Rutland,101,Peterborough                            
+86,00FP,Rutland,103,Northants Central                       
+86,00FP,Rutland,169,Leicester                               
+336,36UF,Ryedale,117,Scarborough                             
+336,36UF,Ryedale,136,York                                    
+39,00BR,Salford,25,Bolton and Bury                         
+39,00BR,Salford,61,Central Greater Manchester              
+61,00CS,Sandwell,18,Black Country                           
+61,00CS,Sandwell,19,Birmingham                              
+337,36UG,Scarborough,117,Scarborough                             
+142,00QE,Scottish Borders,80018,BORDERS
+357,40UC,Sedgemoor,6,Weston-S-Mare                           
+357,40UC,Sedgemoor,10,Taunton & West Somerset                 
+357,40UC,Sedgemoor,13,Mendip                                  
+47,00CA,Sefton,21,Southport                               
+47,00CA,Sefton,23,Greater Liverpool                       
+338,36UH,Selby,114,Leeds                                   
+338,36UH,Selby,115,Wakefield                               
+338,36UH,Selby,116,Doncaster                               
+338,36UH,Selby,136,York                                    
+280,29UK,Sevenoaks,83,High Weald                              
+280,29UK,Sevenoaks,89,North West Kent                         
+52,00CG,Sheffield,2,Sheffield                               
+281,29UL,Shepway,15,Canterbury                              
+281,29UL,Shepway,85,Dover-Shepway                           
+281,29UL,Shepway,86,Ashford                                 
+164,00RD,Shetland Islands,81011,HLNDISLES
+351,39UB,Bridgnorth,18,Black Country                           
+351,39UB,Bridgnorth,45,Worcester North                         
+351,39UB,Bridgnorth,167,Shropshire                              
+352,39UC,North Shropshire,51,Staffordshire North                     
+352,39UC,North Shropshire,167,Shropshire                              
+353,39UD,Oswestry,167,Shropshire                              
+354,39UE,Shrewsbury and Atcham,167,Shropshire                              
+355,39UF,South Shropshire,45,Worcester North                         
+355,39UF,South Shropshire,167,Shropshire                              
+108,00MD,Slough,109,East Thames Valley                      
+62,00CT,Solihull,19,Birmingham                              
+62,00CT,Solihull,20,Solihull                                
+62,00CT,Solihull,29,Warwickshire South                      
+165,00RE,South Ayrshire,82212,AYRSHIRE
+175,11UE,South Buckinghamshire,108,Chilterns                               
+175,11UE,South Buckinghamshire,109,East Thames Valley                      
+181,12UG,South Cambridgeshire,93,Cambridge                               
+181,12UG,South Cambridgeshire,96,Stevenage & North Herts                 
+181,12UG,South Cambridgeshire,156,Huntingdon                              
+208,17UK,South Derbyshire,49,Eastern Staffordshire                   
+208,17UK,South Derbyshire,122,Derby                                   
+208,17UK,South Derbyshire,169,Leicester                               
+94,00HD,South Gloucestershire,26,West Wiltshire                          
+94,00HD,South Gloucestershire,27,Bath                                    
+94,00HD,South Gloucestershire,28,Bristol                                 
+94,00HD,South Gloucestershire,48,Gloucester                              
+94,00HD,South Gloucestershire,96800,Monmouthshire
+213,18UG,South Hams,4,Plymouth                                
+213,18UG,South Hams,162,South Devon                             
+309,32UF,South Holland,100,Kings Lynn                              
+309,32UF,South Holland,101,Peterborough                            
+309,32UF,South Holland,133,Lincolnshire Fens                       
+310,32UG,South Kesteven,101,Peterborough                            
+310,32UG,South Kesteven,130,Grantham & Newark                       
+310,32UG,South Kesteven,131,Lincoln                                 
+310,32UG,South Kesteven,133,Lincolnshire Fens                       
+200,16UG,South Lakeland,154,Barrow-in-Furness                       
+200,16UG,South Lakeland,155,Kendal                                  
+166,00RF,South Lanarkshire,82119,SOUTH LANARKSHIRE
+166,00RF,South Lanarkshire,82361,DUMFRIES&GALLOWAY
+318,33UH,South Norfolk,99,Lowestoft & Great Yarmouth              
+318,33UH,South Norfolk,102,Central Norfolk & Norwich               
+324,34UG,South Northamptonshire,104,Northampton                             
+324,34UG,South Northamptonshire,105,Milton Keynes                           
+324,34UG,South Northamptonshire,110,Cherwell Valley                         
+348,38UD,South Oxfordshire,31,Reading                                 
+348,38UD,South Oxfordshire,107,Aylesbury                               
+348,38UD,South Oxfordshire,111,Oxford                                  
+295,30UN,South Ribble,56,East Lancs                              
+295,30UN,South Ribble,57,Central Lancs                           
+358,40UD,South Somerset,10,Taunton & West Somerset                 
+358,40UD,South Somerset,35,Yeovil                                  
+365,41UF,South Staffordshire,18,Black Country                           
+365,41UF,South Staffordshire,50,Mid Staffs                              
+365,41UF,South Staffordshire,167,Shropshire                              
+56,00CL,South Tyneside,64,Tyneside                                
+56,00CL,South Tyneside,65,Sunderland                              
+114,00MS,Southampton,39,Southampton                             
+102,00KF,Southend-on-Sea,74,Southend                                
+28,00BE,Southwark,144,Inner South East London                 
+382,43UH,Spelthorne,109,East Thames Valley                      
+382,43UH,Spelthorne,140,Walton                                  
+269,26UG,St Albans,98,South West Herts                        
+373,42UF,St Edmundsbury,92,Bury St Edmunds                         
+373,42UF,St Edmundsbury,93,Cambridge                               
+373,42UF,St Edmundsbury,102,Central Norfolk & Norwich               
+46,00BZ,St Helens,22,Wigan                                   
+46,00BZ,St Helens,62,St Helens                               
+46,00BZ,St Helens,73,North Cheshire                          
+366,41UG,Stafford,50,Mid Staffs                              
+366,41UG,Stafford,51,Staffordshire North                     
+366,41UG,Stafford,167,Shropshire                              
+367,41UH,Staffordshire Moorlands,51,Staffordshire North                     
+367,41UH,Staffordshire Moorlands,123,Peaks & Dales                           
+270,26UH,Stevenage,96,Stevenage & North Herts                 
+167,00RG,Stirling,82033,ARGYLL & BUTE
+167,00RG,Stirling,82130,FORTH VALLEY
+40,00BS,Stockport,59,Southern Greater Manchester             
+40,00BS,Stockport,158,Tameside & Glossop                      
+73,00EF,Stockton on Tees,69,Teesside                                
+90,00GL,Stoke on Trent,51,Staffordshire North                     
+390,44UE,Stratford-on-Avon,20,Solihull                                
+390,44UE,Stratford-on-Avon,29,Warwickshire South                      
+390,44UE,Stratford-on-Avon,30,Cheltenham                              
+390,44UE,Stratford-on-Avon,45,Worcester North                         
+390,44UE,Stratford-on-Avon,46,Worcester South                         
+390,44UE,Stratford-on-Avon,53,Rugby & East                            
+390,44UE,Stratford-on-Avon,110,Cherwell Valley                         
+251,23UF,Stroud,48,Gloucester                              
+374,42UG,Suffolk Coastal,7,Ipswich                                 
+374,42UG,Suffolk Coastal,99,Lowestoft & Great Yarmouth              
+374,42UG,Suffolk Coastal,102,Central Norfolk & Norwich               
+57,00CM,Sunderland,64,Tyneside                                
+57,00CM,Sunderland,65,Sunderland                              
+383,43UJ,Surrey Heath,79,Guildford                               
+383,43UJ,Surrey Heath,80,Blackwater Valley                       
+383,43UJ,Surrey Heath,109,East Thames Valley                      
+29,00BF,Sutton,152,Outer South West London                 
+29,00BF,Sutton,153,Outer South London                      
+282,29UM,Swale,15,Canterbury                              
+282,29UM,Swale,87,Maidstone                               
+282,29UM,Swale,88,Medway & Swale                          
+126,00NX,Swansea,96000,Swansea
+99,00HX,Swindon,43,Swindon                                 
+41,00BT,Tameside,59,Southern Greater Manchester             
+41,00BT,Tameside,61,Central Greater Manchester              
+41,00BT,Tameside,157,Oldham & Rochdale                       
+41,00BT,Tameside,158,Tameside & Glossop                      
+368,41UK,Tamworth,50,Mid Staffs                              
+384,43UK,Tandridge,78,Crawley & Reigate                       
+384,43UK,Tandridge,151,Outer South East London                 
+384,43UK,Tandridge,153,Outer South London                      
+359,40UE,Taunton Deane,10,Taunton & West Somerset                 
+214,18UH,Teignbridge,112,Exeter                                  
+214,18UH,Teignbridge,162,South Devon                             
+89,00GF,Telford and Wrekin,167,Shropshire                              
+245,22UN,Tendring,8,Colchester                              
+262,24UN,Test Valley,39,Southampton                             
+262,24UN,Test Valley,40,Winchester                              
+262,24UN,Test Valley,41,Basingstoke                             
+262,24UN,Test Valley,42,Salisbury                               
+252,23UG,Tewkesbury,30,Cheltenham                              
+252,23UG,Tewkesbury,48,Gloucester                              
+283,29UN,Thanet,14,Thanet                                  
+271,26UJ,Three Rivers,98,South West Herts                        
+271,26UJ,Three Rivers,108,Chilterns                               
+271,26UJ,Three Rivers,147,North West London                       
+103,00KG,Thurrock,90,South West Essex                        
+284,29UP,Tonbridge and Malling,83,High Weald                              
+284,29UP,Tonbridge and Malling,87,Maidstone                               
+284,29UP,Tonbridge and Malling,88,Medway & Swale                          
+96,00HH,Torbay,162,South Devon                             
+134,00PM,Torfaen,96700,Torfaen
+215,18UK,Torridge,9,North Devon                             
+215,18UK,Torridge,112,Exeter                                  
+215,18UK,Torridge,163,North Cornwall & Devon Borders          
+30,00BG,Tower Hamlets,142,Inner East London                       
+30,00BG,Tower Hamlets,146,Central London                          
+42,00BU,Trafford,59,Southern Greater Manchester             
+42,00BU,Trafford,61,Central Greater Manchester              
+285,29UQ,Tunbridge Wells,83,High Weald                              
+246,22UQ,Uttlesford,93,Cambridge                               
+246,22UQ,Uttlesford,95,Harlow & Stortford                      
+246,22UQ,Uttlesford,96,Stevenage & North Herts                 
+129,00PD,Vale of Glamorgan,96900,Vale of Glamorgan
+349,38UE,Vale of White Horse,30,Cheltenham                              
+349,38UE,Vale of White Horse,43,Swindon                                 
+349,38UE,Vale of White Horse,111,Oxford                                  
+69,00DB,Wakefield,115,Wakefield                               
+63,00CU,Walsall,18,Black Country                           
+63,00CU,Walsall,19,Birmingham                              
+31,00BH,Waltham Forest,148,Outer East London                       
+31,00BH,Waltham Forest,149,Outer North East London                 
+32,00BJ,Wandsworth,145,Inner South West London                 
+32,00BJ,Wandsworth,152,Outer South West London                 
+76,00EU,Warrington,73,North Cheshire                          
+391,44UF,Warwick,20,Solihull                                
+391,44UF,Warwick,29,Warwickshire South                      
+391,44UF,Warwick,52,Coventry                                
+272,26UK,Watford,98,South West Herts                        
+375,42UH,Waveney,99,Lowestoft & Great Yarmouth              
+375,42UH,Waveney,102,Central Norfolk & Norwich               
+385,43UL,Waverley,79,Guildford                               
+385,43UL,Waverley,80,Blackwater Valley                       
+234,21UH,Wealden,78,Crawley & Reigate                       
+234,21UH,Wealden,83,High Weald                              
+234,21UH,Wealden,84,Sussex East                             
+234,21UH,Wealden,164,Eastbourne                              
+325,34UH,Wellingborough,103,Northants Central                       
+325,34UH,Wellingborough,104,Northampton                             
+273,26UL,Welwyn Hatfield,97,South East Herts                        
+273,26UL,Welwyn Hatfield,98,South West Herts                        
+273,26UL,Welwyn Hatfield,150,Outer North London                      
+106,00MB,West Berkshire,31,Reading                                 
+106,00MB,West Berkshire,32,Newbury                                 
+106,00MB,West Berkshire,43,Swindon                                 
+216,18UL,West Devon,4,Plymouth                                
+216,18UL,West Devon,112,Exeter                                  
+216,18UL,West Devon,163,North Cornwall & Devon Borders          
+221,19UH,West Dorset,35,Yeovil                                  
+144,00QG,West Dunbartonshire,82033,ARGYLL & BUTE
+144,00QG,West Dunbartonshire,82038,WEST DUNBARTON
+296,30UP,West Lancashire,21,Southport                               
+296,30UP,West Lancashire,22,Wigan                                   
+296,30UP,West Lancashire,23,Greater Liverpool                       
+296,30UP,West Lancashire,57,Central Lancs                           
+296,30UP,West Lancashire,62,St Helens                               
+311,32UH,West Lindsey,131,Lincoln                                 
+311,32UH,West Lindsey,132,Grimsby                                 
+311,32UH,West Lindsey,137,Scunthorpe                              
+168,00RH,West Lothian,80005,WESTLOTHIAN
+168,00RH,West Lothian,82110,NORTH LANARKSHIRE
+168,00RH,West Lothian,82130,FORTH VALLEY
+350,38UF,West Oxfordshire,30,Cheltenham                              
+350,38UF,West Oxfordshire,110,Cherwell Valley                         
+350,38UF,West Oxfordshire,111,Oxford                                  
+360,40UF,West Somerset,9,North Devon                             
+360,40UF,West Somerset,10,Taunton & West Somerset                 
+43,00BW,Wigan,22,Wigan                                   
+43,00BW,Wigan,62,St Helens                               
+399,46UB,Kennet,26,West Wiltshire                          
+399,46UB,Kennet,32,Newbury                                 
+399,46UB,Kennet,41,Basingstoke                             
+399,46UB,Kennet,42,Salisbury                               
+399,46UB,Kennet,43,Swindon                                 
+400,46UC,North Wiltshire,26,West Wiltshire                          
+400,46UC,North Wiltshire,27,Bath                                    
+400,46UC,North Wiltshire,30,Cheltenham                              
+400,46UC,North Wiltshire,43,Swindon                                 
+401,46UD,Salisbury,26,West Wiltshire                          
+401,46UD,Salisbury,35,Yeovil                                  
+401,46UD,Salisbury,42,Salisbury                               
+402,46UF,West Wiltshire,26,West Wiltshire                          
+402,46UF,West Wiltshire,27,Bath                                    
+402,46UF,West Wiltshire,42,Salisbury                               
+263,24UP,Winchester,39,Southampton                             
+263,24UP,Winchester,40,Winchester                              
+263,24UP,Winchester,75,Portsmouth                              
+109,00ME,Windsor and Maidenhead,31,Reading                                 
+109,00ME,Windsor and Maidenhead,108,Chilterns                               
+109,00ME,Windsor and Maidenhead,109,East Thames Valley                      
+109,00ME,Windsor and Maidenhead,140,Walton                                  
+48,00CB,Wirral,17,Wirral                                  
+386,43UM,Woking,79,Guildford                               
+386,43UM,Woking,140,Walton                                  
+110,00MF,Wokingham,31,Reading                                 
+64,00CW,Wolverhampton,18,Black Country                           
+406,47UE,Worcester,46,Worcester South                         
+398,45UH,Worthing,165,Worthing                                
+121,00NL,Wrexham,95300,Wrexham
+407,47UF,Wychavon,30,Cheltenham                              
+407,47UF,Wychavon,45,Worcester North                         
+407,47UF,Wychavon,46,Worcester South                         
+176,11UF,Wycombe,31,Reading                                 
+176,11UF,Wycombe,107,Aylesbury                               
+176,11UF,Wycombe,108,Chilterns                               
+297,30UQ,Wyre,33,Fylde Coast                             
+297,30UQ,Wyre,57,Central Lancs                           
+297,30UQ,Wyre,128,Lancaster                               
+408,47UG,Wyre Forest,45,Worcester North                         
+83,00FF,York,136,York                                    
