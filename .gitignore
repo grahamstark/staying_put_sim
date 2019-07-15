@@ -1,4 +1,6 @@
 results
 docs
 *.xlsx
+*.ods
+*.odt
 .~lock*

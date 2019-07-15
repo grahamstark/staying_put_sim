@@ -30,11 +30,23 @@ Getting all these data sources into a consistent format was not always straightf
 
 ### Modelling Strategy
 
-We were tasked with providing local-authority and national- level five year forecasts for the costs of the staying put scheme under various possible systems of payment. Our strategy was to construct a synthetic dataset showing our estimate of the numbers on the staying put scheme by age, and the number of carers by skill level. Each carer and young person was modelled as an individual. Rules for payments to the carer and from the young person were then applied to each; these were either out interpretation of the rules from the Fostering Network survey, or the proposed Action for Children reforms. By comparing the AFC 
+We were tasked with providing local-authority and national- level five year forecasts for the costs of the staying put scheme under various possible systems of payment. We built a computer simulation model for this, which we've published on the [GitHub code sharing site](https://github.com/grahamstark/staying_put_sim/).
 
-#### Assumptions
-#### Central Assumptions
-#### Variant Assumptions
+Our modelling strategy was:
+
+* we first constructed a synthetic dataset showing our estimate of the numbers on the staying put scheme by age, and the number of carers by skill level. Each carer and young person was modelled as an individual. The constructed data is based on information from the OFSTED and DFE datasets on the numbers in each local authority in care, and the flows into and out of the staying put scheme. Note that this modelled population can differ from the actual recorded numbers on the staying put scheme, especually, since the numbers in the scheme in each local authority are small and vary randomly from year to year (some years may have an unusually large or small cohort of 18-year-olds, for instance).
+
+* we then wrote code which applied rules for payments to each the carer and from the young person in our synthetic datasests; these rules were either our interpretation of the actual rules in place in 2018 from the Fostering Network survey, or the proposed Action for Children reforms.
+
+By comparing the the modelled Fostering Network payments with the reformed payments for each young person and carer, we could then produce a large amount of output on the gross and net costs of each scheme, at the local authority, regional or national level.
+
+As discussed further below, we need to make a lot of assumptions for this to work. We discuss some of these assumptions below. Often in modelling work the best strategy is to give a variety of results for different assumptions, and to futher account for uncertainty by randomly peturbing the model in various ways and showing average results, as well as the range of possible results.
+
+#### Modelling the population of carers and young people
+
+#### Modelling the payment regimes
+
+
 
 ### Limitations
 
