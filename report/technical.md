@@ -63,4 +63,4 @@ To
 
 ## Bibliography
 
-FNLHA: the rental areas used here don't usually coincide with local authorities; the rent used is chosen randomly from those mapped to that local authority. See Fenton (2012) for a Local Authority to BRMA mapping; since Fenton is rather dated, on occassion a national average category A rent had to be used when no mapping was obvious.
+[^FNLHA]: the rental areas used here don't usually coincide with local authorities; the rent used is chosen randomly from those mapped to that local authority. See Fenton (2012) for a Local Authority to BRMA mapping; since Fenton is rather dated, on occassion a national average category A rent had to be used when no mapping was obvious.
