@@ -17,16 +17,13 @@ module StayingPutModelDriver
     using ONSCodes
     using Parameters
 
-    export doonerun, createmaintables, createnglandtablesbyage, addallgrantcols!
+    export doonerun, createmaintables, createnglandtablesbyage, addallgrantcols!, cleanup_main_frame
     POPN_MEASURES = [
         :avg_cnt_sys_1,:min_cnt_sys_1,:max_cnt_sys_1,
         :pct_10_cnt_sys_1,:pct_25_cnt_sys_1,:pct_75_cnt_sys_1,
         :pct_90_cnt_sys_1]
 
-    """
-    Splice the grants data into the dataframe, tracking population
-    and inflation.
-    """
+
     function add_modelled_grants_to_national!( natdata :: DataFrame, popnname :: AbstractString)
         popcol = Symbol( popnname )
         grantcol = Symbol( popnname * "_grant")
@@ -72,6 +69,7 @@ module StayingPutModelDriver
         newframe[:Council]=by_la[:council]
         newframe[:Number]=round.(Integer,by_la[:avg_cnt_sys_1])
         newframe[:Grants_Option_1] = round.(Integer,by_la[:avg_cnt_sys_1_grant])
+        newframe[:Incomes_Option_1] = round.(Integer,by_la[:avg_income_sys_1])
         newframe[:Incomes_Option_2a_1] = round.(Integer,by_la[:avg_income_sys_2])
         newframe[:Payments_Option_2a_1] = round.(Integer,by_la[:avg_payments_sys_2])
         newframe[:Incomes_Option_2a_2] = round.(Integer,by_la[:avg_income_sys_3])
@@ -84,10 +82,7 @@ module StayingPutModelDriver
         newframe
     end
 
-   """
-    Splice the grants data into the dataframe, tracking population
-    and inflation.
-    """
+
     function addallgrantcols!(
         natdata:: DataFrame,
         by_la :: DataFrame )
@@ -98,11 +93,6 @@ module StayingPutModelDriver
          end
     end
 
-    """
-    run the model for a group of parameters, using a single
-    set of generated datasets.
-    
-    """
     function doonerun(
         params   :: Array{Params},
         settings :: DataSettings )
@@ -350,13 +340,19 @@ module StayingPutModelDriver
                     ) |>
                 @orderby( [ _.year,_.sysno] ) |>
                 DataFrame
-            newnames = addsysnotoname( names( by_sys_and_year_tmp ), sysno )
-            names!( by_sys_and_year_tmp, newnames )
             CSVFiles.save( output_dir*"by_sys_and_year_sysno_$sysno.csv", by_sys_and_year_tmp, delim='\t' )
             push!(by_sys_and_year, by_sys_and_year_tmp )
         end
-        merged = by_sys_and_year[1]
+        merged = copy(by_sys_and_year[1])
+        newnames = addsysnotoname( names( by_sys_and_year[1] ), 1 )
+        names!( merged, newnames )
+
+        stacked = copy( by_sys_and_year[1])
+
         for sysno in 2:num_systems
+            stacked = vcat( stacked, copy( by_sys_and_year[sysno]))
+            newnames = addsysnotoname( names( by_sys_and_year[sysno] ), sysno )
+            names!( by_sys_and_year[sysno], newnames )
             merged = join( merged, by_sys_and_year[sysno], on=[:year], makeunique=true )
         end
         for popcol in POPN_MEASURES
@@ -364,6 +360,7 @@ module StayingPutModelDriver
             add_modelled_grants_to_national!( merged, spop )
         end
         CSVFiles.save( output_dir*"by_sys_and_year.csv", merged, delim='\t' )
+        CSVFiles.save( output_dir*"by_sys_and_year_stacked.csv", stacked, delim='\t' )
         merged
     end #
 
@@ -441,18 +438,34 @@ module StayingPutModelDriver
                     ) |>
                 @orderby( [ _.year, _.yp_age, _.sysno] ) |>
                 DataFrame
-            newnames = addsysnotoname( names( by_sys_yp_age_and_year_tmp ), sysno )
-            names!( by_sys_yp_age_and_year_tmp, newnames )
             CSVFiles.save( output_dir*"by_sys_yp_age_and_year_sysno_$sysno.csv", by_sys_yp_age_and_year_tmp, delim='\t' )
             push!(by_sys_yp_age_and_year, by_sys_yp_age_and_year_tmp )
         end
-        merged = by_sys_yp_age_and_year[1]
+
+        merged = copy(by_sys_yp_age_and_year[1])
+        newnames = addsysnotoname( names( merged ), 1 )
+        names!(merged, newnames )
+        stacked = copy(by_sys_yp_age_and_year[1])
         for sysno in 2:num_systems
+            stacked = vcat( stacked, copy(by_sys_yp_age_and_year[sysno] ))
+            newnames = addsysnotoname( names( by_sys_yp_age_and_year[sysno] ), sysno )
+            names!( by_sys_yp_age_and_year[sysno], newnames )
             merged = join( merged, by_sys_yp_age_and_year[sysno], on=[:year,:yp_age], makeunique=true )
         end
         CSVFiles.save( output_dir*"by_sys_yp_age_and_year.csv", merged, delim='\t' )
+        stacked[:system_name] = mapname( stacked[:sysno], params )
+        CSVFiles.save( output_dir*"by_sys_yp_age_and_year_stacked.csv", stacked, delim='\t' )
         merged
     end #
+
+    function mapname( sysno :: Vector, params :: Array{Params} ) :: Array{AbstractString}
+        n = size( sysno )[1]
+        out = Array{AbstractString}( undef, n )
+        for i in 1:n
+            out[i] = params[sysno[i]].name
+        end
+        out
+    end
 
     function createmaintablesgrant( latotals, annualtotals)
         @assert isiterabletable( latotals )

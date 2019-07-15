@@ -18,12 +18,14 @@ module load
 
         params = Array{Params}(undef,0)
         params1 = Parameters.getdefaultparams()
+        params1.name = "Current System"
+
         push!( params, params1 )
 
         params2a1 = Parameters.getdefaultparams()
         params2a1.yp_contrib_type = no_contribution
         params2a1.contrib_hb = no_contribution
-        params2a1.name = "option 2(a), with Oldham style fee"
+        params2a1.name = "option 2(a) with Oldham style fee"
         params2a1.payment = min_payment
         params2a1.fee = [0, 78.38, 158.76, 237.23, 340.76] # oldham
         push!( params, params2a1 )
@@ -31,13 +33,13 @@ module load
         params2a2 = Parameters.getdefaultparams()
         params2a2.yp_contrib_type = no_contribution
         params2a2.contrib_hb = no_contribution
-        params2a2.name = "option 2(a), without fee"
+        params2a2.name = "option 2(a) without fee"
         params2a2.payment = min_payment
         params2a2.fee = []
         push!( params, params2a2 )
 
         params2b = Parameters.getdefaultparams()
-        params2b.name = "option 2(b), with HB from all benefit recipients"
+        params2b.name = "option 2(b) with HB from all benefit recipients"
         params2b.payment = min_payment
         params2b.yp_contrib_type = no_contribution
         params2b.fee = [0, 78.38, 158.76, 237.23, 340.76] # oldham
