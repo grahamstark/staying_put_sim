@@ -1,17 +1,16 @@
 ## How We Modelled the Staying Put Scheme
 
-In this section we discuss our model of staying put. We discuss:
+In this section we discuss our model of the Staying Put scheme. We discuss:
 
-* the available data, and how we worked round limitations in the data;
+* the available data, and how we worked round data limitations;
 * our modelling strategy; and
-* the assumptions we had to make and the effects of varying those assumptions.
-*   
+* the assumptions we had to make and the effects of varying those assumptions.   
 
 ### Data Sources
 
 We used three main sources of data on the existing Staying Put scheme, and on fostering in England more generally:
 
-1. The [@ofsted_fostering_2019] "Fostering in England" Series. OFSTED are resposible for the monitoring of the foster care system in England. They publish local-authority level information on the performance of foster care services (both Local Authority and private). We use their for some baseline numbers of numbers of carers and young people in the system, and we we use OFTSTED data to make crude imputations of (e.g) foster carer skill levels;
+1. The [@ofsted_fostering_2019] "Fostering in England" Series. OFSTED are responsible for the monitoring of the foster care system in England. They publish local-authority level information on the performance of foster care services (both Local Authority and private). We use their for some baseline numbers of numbers of carers and young people in the system, and we we use OFSTED data to make crude imputations of (e.g) foster carer skill levels;
 1. Department For Education (DFE) "Looked-after children" series [@dfe_statistics:_2019], [@department_for_education_looked-after_2018]. In particular we use the "Underlying Data" series which has the most detail on numbers on the staying put scheme by local authority and age. We use this for entry and exit rates from the scheme, and optionally for some baseline numbers of young people on the scheme, since the DFE numbers appear not to be always consistent with the OFSTED numbers;
 1. The Fostering Network's 2017 Survey of local authorities in England [@fostering_network_foster_2017]. We were given access to the underlying dataset. We use this for information on how each English council implements payments for the Staying Put scheme.
 
@@ -26,11 +25,11 @@ In addition we've used data on:
 
 These are discussed below.
 
-Getting all these data sources into a consistent format was not always straightforward. The three main sources listed above at times appeared to be inconsistent with each other.  The Fostering Network data, which is crucial given that it is our only disaggregated source on foster payments, required a lot of iterpretation before it could be used. There were also a number of essentially minor but nonetheless time-consuming issues merging local-authority level sources which used different names and codings.
+Getting all these data sources into a consistent format was not straightforward. The three main sources were at times inconsistent with each other.  The Fostering Network data, which is crucial given that it is our only disaggregated source on foster payments, required a lot of interpretation before it could be used. There were also a number of essentially minor but nonetheless time-consuming issues merging local-authority level sources which used different names and codings.
 
 ### Modelling Strategy
 
-We were tasked with providing local-authority and national- level five year forecasts for the costs of the staying put scheme under various possible systems of payment. We built a computer simulation model for this, which we've published on the [GitHub code sharing site](https://github.com/grahamstark/staying_put_sim/).
+We were tasked with providing local-authority and national- level five year forecasts for the costs of the staying put scheme under various possible systems of payment. We built a computer simulation model for this, which we've published on the GitHub code sharing site [@stark_simple_2019].
 
 Our modelling strategy was:
 
@@ -42,25 +41,28 @@ By comparing the the modelled Fostering Network payments with the reformed payme
 
 As discussed further below, we need to make a lot of assumptions for this to work. We discuss some of these assumptions below. Often in modelling work the best strategy is to give a variety of results for different assumptions, and to futher account for uncertainty by randomly perturbing the model in various ways and showing average results, as well as the range of possible results.
 
+The model is written in the Julia programming language [@Julia-2017]. Julia is designed to be easily read by non-specialists so it should in principle be possible to refer directly to the source code.
+
 #### Modelling the population of carers and young people
 
 We start with the total numbers of young people in care in each local authority, of all ages.
 
-In the default settings, we then generate the numbers reaching 18 by applying an England wide rate taken from the average of the last 5 year's OFSTED data. As discussed, this smooths our LA level populations out somewhat compared to actual data. Not all young people go on to the staying put scheme, and many go on for only a year or two; we therefore apply local authority level rates for joining and staying in the scheme from the DFE data. In this way our synthetic population of young people are 'aged' through the system for 3 years with a proportion dropping out each year. Each year, each young person is randomly assigned to work, education, or 'Not in Education, Employment or Training' (NEET) according to frequencies taken from the DFE dataset. For the NEETs only, a housing cost is assigned the latest category A Local Housing Allowance[^FNLHA], and also the £57.90 in income support/JSA. For those imputed to be in work or training, a national minumum wage if 6.15per hour is imputed. Currently, no further imputations are made for those assumed to be in education.
+For this, we need two things: the number of young people who reach 18 in foster care, and then the numbers of those 18 year olds who opt for the Staying Put scheme [EXPAND]
+
+ The model allows two then generate the numbers reaching 18 by applying an England wide rate taken from the average of the last 5 year's OFSTED data. As discussed, this smooths our LA level populations out somewhat compared to actual data.
+
+ Not all young people go on to the staying put scheme, and many go on for only a year or two; we therefore apply local authority level rates for joining and staying in the scheme from the DFE data. In this way our synthetic population of young people are 'aged' through the system for 3 years with a proportion dropping out each year. Each year, each young person is randomly assigned to work, education, or 'Not in Education, Employment or Training' (NEET) according to frequencies taken from the DFE dataset. For the NEETs only, a housing cost is assigned the latest category A Local Housing Allowance[^FNLHA], and also the £57.90 in income support/JSA. For those imputed to be in work or training, a national minumum wage if 6.15per hour is imputed. Currently, no further imputations are made for those assumed to be in education.3,098,173	3,107,994	3,146,634	3,257,453	3,387,335	3,453,672	3,517,295	3,574,944	3,673,537	3,754,479	3,798,752
 
 For carers, in absence of any other information, we assume 1 carer per young person Staying Put. Some payment schemes have fees that vary with skill levels; in leu of anything better we impute skills in 5 levels taken from OFSTED data on the numbers of carers approved for different types of care, at the national level, and then randomly assign carers to these levels.
 
-To  
-
-
 #### Modelling the payment regimes
 
-
+As discussed, the main source of information on how Staying Put carers are actually paid is the raw data from the Fostering Network 2018 survey. The information in that document needed quite a lot of interpretation: whether young people are making a contribution to costs and whether there is a fee payment (a single payment to carers independent of the number of children cared for) in addition to the per-young person allowance. In out modelling of the current system we assume no fee and no contribution unless explicitly mentioned in the spreadsheet; it would be interesting to make fees and contributions the default assumption. For most councils, we make a simple basic payment calculation based on the reported allowance levels, and we make more detailed calculation for those councils which report more detail [^JCODE1].
 
 ### Limitations
 
-[@obr_obr_2019]
-
-## Bibliography
+# Bibliography
 
 [^FNLHA]: the rental areas used here don't usually coincide with local authorities; the rent used is chosen randomly from those mapped to that local authority. See Fenton (2012) for a Local Authority to BRMA mapping; since Fenton is rather dated, on occassion a national average category A rent had to be used when no mapping was obvious.
+
+[^JCODE1]: The code for this is in the Julia source file [StayingPutSim.jl](https://github.com/grahamstark/staying_put_sim/blob/master/src/StayingPutSim.jl)
