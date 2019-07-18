@@ -57,9 +57,22 @@ For carers, in absence of any other information, we assume 1 carer per young per
 
 #### Modelling the payment regimes
 
-As discussed, the main source of information on how Staying Put carers are actually paid is the raw data from the Fostering Network 2018 survey. The information in that document needed quite a lot of interpretation: whether young people are making a contribution to costs and whether there is a fee payment (a single payment to carers independent of the number of children cared for) in addition to the per-young person allowance. In out modelling of the current system we assume no fee and no contribution unless explicitly mentioned in the spreadsheet; it would be interesting to make fees and contributions the default assumption. For most councils, we make a simple basic payment calculation based on the reported allowance levels, and we make more detailed calculation for those councils which report more detail [^JCODE1].
+As discussed, the main source of information on how Staying Put carers are actually paid is the raw data from the Fostering Network 2018 survey. The information in that document needed quite a lot of interpretation: whether young people are making a contribution to costs and whether there is a fee payment (a single payment to carers independent of the number of children cared for) in addition to the per-young person allowance. In out modelling of the current system we assume no fee and no contribution unless explicitly mentioned in the spreadsheet; it would be interesting to make fees and contributions the default assumption. For most councils, we make a simple basic payment calculation based on the reported allowance levels, and we a fuller calculation for those councils which report more detail [^JCODE1].
 
-### Limitations
+Reformed systems are modelled by overriding parts of our modelled actual system: forcing contributions from young people, minimum allowances and so on.
+
+### Key Assumptions
+
+All these could be varied straightforwardly.
+
+* in our modelling of the actual system, contributions from young people are only made when the FN dataset explicitly mentions that a council enforces this;
+* for young people imputed to be in further education, no further modelling is done (for example of grants, housing costs, etc);
+* housing costs are modelled only for NEET imputed young people, unless the FC spreasheet explicitly states otherwise;
+* money values are generally uprated using OBR forecasts the CPI index [@obr_obr_2019] (the average increase in this is slightly over the 2% mentioned in the AFC spec);
+* wages for young people imputed to be in work are based on a 40 hour week at the National Minimum Wage for young people;
+* other than the JSA and HB discussed above, no further calculations of benefit entitlements or tax/ni payments, for either carers or young people.
+
+We could straightforwardly re-run the analysis with different assumptions for all these things.
 
 # Bibliography
 
