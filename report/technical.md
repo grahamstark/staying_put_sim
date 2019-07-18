@@ -10,9 +10,9 @@ In this section we discuss our model of the Staying Put scheme. We discuss:
 
 We used three main sources of data on the existing Staying Put scheme, and on fostering in England more generally:
 
-1. The [@ofsted_fostering_2019] "Fostering in England" Series. OFSTED are responsible for the monitoring of the foster care system in England. They publish local-authority level information on the performance of foster care services (both Local Authority and private). We use their for some baseline numbers of numbers of carers and young people in the system, and we we use OFSTED data to make crude imputations of (e.g) foster carer skill levels;
-1. Department For Education (DFE) "Looked-after children" series [@dfe_statistics:_2019], [@department_for_education_looked-after_2018]. In particular we use the "Underlying Data" series which has the most detail on numbers on the staying put scheme by local authority and age. We use this for entry and exit rates from the scheme, and optionally for some baseline numbers of young people on the scheme, since the DFE numbers appear not to be always consistent with the OFSTED numbers;
-1. The Fostering Network's 2017 Survey of local authorities in England [@fostering_network_foster_2017]. We were given access to the underlying dataset. We use this for information on how each English council implements payments for the Staying Put scheme.
+1. The OFSTED "Fostering in England" Series[@ofsted_fostering_2019]. OFSTED are responsible for the monitoring of the foster care system in England. OFSTED publish local-authority level information on the performance of foster care services (both Local Authority and private). We use their for some baseline figures for numbers of carers and young people in the system, and we we use OFSTED data to make crude imputations of (e.g) foster carer skill levels;
+1. The Department For Education (DFE) "Looked-after children" series [@dfe_statistics:_2019], [@department_for_education_looked-after_2018]. In particular we use the "Underlying Data" series which has the most detail available on numbers on the staying put scheme by local authority and age. We use this for entry and exit rates from the scheme, and optionally for some baseline numbers of young people on the scheme, since the DFE numbers appear not to be always consistent with the OFSTED numbers;
+1. The Fostering Network's 2017 Survey of local authorities in England [@fostering_network_foster_2017]. We were given access to the underlying database of this survey, which we use for information on how each English council implements payments for the Staying Put scheme.
 
 In addition we've used data on:
 
@@ -63,7 +63,7 @@ Reformed systems are modelled by overriding parts of our modelled actual system:
 
 ### Key Assumptions
 
-All these could be varied straightforwardly.
+Amongst the key assumptions we make are:
 
 * in our modelling of the actual system, contributions from young people are only made when the FN dataset explicitly mentions that a council enforces this;
 * for young people imputed to be in further education, no further modelling is done (for example of grants, housing costs, etc);
