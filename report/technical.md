@@ -41,7 +41,7 @@ By comparing the the modelled Fostering Network payments with the reformed payme
 
 As discussed further below, we need to make a lot of assumptions for this to work. We discuss some of these assumptions below. Often in modelling work the best strategy is to give a variety of results for different assumptions, and to futher account for uncertainty by randomly perturbing the model in various ways and showing average results, as well as the range of possible results.
 
-The model is written in the Julia programming language [@Julia-2017]. Julia is designed to be easily read by non-specialists so it should in principle be possible to refer directly to the source code.
+The model is written in the Julia programming language [@bezanson_julia:_2017]. Julia is designed to be easily read by non-specialists so it should in principle be possible to refer directly to the source code.
 
 #### Modelling the population of carers and young people
 
@@ -51,7 +51,7 @@ For this, we need two things: the number of young people who reach 18 in foster 
 
  The model allows two then generate the numbers reaching 18 by applying an England wide rate taken from the average of the last 5 year's OFSTED data. As discussed, this smooths our LA level populations out somewhat compared to actual data.
 
- Not all young people go on to the staying put scheme, and many go on for only a year or two; we therefore apply local authority level rates for joining and staying in the scheme from the DFE data. In this way our synthetic population of young people are 'aged' through the system for 3 years with a proportion dropping out each year. Each year, each young person is randomly assigned to work, education, or 'Not in Education, Employment or Training' (NEET) according to frequencies taken from the DFE dataset. For the NEETs only, a housing cost is assigned the latest category A Local Housing Allowance[^FNLHA], and also the £57.90 in income support/JSA. For those imputed to be in work or training, a national minumum wage if 6.15per hour is imputed. Currently, no further imputations are made for those assumed to be in education.3,098,173	3,107,994	3,146,634	3,257,453	3,387,335	3,453,672	3,517,295	3,574,944	3,673,537	3,754,479	3,798,752
+ Not all young people go on to the staying put scheme, and many go on for only a year or two; we therefore apply local authority level rates for joining and staying in the scheme from the DFE data. In this way our synthetic population of young people are 'aged' through the system for 3 years with a proportion dropping out each year. Each year, each young person is randomly assigned to work, education, or 'Not in Education, Employment or Training' (NEET) according to frequencies taken from the DFE dataset. For the NEETs only, a housing cost is assigned the latest category A Local Housing Allowance[^FNLHA], and also the £57.90 in income support/JSA. For those imputed to be in work or training, a national minumum wage if 6.15per hour is imputed. Currently, no further imputations are made for those assumed to be in education.
 
 For carers, in absence of any other information, we assume 1 carer per young person Staying Put. Some payment schemes have fees that vary with skill levels; in leu of anything better we impute skills in 5 levels taken from OFSTED data on the numbers of carers approved for different types of care, at the national level, and then randomly assign carers to these levels.
 
