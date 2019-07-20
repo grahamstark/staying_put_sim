@@ -47,9 +47,14 @@ The model is written in the Julia programming language [@bezanson_julia:_2017]. 
 
 We start with the total numbers of young people in care in each local authority, of all ages.
 
-For this, we need two things: the number of young people who reach 18 in foster care, and then the numbers of those 18 year olds who opt for the Staying Put scheme [EXPAND]
+For this, we need two things: the number of young people who reach 18 in foster care, and then the numbers of those 18 year olds who opt for the Staying Put scheme.
 
- The model allows two then generate the numbers reaching 18 by applying an England wide rate taken from the average of the last 5 year's OFSTED data. As discussed, this smooths our LA level populations out somewhat compared to actual data.
+ We've experimented with two strategies for estimating the numbers of young people in care reaching 18.
+
+ 1. taking the total numbers in care in each local authority, of all ages, and applying to that an England wide rate for reaching 18 taken from the average of the last 5 year's OFSTED data. The advantage of this is that smooths our LA level populations out somewhat compared to actual data and thus might perform  better in a multi-year forecast;
+ 2. alternatively we could simply take the reported numbers of young people reaching 18, as reported in either the DFE[^DFE18] or OFSTED data[^OFSTED18]. Curiously, the OFSTED and DFE numbers are different from each other, with the DFE numbers typically being higher.
+
+ Our main reported results are based in the DFE underlying data, on the grounds that the figures produced using this source seem slightly more compatible with the central government grant determinations [@dfe_staying_2019] - the other approaches produce more cases where the grant to a local authority exceeds our modelled cost of the scheme, and it's hard to imagine central Government doing that very often. But model estimates based on the other sources are available (usually a bit lower)
 
  Not all young people go on to the staying put scheme, and many go on for only a year or two; we therefore apply local authority level rates for joining and staying in the scheme from the DFE data. In this way our synthetic population of young people are 'aged' through the system for 3 years with a proportion dropping out each year. Each year, each young person is randomly assigned to work, education, or 'Not in Education, Employment or Training' (NEET) according to frequencies taken from the DFE dataset. For the NEETs only, a housing cost is assigned the latest category A Local Housing Allowance[^FNLHA], and also the £57.90 in income support/JSA. For those imputed to be in work or training, a national minumum wage if 6.15per hour is imputed. Currently, no further imputations are made for those assumed to be in education.
 
@@ -74,8 +79,16 @@ Amongst the key assumptions we make are:
 
 We could straightforwardly re-run the analysis with different assumptions for all these things.
 
+As discussed, we are also making a number of random assignments in our modelled population (employment status, skills of carers and so on). To smooth out the effects of these, we run the simulations multiple times [^FN200] with different random draws, and report averages. Multiple simulations also allows us to estimate the variability in our results as a result of randomness. (These random variations are of course not the only source of uncertainty here - there are also all the modelling assumptions we've detailed above).
+
 # Bibliography
 
 [^FNLHA]: the rental areas used here don't usually coincide with local authorities; the rent used is chosen randomly from those mapped to that local authority. See Fenton (2012) for a Local Authority to BRMA mapping; since Fenton is rather dated, on occassion a national average category A rent had to be used when no mapping was obvious.
 
 [^JCODE1]: The code for this is in the Julia source file [StayingPutSim.jl](https://github.com/grahamstark/staying_put_sim/blob/master/src/StayingPutSim.jl)
+
+[^OFSTED18]: OFSTED (2019), "Number of young people in foster care who became 18"
+
+[^DFE18]: DFE 2019b, Underling Data, File "CareLeavers17182018_amended.csv", column "CL_Stayput_18"
+
+[^FN200]: 200 iterations in the reported results
