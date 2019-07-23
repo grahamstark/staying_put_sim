@@ -82,13 +82,3 @@ We could straightforwardly re-run the analysis with different assumptions for al
 As discussed, we are also making a number of random assignments in our modelled population (employment status, skills of carers and so on). To smooth out the effects of these, we run the simulations multiple times [^FN200] with different random draws, and report averages. Multiple simulations also allows us to estimate the variability in our results as a result of randomness. (These random variations are of course not the only source of uncertainty here - there are also all the modelling assumptions we've detailed above).
 
 # Bibliography
-
-[^FNLHA]: the rental areas used here don't usually coincide with local authorities; the rent used is chosen randomly from those mapped to that local authority. See Fenton (2012) for a Local Authority to BRMA mapping; since Fenton is rather dated, on occassion a national average category A rent had to be used when no mapping was obvious.
-
-[^JCODE1]: The code for this is in the Julia source file [StayingPutSim.jl](https://github.com/grahamstark/staying_put_sim/blob/master/src/StayingPutSim.jl)
-
-[^OFSTED18]: OFSTED (2019), "Number of young people in foster care who became 18"
-
-[^DFE18]: DFE 2019b, Underling Data, File "CareLeavers17182018_amended.csv", column "CL_Stayput_18"
-
-[^FN200]: 200 iterations in the reported results
