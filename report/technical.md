@@ -39,7 +39,7 @@ Our modelling strategy was:
 
 By comparing the the modelled Fostering Network payments with the reformed payments for each young person and carer, we could then produce a large amount of output on the gross and net costs of each scheme, at the local authority, regional or national level.
 
-As discussed further below, we need to make a lot of assumptions for this to work. We discuss some of these assumptions below. Often in modelling work the best strategy is to give a variety of results for different assumptions, and to futher account for uncertainty by randomly perturbing the model in various ways and showing average results, as well as the range of possible results.
+We need to make a lot of assumptions for this to work. We discuss some of these assumptions below. Often in modelling work the best strategy is to give a variety of results for different assumptions, and to futher account for uncertainty by randomly perturbing the model in various ways and showing average results, as well as the range of possible results. We return to this below.
 
 The model is written in the Julia programming language [@bezanson_julia:_2017]. Julia is designed to be easily read by non-specialists so it should in principle be possible to refer directly to the source code.
 
@@ -75,10 +75,12 @@ Amongst the key assumptions we make are:
 * housing costs are modelled only for NEET imputed young people, unless the FC spreasheet explicitly states otherwise;
 * money values are generally uprated using OBR forecasts the CPI index [@obr_obr_2019] (the average increase in this is slightly over the 2% mentioned in the AFC spec);
 * wages for young people imputed to be in work are based on a 40 hour week at the National Minimum Wage for young people;
-* other than the JSA and HB discussed above, no further calculations of benefit entitlements or tax/ni payments, for either carers or young people.
+* other than the JSA and HB discussed above, we make no further calculations of benefit entitlements or tax/ni payments, for either carers or young people. This is likely most important for the carers rather than the young people, as some may be eligible for tax credits, and the tax system for carers has some interesting wrinkles [@dfe_foster_2019][@dfe_staying_2013]. For young people in staying put, a 40 hours per week job paying the  young person's minimum wage would earn less than the tax allowance.
 
-We could straightforwardly re-run the analysis with different assumptions for all these things.
+Further, we don't model any other indirect costs of the scheme, such as additional social workers, or administration and recruitment costs.
 
-As discussed, we are also making a number of random assignments in our modelled population (employment status, skills of carers and so on). To smooth out the effects of these, we run the simulations multiple times [^FN200] with different random draws, and report averages. Multiple simulations also allows us to estimate the variability in our results as a result of randomness. (These random variations are of course not the only source of uncertainty here - there are also all the modelling assumptions we've detailed above).
+With the possible exception of additional tax and benefit modelling, we could straightforwardly re-run the analysis with different assumptions for all these things.
+
+As mentioned, we are also making a number of random assignments in our modelled population (employment status, skills of carers and so on). To smooth out the effects of these, we run the simulations multiple times [^FN200] with different random draws, and report the average of these. Multiple simulations also allows us to estimate the variability in our results as a result of randomness; these ranges are not reported in the results supplied to AfC, but can easily be supplied; they can be very large for individual LAs, though there is of course less variation in the all-England results. These random variations are of course not the only source of uncertainty here - there are also all the modelling assumptions we've detailed above.
 
 # Bibliography
