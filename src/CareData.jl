@@ -271,6 +271,7 @@ module CareData
             iteration     = zeros( Integer, n ),
             year          = zeros( Integer, n ),
             ccode         = Vector{AbstractString}(undef,n),
+            rcode         = Vector{AbstractString}(undef,n),
             carer         = zeros( Integer, n ),
             yp_age        = zeros( Integer, n ),
             payments_from_la      = zeros( n ),
@@ -285,11 +286,12 @@ module CareData
         iteration :: Integer,
         year  :: Integer,
         ccode :: AbstractString,
+        rcode :: AbstractString,
         carerid::Integer,
         yp_age :: Integer,
         outcomes :: CarerOutcomes )
         @assert isiterabletable( out_dataset ) "data needs to implement IterableTables; is "*typeof(out_dataset)
-        d = [ sysno, iteration, year, ccode, carerid, yp_age, outcomes.payments_from_la, outcomes.contributions_from_yp, outcomes.income_recieved]
+        d = [ sysno, iteration, year, ccode, rcode, carerid, yp_age, outcomes.payments_from_la, outcomes.contributions_from_yp, outcomes.income_recieved]
         push!( out_dataset, d )
     end
 

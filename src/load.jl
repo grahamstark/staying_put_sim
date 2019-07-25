@@ -55,8 +55,11 @@ module load
         params3.taper = [1.0, 0.5, 0.25]
         push!( params, params3 )
 
+        nparams = length( params )[1]
         outdir = StayingPutModelDriver.doonerun( params, settings )
-        StayingPutModelDriver.createmaintables( outdir, params, settings )
+        StayingPutModelDriver.dumpruninfo( outdir, params, settings )
+        StayingPutModelDriver.createmaintables( outdir, nparams, :code )
+        StayingPutModelDriver.createmaintables( outdir, nparams, :rcode )
         StayingPutModelDriver.createnglandtables( outdir, params, settings )
         StayingPutModelDriver.createnglandtablesbyage( outdir, params, settings )
     end

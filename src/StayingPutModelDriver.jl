@@ -17,7 +17,9 @@ module StayingPutModelDriver
     using ONSCodes
     using Parameters
 
-    export doonerun, createmaintables, createnglandtablesbyage, addallgrantcols!, cleanup_main_frame
+    export doonerun, createmaintables, createnglandtablesbyage
+    export dumpruninfo, addallgrantcols!, cleanup_main_frame, mergegrantstoregions
+
     POPN_MEASURES = [
         :avg_cnt_sys_1,:min_cnt_sys_1,:max_cnt_sys_1,
         :pct_10_cnt_sys_1,:pct_25_cnt_sys_1,:pct_75_cnt_sys_1,
@@ -115,6 +117,7 @@ module StayingPutModelDriver
             @time for r in 1:rc
                 year = yp_data[r,:year]
                 ccode = yp_data[r,:ccode]
+                rcode = yp_data[r,:rcode]
                 # this test isn't strictly needed since we only create for live councils
                 if (! ONSCodes.isaggregate( ccode )) && (! ( ccode in SKIPLIST ))
                     carer = CareData.carerfromrow( carer_data[r,:] )
@@ -141,6 +144,7 @@ module StayingPutModelDriver
                             iteration,
                             year,
                             ccode,
+                            rcode,
                             carer.id,
                             yp.age,
                             outcomes )
@@ -158,7 +162,7 @@ module StayingPutModelDriver
     function addsysnotoname( names, sysno ) :: Array{Symbol,1}
         a = Array{Symbol,1}(undef, 0)
         for n in names
-            if n !== :ccode && n !== :rcode && n !== :year && n !== :yp_age
+            if n !== :ccode && n !== :rcode && n !== :year && n !== :yp_age && n !== :targetcode
                 push!( a, Symbol(String( n )*"_sys_$sysno"))
             else
                 push!(a, n)
@@ -168,41 +172,72 @@ module StayingPutModelDriver
         # Symbol.(String.( names ).*"_sys_$sysno")
     end
 
-    function createmaintables(
+
+    function getposoftarget( main_results :: DataFrame, target :: Symbol ) :: Integer
+        ns = names( main_results )
+        lns = length(ns)[1]
+        agglevelpos = -1
+        for i in 1:lns
+            if ns[i] == agglevel
+                agglevelpos = i
+                break
+            end
+        end
+        agglevelpos
+    end
+
+    open( output_dir*"settings.txt", "w") do file
+       println(file,settings)
+    end
+
+    function dumpruninfo(
         output_dir :: AbstractString,
         params     :: Array{Params},
-        settings   :: DataSettings  )
+        settings   :: DataSettings )
+        open( output_dir*"settings.txt", "w") do file
+            println( file, settings )
+        end
+        for sysno in size(params)[1]
+            open( output_dir*"params_sys_$sysno.txt", "w") do file
+               println(file,params[sysno])
+            end
+        end
+    end
 
+
+    function createmaintables(
+        output_dir  :: AbstractString,
+        num_systems :: Integer,
+        target      :: Symbol )
+
+        # whichgroup :: Symbol
         num_systems = size( params )[1]
         main_results = CSVFiles.load( output_dir*"/main_results.csv" )
         by_la_sys_and_year = []
         for sysno in 1:num_systems
             by_la_sys_iteration_and_year = main_results |>
                 @filter( _.year > 2018 && _.year < 2025  && _.sysno == sysno ) |>
-                @groupby( [_.ccode,  _.year, _.sysno, _.iteration ] ) |>
-                @map({
-                    index=key(_),
+                @groupby( [_[target],  _.year, _.sysno, _.iteration ] ) |>
+                @map({ index=key(_),
                     year=first(_.year),
-                    ccode=first(_.ccode),
+                    targetcode=first(_[1][target]),
                     sysno=first(_.sysno),
                     iteration=first(_.iteration),
                     cnt=length( _ ),
                     income=sum( _.income_recieved )*52.0,
                     contribs = sum( _.contributions_from_yp )*52.0,
                     payments = sum( _.payments_from_la )*52.0
-                    }
-
-                    ) |>
-                @orderby( [_.year,_.ccode,_.sysno, _.iteration ] ) |>
+                    } ) |>
+                @orderby( [_.year,_.targetcode,_.sysno, _.iteration ] ) |>
                 DataFrame
 
             CSVFiles.save( output_dir*"by_la_sys_iteration_and_year.csv", by_la_sys_iteration_and_year, delim='\t' )
 
             by_la_sys_and_year_tmp = by_la_sys_iteration_and_year |>
-                @groupby( [_.ccode,  _.year, _.sysno] ) |>
+                @groupby( [_.targetcode,  _.year, _.sysno] ) |>
                 @map(
                         {
-                           ccode  = first(_.ccode),
+                           targetcode  = first(_.targetcode ),
                            year   = first(_.year),
                            sysno  = first(_.sysno),
                            avg_cnt=mean( _.cnt  ),
@@ -238,30 +273,26 @@ module StayingPutModelDriver
                            pct_90_payments=quantile( _.payments, [0.90] )[1]
                         }
                     ) |>
-                @orderby( [ _.ccode, _.year,_.sysno] ) |>
+                @orderby( [ _.targetcode, _.year,_.sysno] ) |>
                 DataFrame
             newnames = addsysnotoname( names( by_la_sys_and_year_tmp ), sysno )
             names!( by_la_sys_and_year_tmp, newnames )
             CSVFiles.save( output_dir*"by_la_sys_and_year_sysno_$sysno.csv", by_la_sys_and_year_tmp, delim='\t' )
             push!(by_la_sys_and_year, by_la_sys_and_year_tmp )
         end
-        open( output_dir*"settings.txt", "w") do file
-           println(file,settings)
-        end
-        for sysno in size(params)[1]
-            open( output_dir*"params_sys_$sysno.txt", "w") do file
-               println(file,params[sysno])
-            end
-        end
+
         grantdata = CSV.File( DATADIR*"edited/GRANTS_2019.csv" ) |> DataFrame
-        merged = join( grantdata, by_la_sys_and_year[1], on=:ccode, makeunique=true )
+        if target == :rcode # aggregate grants into regions
+            grantdata = mergegrantstoregions( grantdata )
+        end
+        merged = join( grantdata, by_la_sys_and_year[1], on=:targetcode, makeunique=true )
         for sysno in 2:num_systems
-            merged = join( merged, by_la_sys_and_year[sysno], on=[:ccode,:year], makeunique=true )
+            merged = join( merged, by_la_sys_and_year[sysno], on=[:targetcode,:year], makeunique=true )
         end
 
         for popcol in POPN_MEASURES
             spop = String(popcol)
-            add_modelled_grants_to_la!(merged, spop)
+            add_modelled_grants_to_la!(merged, spop )
         end
         CSVFiles.save( output_dir*"by_la_sys_and_year_merged_with_grant.csv", merged, delim='\t' )
         simple = cleanup_main_frame( merged )
@@ -269,6 +300,120 @@ module StayingPutModelDriver
         merged
     end # createmaintables
 
+
+    function mergegrantstoregions( grantdata :: DataFrame ) :: DataFrame
+        return  grantdata |>
+                @filter( _.amount > 0 ) |>
+                @groupby( [_.rcode ] ) |>
+                @map(
+                        {
+                           rcode  = first(_.rcode ),
+                           amount=sum( _.amount  )
+                        } ) |>
+                @orderby( _.rcode ) |>
+                DataFrame
+    end
+
+#     function createmaintables_linq(
+#         output_dir :: AbstractString,
+#         params     :: Array{Params},
+#         settings   :: DataSettings,  )
+#
+#         # whichgroup :: Symbol
+#         f = @from i in df begin
+#                  @group i by i.b into g
+#                  @select {Key=key(g),L=length(g.a),S=median(g.c),Q=first(g.c)}
+#                  @order g.c
+#                  @collect DataFrame
+#                end
+#         agglevel = :ccode
+#         # wierd ...
+#         main_results = CSVFiles.load( output_dir*"/main_results.csv" ) |> DataFrame
+#         agglevelpos = -1
+#         ns = names( main_results )
+#         lns = length(ns)[1]
+#         for i in 1:lns
+#             if ns[i] == agglevel
+#                 agglevelpos = i
+#                 break
+#             end
+#         end
+#
+#         num_systems = size( params )[1]
+#         by_la_sys_and_year = []
+#         for sysno in 1:num_systems
+#             by_la_sys_iteration_and_year =
+#                 @from mr in mr100k begin # main_results
+#                 @where mr.year > 2018 && mr.year < 2025  && mr.sysno == sysno
+#                 @group mr by mr[agglevel], mr.year, mr.sysno, mr.iteration into mrg
+#                 @select {
+#                     index=key(mrg),
+#                     year=first(mrg.year),
+#                     aggcode=first(mrg[agglevel]),
+#                     sysno=first(mrg.sysno),
+#                     iteration=first(mrg.iteration),
+#                     cnt=length( mrg ),
+#                     income=sum( mrg.income_recieved )*52.0,
+#                     payments = sum( mrg.payments_from_la )*52.0,
+#                     contribs = sum( mrg.contributions_from_yp )*52.0
+#                 }
+#                 @order mrg.year, mrg[agglevel], mrg.sysno,  mrg.iteration
+#                 @collect DataFrame
+#             end
+#             CSVFiles.save( output_dir*"linq_by_la_sys_iteration_and_year.csv", by_la_sys_iteration_and_year, delim='\t' )
+#             print( by_la_sys_iteration_and_year )
+#             by_la_sys_and_year_tmp =
+#                 @from  blas in by_la_sys_iteration_and_year begin
+#                 @group blas by blas[agglevel],  blas.year, blas.sysno into bla
+#                 @select {  agglevel  = first(bla[agglevelpos]),
+#                            year   = first(bla.year),
+#                            sysno  = first(bla.sysno),
+#                            avg_cnt=mean( bla.cnt  ),
+#                            min_cnt=minimum( bla.cnt ),
+#                            max_cnt=maximum( bla.cnt ),
+#                            pct_10_cnt=quantile( bla.cnt, [0.10] )[1],
+#                            pct_25_cnt=quantile( bla.cnt, [0.25] )[1],
+#                            pct_75_cnt=quantile( bla.cnt, [0.75] )[1],
+#                            pct_90_cnt=quantile( bla.cnt, [0.90] )[1],
+#
+#
+#                            avg_contribs = mean( bla.contribs ),
+#                            min_contribs = minimum( bla.contribs ),
+#                            max_contribs = maximum( bla.contribs ),
+#                            pct_10_contribs=quantile( bla.contribs, [0.10] )[1],
+#                            pct_25_contribs=quantile( bla.contribs, [0.25] )[1],
+#                            pct_75_contribs=quantile( bla.contribs, [0.75] )[1],
+#                            pct_90_contribs=quantile( bla.contribs, [0.90] )[1],
+#
+#                            avg_payments = mean( bla.payments  ),
+#                            min_payments = minimum( bla.payments ),
+#                            max_payments = maximum( bla.payments ),
+#                            pct_10_payments=quantile( bla.payments, [0.10] )[1],
+#                            pct_25_payments=quantile( bla.payments, [0.25] )[1],
+#                            pct_75_payments=quantile( bla.payments, [0.75] )[1],
+#                            pct_90_payments=quantile( bla.payments, [0.90] )[1],
+#                            avg_income=mean( bla.income  ),
+#                            min_income=minimum( bla.income ),
+#                            max_income=maximum( bla.income ),
+#                            pct_10_income=quantile( bla.income, [0.10] )[1],
+#                            pct_25_income=quantile( bla.income, [0.25] )[1],
+#                            pct_75_income=quantile( bla.income, [0.75] )[1],
+#                            pct_90_income=quantile( bla.income, [0.90] )[1]
+#                         }
+#                 @order bla[agglevel], bla.year,bla.sysno
+#                 @collect DataFrame
+#             end
+#             grantdata = CSV.File( DATADIR*"edited/GRANTS_2019.csv" ) |> DataFrame
+#
+#             print( by_la_sys_and_year_tmp )
+#             newnames = addsysnotoname( names( by_la_sys_and_year_tmp ), sysno )
+#             names# !( by_la_sys_and_year_tmp, newnames )
+#             CSVFiles.save( output_dir*"linq_by_la_sys_and_year_sysno_$sysno.csv", by_la_sys_and_year_tmp, delim='\t' )
+#             push# !(by_la_sys_and_year, by_la_sys_and_year_tmp )
+#
+#         end # sysno
+#     end # createmaintables
+#
     function createnglandtables(
         output_dir :: AbstractString,
         params     :: Array{Params},
