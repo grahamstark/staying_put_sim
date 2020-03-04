@@ -4,6 +4,7 @@ module load
     using StayingPutModelDriver
     using CareData
     using Parameters
+    using GlobalDecls
 
     function doreformruns(
         ;
@@ -58,10 +59,24 @@ module load
         nparams = length( params )[1]
         outdir = StayingPutModelDriver.doonerun( params, settings )
         StayingPutModelDriver.dumpruninfo( outdir, params, settings )
-        StayingPutModelDriver.createmaintables( outdir, nparams, :code )
+        StayingPutModelDriver.createmaintables( outdir, nparams, :ccode )
         StayingPutModelDriver.createmaintables( outdir, nparams, :rcode )
         StayingPutModelDriver.createnglandtables( outdir, params, settings )
         StayingPutModelDriver.createnglandtablesbyage( outdir, params, settings )
+    end
+
+    """
+    FIXME this is a HORRIBLE hack
+    see the FIXMEs in StayingPutModelDriver
+    """
+    function createregiontables(
+        ;
+        runname   :: AbstractString,
+        whichdata :: AbstractString,
+        numiter   :: Integer )
+        nparams = 5
+        outdir = "$(RESULTSDIR)/main-results-$(whichdata)/"
+        StayingPutModelDriver.createmaintables_by_region( outdir, nparams )
     end
 
     function mainrun( ds :: DataPublisher, pc :: Real, numiter :: Integer )
@@ -78,6 +93,7 @@ module load
         end
         params = Array{Params}(undef,0)
         params1 = Parameters.getdefaultparams()
+
         push!( params, params1 )
 
         params2 = Parameters.getdefaultparams()
@@ -88,8 +104,11 @@ module load
         params3.yp.yp_contrib_type = no_contribution
         push!( params, params3 )
 
+        num_systems = size( params )[1]
+
         outdir = StayingPutModelDriver.doonerun( params, settings )
-        StayingPutModelDriver.createmaintables( outdir, params, settings )
+        StayingPutModelDriver.createmaintables( outdir, num_systems, :rcode )
+        StayingPutModelDriver.createmaintables( outdir, num_systems, :ccode )
         StayingPutModelDriver.createnglandtables( outdir, params, settings )
         StayingPutModelDriver.createnglandtablesbyage( outdir, params, settings )
     end #  function
@@ -108,10 +127,34 @@ module load
         "ds-OFSTED-0.0-pct"
     ]
 
-    for dsname in datasets
-        doreformruns(
-            runname   = "main-results-"*dsname,
-            whichdata = dsname,
+    # dsname = datasets[1]
+    # doreformruns(
+    #     runname   = "test1",
+    #     whichdata = DEFAULT_DATA,
+    #     numiter   = 1 )
+    # return
+    #
+#    for dsname in datasets
+#        doreformruns(
+#            runname   = "main-results-"*dsname,
+#            whichdata = dsname,
+#            numiter   = 200 )
+#    end
+createregiontables(
+            runname   = "main-results-$(DEFAULT_DATA)",
+            whichdata = DEFAULT_DATA,
             numiter   = 200 )
-    end
+
+#for dsname in datasets
+#        createregiontables(
+#            runname   = "main-results-"*dsname,
+#            whichdata = dsname,
+#            numiter   = 200 )
+#end
+
+    # pdir = "/home/graham_s/VirtualWorlds/projects/action_for_children/england/results/"
+    # outdir = pdir*"/test1/"
+    # num_systems = 5
+    # StayingPutModelDriver.createmaintables( outdir, num_systems, :ccode )
+    # StayingPutModelDriver.createmaintables( outdir, num_systems, :rcode )
 end

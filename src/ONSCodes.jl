@@ -8,7 +8,7 @@ module ONSCodes
     using GlobalDecls
     using Utils
 
-    export loadlas, regionnamefromcode, regionnamefromname, regioncodefromcode
+    export loadlas, regionnamefromcode, regionnamefromname, regioncodefromcode, rcodefromccode
     export regioncodefromname, codefromname, isaggregate, createbrlookup, pickbratrandom
 
     """
@@ -70,9 +70,12 @@ module ONSCodes
         (brlook=brlook,brvalues=brvalues)
     end
 
+
     LAMAPPINGS = loadlas( DATADIR*"las/all_las.tab" )
     BRVALUES = CSV.File( DATADIR*"las/brmas/2019-20_LHA_TABLES_EDITED.csv" ) |> DataFrame
     BRLOOKUP = CSV.File( DATADIR*"las/brmas/brma_lookup.csv" ) |> DataFrame
+
+
 
     function makebrmalookup( n :: Integer ) :: DataFrame
         DataFrame(
@@ -176,6 +179,27 @@ module ONSCodes
                s = i
            end
            s
+    end
+
+    """
+    Another hack - faster lookup for ccode->region since the Query version
+    is paralyising things.
+    """
+    function makeregionlookup( LAS :: DataFrame ) :: Dict
+        d = Dict()
+        for i in eachrow( LAS )
+            d[i.new_gss_code] = regioncodefromcode( i.new_gss_code )
+        end
+        d
+    end
+
+    CCODE_TO_RCODE_LOOKUP = makeregionlookup( LAMAPPINGS )
+
+    """
+    faster version of below, using a simple Dict
+    """
+    function rcodefromccode( ccode :: AbstractString ) :: AbstractString
+        return CCODE_TO_RCODE_LOOKUP[ccode]
     end
 
     function isaggregate( ccode :: Union{Missing,AbstractString} )

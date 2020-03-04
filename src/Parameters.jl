@@ -88,7 +88,7 @@ module Parameters
     end
 
     function getAllowances( reg :: Region, year :: Integer ) :: Minimum_Allowances
-        println( "getAllowances; reg=$reg year=$year")
+        # println( "getAllowances; reg=$reg year=$year")
         return makeAllowances( year )[reg]
     end
 

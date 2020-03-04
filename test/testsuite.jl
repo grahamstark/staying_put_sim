@@ -221,7 +221,7 @@ module testsuite
 
         println( "outcomees after no_yp_contrib=$outcomes")
         @test outcomes.income_recieved==194.0
-    
+
 
         # payments_from_la :: Real
         # contributions_from_yp :: Real

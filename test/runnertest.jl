@@ -151,4 +151,12 @@ module runnertest
         CSVFiles.save( DATADIR*"created_doe/by_la_sys_and_year.csv", by_la_sys_and_year, delim='\t' )
         CSVFiles.save( DATADIR*"created_doe/by_la_sys_and_year_merged_with_grant.csv", merged, delim='\t' )
     end
+
+
+    @testset "grant aggregation" begin
+        grantdata = CSV.File( DATADIR*"edited/GRANTS_2019.csv" ) |> DataFrame
+        mg = mergegrantstoregions( grantdata )
+        print( mg )
+    end
+
 end

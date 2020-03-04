@@ -1,0 +1,18 @@
+┌ Warning: `setindex!(df::DataFrame, v::AbstractVector, col_ind::ColumnIndex)` is deprecated, use `begin
+│     df[!, col_ind] = v
+│     df
+│ end` instead.
+│   caller = add_modelled_grants_to_region!(::DataFrames.DataFrame, ::String) at StayingPutModelDriver.jl:71
+└ @ StayingPutModelDriver ~/VirtualWorlds/projects/action_for_children/england/src/StayingPutModelDriver.jl:71
+┌ Warning: `getindex(df::DataFrame, col_ind::ColumnIndex)` is deprecated, use `df[!, col_ind]` instead.
+│   caller = add_modelled_grants_to_region!(::DataFrames.DataFrame, ::String) at StayingPutModelDriver.jl:80
+└ @ StayingPutModelDriver ~/VirtualWorlds/projects/action_for_children/england/src/StayingPutModelDriver.jl:80
+┌ Warning: `getindex(df::DataFrame, col_ind::ColumnIndex)` is deprecated, use `df[!, col_ind]` instead.
+│   caller = cleanup_main_frame_regional(::DataFrames.DataFrame) at StayingPutModelDriver.jl:114
+└ @ StayingPutModelDriver ~/VirtualWorlds/projects/action_for_children/england/src/StayingPutModelDriver.jl:114
+┌ Warning: `setindex!(df::DataFrame, v::AbstractVector, col_ind::ColumnIndex)` is deprecated, use `begin
+│     df[!, col_ind] = v
+│     df
+│ end` instead.
+│   caller = cleanup_main_frame_regional(::DataFrames.DataFrame) at StayingPutModelDriver.jl:114
+└ @ StayingPutModelDriver ~/VirtualWorlds/projects/action_for_children/england/src/StayingPutModelDriver.jl:114
