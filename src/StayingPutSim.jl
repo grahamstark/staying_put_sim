@@ -26,7 +26,7 @@ module StayingPutSim
 #        EmploymentStatus
 
     using CareData
-    using Parameters
+    using FosterParameters
     using LAModelData: payclassfromregioncode
     export maincalc, doonecalc, overrideoutcomes!, basiccalc, trackseries
 

@@ -15,7 +15,7 @@ module StayingPutModelDriver
     using StayingPutSim
     using CareData
     using ONSCodes
-    using Parameters
+    using FosterParameters
 
     export doonerun, createmaintables, createnglandtablesbyage
     export dumpruninfo, addallgrantcols!, cleanup_main_frame, mergegrantstoregions
@@ -92,7 +92,7 @@ module StayingPutModelDriver
 
     function cleanup_main_frame( by_la :: DataFrame, target :: Symbol )
         newframe=DataFrame()
-        newframe[:Year]=by_la[:year]
+        newframe[!,:Year]=by_la[:year]
         newframe[!,:Council]=by_la[!,:council]
         newframe[!,:Number]=round.(Integer,by_la[!,:avg_cnt_sys_1])
         newframe[!,:Grants_Option_1] = round.(Integer,by_la[!,:avg_cnt_sys_1_grant])
@@ -111,7 +111,7 @@ module StayingPutModelDriver
 
     function cleanup_main_frame_regional( by_la :: DataFrame )
         newframe=DataFrame()
-        newframe[:Year]=by_la[:year]
+        newframe[!,:Year]=by_la[:year]
         # if( target == :ccode )
         #     newframe[!,:Council]=by_la[!,:council]
         # end
@@ -325,7 +325,7 @@ module StayingPutModelDriver
                 @orderby( [ _.targetcode, _.year,_.sysno] ) |>
                 DataFrame
             newnames = addsysnotoname( names( by_target_sys_and_year_tmp ), sysno )
-            names!( by_target_sys_and_year_tmp, newnames )
+            rename!( by_target_sys_and_year_tmp, newnames )
             CSVFiles.save( output_dir*"by_$(target)_sys_and_year_sysno_$sysno.csv", by_target_sys_and_year_tmp, delim='\t' )
             push!(by_target_sys_and_year, by_target_sys_and_year_tmp )
         end
@@ -431,7 +431,7 @@ module StayingPutModelDriver
                 @orderby( [ _.rcode, _.year,_.sysno] ) |>
                 DataFrame
             newnames = addsysnotoname( names( by_region_sys_and_year_tmp ), sysno )
-            names!( by_region_sys_and_year_tmp, newnames )
+            rename!( by_region_sys_and_year_tmp, newnames )
             CSVFiles.save( output_dir*"by_region_sys_and_year_sysno_$sysno.csv", by_region_sys_and_year_tmp, delim='\t' )
             push!(by_region_sys_and_year, by_region_sys_and_year_tmp )
         end
@@ -641,14 +641,14 @@ module StayingPutModelDriver
         end
         merged = copy(by_sys_and_year[1])
         newnames = addsysnotoname( names( by_sys_and_year[1] ), 1 )
-        names!( merged, newnames )
+        rename!( merged, newnames )
 
         stacked = copy( by_sys_and_year[1])
 
         for sysno in 2:num_systems
             stacked = vcat( stacked, copy( by_sys_and_year[sysno]))
             newnames = addsysnotoname( names( by_sys_and_year[sysno] ), sysno )
-            names!( by_sys_and_year[sysno], newnames )
+            rename!( by_sys_and_year[sysno], newnames )
             merged = join( merged, by_sys_and_year[sysno], on=[:year], makeunique=true )
         end
         for popcol in POPN_MEASURES
@@ -740,12 +740,12 @@ module StayingPutModelDriver
 
         merged = copy(by_sys_yp_age_and_year[1])
         newnames = addsysnotoname( names( merged ), 1 )
-        names!(merged, newnames )
+        rename!(merged, newnames )
         stacked = copy(by_sys_yp_age_and_year[1])
         for sysno in 2:num_systems
             stacked = vcat( stacked, copy(by_sys_yp_age_and_year[sysno] ))
             newnames = addsysnotoname( names( by_sys_yp_age_and_year[sysno] ), sysno )
-            names!( by_sys_yp_age_and_year[sysno], newnames )
+            rename!( by_sys_yp_age_and_year[sysno], newnames )
             merged = join( merged, by_sys_yp_age_and_year[sysno], on=[:year,:yp_age], makeunique=true )
         end
         CSVFiles.save( output_dir*"by_sys_yp_age_and_year.csv", merged, delim='\t' )
