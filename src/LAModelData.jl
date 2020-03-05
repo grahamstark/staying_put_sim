@@ -90,7 +90,7 @@ module LAModelData
     end
 
     """
-     return ONS code of either the LA, its region, or UK, depending on `AggLevel`
+     return ONS code of either the LA, its region, or England, depending on `AggLevel`
     """
     function gettargetla(
         lacode :: AbstractString,
