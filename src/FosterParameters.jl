@@ -47,17 +47,21 @@ module FosterParameters
             d[london] = Minimum_Allowances( 149.0, 152.0, 171.0, 193.0, 226.0 )
             d[se] = Minimum_Allowances( 143.0, 147.0, 163.0, 185.0, 218.0 )
             d[rest_of_england] = Minimum_Allowances( 129.0, 132.0, 146.0, 164.0, 194.0 )
-        elseif year >= 2020
-            d[london] = Minimum_Allowances( 149.0, 152.0, 171.0, 193.0, 226.0 )* CPIINDEX[year]
-            d[se] = Minimum_Allowances( 143.0, 147.0, 163.0, 185.0, 218.0 )* CPIINDEX[year]
-            d[rest_of_england] = Minimum_Allowances( 129.0, 132.0, 146.0, 164.0, 194.0 )*CPIINDEX[year]
+        elseif year == 2020
+            d[london] = Minimum_Allowances( 152.0, 155.0, 174.0, 197.0, 231.0 )
+            d[se] = Minimum_Allowances( 146.0, 150.0, 166.0, 189.0, 222.0 )
+            d[rest_of_england] = Minimum_Allowances( 132.0, 135.0, 149.0, 170.0, 198.0 )
+        elseif year > 2020
+            d[london] = Minimum_Allowances( 152.0, 155.0, 174.0, 197.0, 231.0 )* CPIINDEX[year]
+            d[se] = Minimum_Allowances( 146.0, 150.0, 166.0, 189.0, 222.0 )* CPIINDEX[year]
+            d[rest_of_england] = Minimum_Allowances( 132.0, 135.0, 149.0, 170.0, 198.0 )*CPIINDEX[year]
         end
         d
     end
 
     DEFAULT_UPRATE_FACTOR =
-        makeAllowances( 2019 )[london].age_16_17/
-        makeAllowances( 2018 )[london].age_16_17
+        makeAllowances( 2020 )[london].age_16_17/
+        makeAllowances( 2019 )[london].age_16_17
 
 
     @enum ContributionType actual_contribution no_contribution  benefits_only flat_rate all_people

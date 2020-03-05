@@ -24,8 +24,14 @@ module CareData
     export CarerOutcomes, addcareroutcomestoframe!, makecareroutcomesframe
     export fillcomponents!
 
-    MINIMUM_WAGE = 6.15*40 # 18-20
- 	JSA_IS = 57.90
+    MINIMUM_WAGE_2019 = 6.15*40 # 18-20
+ 	JSA_IS_2019 = 57.90
+
+    MINIMUM_WAGE_2020 = 6.45*40 # 18-20
+ 	JSA_IS_2020 = 57.90 # FIXME unchanged 2019/20 rate
+
+    MINIMUM_WAGE=MINIMUM_WAGE_2020
+ 	JSA_IS=JSA_IS_2020
 
     @enum EmploymentStatus TrainingOrEmployment HigherEd OtherEd NEET Unknown
     @enum DataPublisher OFSTED DFE AFC
@@ -54,8 +60,9 @@ module CareData
     end
 
     #  Percentage of care leavers in the year ending 31 March 2018 aged 19 to 21 whose activity is training or employment
-    CL_All_19to21  = 28_510 # all
-    ED_PCS = (
+    # from DFe CareLeavers_Act_InTouch19to212018_amended.csv
+    CL_All_19to21_2018  = 28_510 # all
+    ED_PCS_2018 = (
         #  Care leavers in the year ending 31 March 2018 aged 19 to 21 who were looked after for a total of at least 13 weeks after their 14th birthday including some time after their 16th birthday [1]
         :CL_Act_TE19to21_pc => 25, # 25
 
@@ -69,8 +76,28 @@ module CareData
         :CL_Act_NEET19to21_pc => 39, # NEET 39
 
         #  Percentage of care leavers in the year ending 31 March 2018 aged 19 to 21 for whom local authority does not have activity information
-        :CL_Act_NoInf19to21_pc => 10 ) #No inf 10
+        :CL_Act_NoInf19to21_pc => 10 )
+         #No inf 10
+    # 2019 version
+    CL_All_19to21_2019  = 29_930 # all
+    ED_PCS_2019 = (
+        #  Care leavers in the year ending 31 March 2018 aged 19 to 21 who were looked after for a total of at least 13 weeks after their 14th birthday including some time after their 16th birthday [1]
+        :CL_Act_TE19to21_pc => 25.0, # 25
 
+        #  Percentage of care leavers in the year ending 31 March 2018 aged 19 to 21 whose activity is higher education i.e. studies beyond A level
+        :CL_Act_HE19to21_pc => 6.0, # HE 6
+
+        #  Percentage of care leavers in the year ending 31 March 2018 aged 19 to 21 whose activity is education other than higher education
+        :CL_Act_OE19to21_pc => 21.0, # FE 20
+
+        # Percentage of care leavers in the year ending 31 March 2018 aged 19 to 21 who are not in education, employment or training
+        :CL_Act_NEET19to21_pc => 39.0, # NEET 39
+
+        #  Percentage of care leavers in the year ending 31 March 2018 aged 19 to 21 for whom local authority does not have activity information
+        :CL_Act_NoInf19to21_pc => 9.0 ) #No inf 10
+
+    ED_PCS = ED_PCS_2019
+    CL_All_19to21 = CL_All_19to21_2019
 
     function educstatus( ccode :: AbstractString ) :: EmploymentStatus
         # FIXME should use LA level stuff and a search
@@ -93,8 +120,15 @@ module CareData
     # Approved for three types of care	4,905
     # Approved for four or more types of care	5,575
     # then (Main Table, col1 4920 new approved - assume level 0 )
-    SKILLS_LEVELS = [5000, 20060.0-5000,12735.0,4905.0,5575.0]
-    SKILLS_PROPS = cumsum(SKILLS_LEVELS)/sum(SKILLS_LEVELS)
+    SKILLS_LEVELS_2018 = [5000, 20060.0-5000,12735.0,4905.0,5575.0]
+    SKILLS_PROPS_2018 = cumsum(SKILLS_LEVELS)/sum(SKILLS_LEVELS)
+
+    # 5_110 is 8400 approved - 3290 friends and family
+    SKILLS_LEVELS_2019 = [5_110, 20_755.0-5000,13_510.0,5_200.0,4_985.0]
+    SKILLS_PROPS_2019 = cumsum(SKILLS_LEVELS)/sum(SKILLS_LEVELS)
+
+    SKILLS_LEVELS=SKILLS_LEVELS_2019
+    SKILLS_PROPS=SKILLS_PROPS_2019
 
     function skilllevel()
         r = rand()
@@ -106,10 +140,11 @@ module CareData
         end
     end
 
-    THIS_YEAR=2019
+    THIS_YEAR=2020
     AFC_SURVEY_YEAR=2018
 
     # actual and forecast CPI index rebased to 2019=100; from ONS chart 3.18
+    # FIXME unchanged for update
     CPIINDEX = Dict(
         2010 => 0.816463685631,
         2011 => 0.843392062033,

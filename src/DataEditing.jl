@@ -6,7 +6,7 @@ module DataEditing
     using Query
     # local
     using ONSCodes
-    
+
     # local - run add_scripts_to_path.jl first
 
     using GlobalDecls
@@ -76,12 +76,18 @@ module DataEditing
         addonscodesto!( PRE_OFDATA, :council, :ccode, :rcode )
         CSV.write( path*"OFDATA.csv", PRE_OFDATA )
     end
-    
-    function makeditedhbdata()
+
+    function makeditedhbdata( year )
         # just for reference ..
-        hbdata =  load( DATADIR*"2019-20_LHA_TABLES.csv" ) |> DataFrame
-        addonscodesto!( hbdata, :BRMA, :ccode, :rcode )
-        CSV.write( DATADIR*"edited/"*"LHA_2019.csv", hbdata )
+        if year == 2019
+            hbdata =  load( DATADIR*"2019-20_LHA_TABLES.csv" ) |> DataFrame
+            addonscodesto!( hbdata, :BRMA, :ccode, :rcode )
+            CSV.write( DATADIR*"edited/"*"LHA_2019.csv", hbdata )
+        elseif year == 2020
+            hbdata =  load( DATADIR*"202021_LHA_TABLES.csv" ) |> DataFrame
+            addonscodesto!( hbdata, :BRMA, :ccode, :rcode )
+            CSV.write( DATADIR*"edited/"*"LHA_2020.csv", hbdata )
+        end
     end
 
 end # DataEditing
