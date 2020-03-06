@@ -12,7 +12,7 @@ module DataEditing
     using GlobalDecls
     using Utils
 
-    export make_edited_datasets, add_ons_codes_to!,make_edited_hb_data
+    export make_edited_datasets, add_ons_codes_to!,make_edited_hb_data, get_ofsted_data
 
     function yearstr( year :: Integer ) :: String
         ys = "?"
@@ -37,40 +37,41 @@ module DataEditing
     """
     This is the LA payment spreadsheet from [here]()
     """
-    PRE_PAYMENT_DATA = get_payment_data( GlobalData.SIMULATION_YEAR )
+    PRE_PAYMENT_DATA = get_payment_data( GlobalDecls.SIMULATION_YEAR )
 
     function get_ofsted_data( year :: Integer ) :: DataFrame
         ys = yearstr( year )
-        DATADIR*"Fostering_in_England__dataset_$(ys)_transposed_extended.csv",
-        delim=',',
-        missingstrings=["-999","",".."],
-        types=maketypeblock(3:1000)
-         ) |> DataFrame
+        CSV.File(
+            DATADIR*"Fostering_in_England_$(ys)_dataset_transposed_extended.csv",
+            delim=',',
+            missingstrings=["-999","",".."],
+            types=maketypeblock(3:1000,Float64)
+             ) |> DataFrame
     end
 
     """
     This is my augmented version of the OFSTED fostering spreadsheet from [here](), with added info
     from the [AFC Fostering Study Spreadsheet]().
     """
-    PRE_OFDATA =  get_ofsted_data( GlobalData.SIMULATION_YEAR )
+    PRE_OFDATA =  get_ofsted_data( GlobalDecls.SIMULATION_YEAR )
 
     function fixupccodes()
-               n = size(LAMAPPINGS)[1]
-               fixes = DataFrame( CSV.File(
-                   DATADIR*"las/Local_Authority_Districts_April_2015_Names_and_Codes_in_the_United_Kingdom.csv" ))
-               for i in 1:n
-                    mapname = LAMAPPINGS[:name][i];
-                    mapcode = LAMAPPINGS[:new_gss_code][i]
-                    if mapname in fixes[:LAD15NM]
-                       fixrec = fixes[(fixes.LAD15NM.==mapname),:];
-                       fixcode = fixrec[:LAD15CD][1];
-                       # println( "fixcode $fixcode mapcode $mapcode ")
-                       if fixcode != mapcode
-                           println( "change $mapcode to $fixcode for $mapname" );LAMAPPINGS[:new_gss_code][i] = fixcode
-                       end
-                    end
-               end
-           end
+        n = size(LAMAPPINGS)[1]
+        fixes = DataFrame( CSV.File(
+            DATADIR*"las/Local_Authority_Districts_April_2015_Names_and_Codes_in_the_United_Kingdom.csv" ))
+        for i in 1:n
+            mapname = LAMAPPINGS[:name][i];
+            mapcode = LAMAPPINGS[:new_gss_code][i]
+            if mapname in fixes[:LAD15NM]
+                fixrec = fixes[(fixes.LAD15NM.==mapname),:];
+                fixcode = fixrec[:LAD15CD][1];
+                # println( "fixcode $fixcode mapcode $mapcode ")
+                if fixcode != mapcode
+                    println( "change $mapcode to $fixcode for $mapname" );LAMAPPINGS[:new_gss_code][i] = fixcode
+                end
+            end
+        end
+    end # fixupccodes
 
 
 
