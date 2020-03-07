@@ -69,7 +69,9 @@ module ONSCodes
     end
 
     LAMAPPINGS = loadlas( DATADIR*"las/all_las.tab" )
-    BRVALUES = CSV.File( DATADIR*"las/brmas/2019-20_LHA_TABLES_EDITED.csv" ) |> DataFrame
+    BRVALUES_2019 = CSV.File( DATADIR*"las/brmas/2019-20_LHA_TABLES_EDITED.csv" ) |> DataFrame
+    BRVALUES_2020 = CSV.File( DATADIR*"las/brmas/2020-21_LHA_TABLES_EDITED.csv" ) |> DataFrame
+    BRVALUES = BRVALUES_2020
     BRLOOKUP = CSV.File( DATADIR*"las/brmas/brma_lookup.csv" ) |> DataFrame
 
     function makebrmalookup( n :: Integer ) :: DataFrame

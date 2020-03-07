@@ -38,7 +38,11 @@ module LAModelData
         c17_18_2018 = loadone(
                 DATADIR*"underlying_data/2018/CareLeavers17182018_amended.csv" ),
         c19_21_2018 = loadone(
-                DATADIR*"underlying_data/2018/CareLeavers_Acc_StayPut19to212018.csv" )
+                DATADIR*"underlying_data/2018/CareLeavers_Acc_StayPut19to212018.csv" ),
+        c17_18_2019 = loadone(
+                DATADIR*"underlying_data/2019/Care_Leavers_17182019.csv" ),
+        c19_21_2019 = loadone(
+                DATADIR*"underlying_data/2019/CareLeavers_Acc_StayPut19to212019.csv" )
         )
     end
 
@@ -118,7 +122,7 @@ module LAModelData
         avprop = zeros(3)
         target = gettargetla( lacode, agglev )
         ages = [18,19,20]
-        years = poolyears ? [2017,2018] : [2018]
+        years = poolyears ? [2017,2018,2019] : [GlobalDecls.SIMULATION_YEAR]
         for year in years
             i = 0
             numreachingage=zeros(3)
