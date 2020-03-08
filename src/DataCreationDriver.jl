@@ -13,7 +13,7 @@ module DataCreationDriver
     # push!(settings.targets, "E10000030" )
     #settings.agglevel = national
 
-    function createdata( settings :: DataSettings )
+    function create_data( settings :: DataSettings )
         run_data_dir = DATADIR*"/populations/"*settings.dataset*"/"
         mkpath( run_data_dir )
         alldata = CareData.loadall()

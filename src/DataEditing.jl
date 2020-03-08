@@ -34,7 +34,7 @@ module DataEditing
 
 
 
-    function fixupccodes()
+    function fixup_cc_codes()
                n = size(LAMAPPINGS)[1]
                fixes = DataFrame( CSV.File(
                    DATADIR*"las/Local_Authority_Districts_April_2015_Names_and_Codes_in_the_United_Kingdom.csv" ))
@@ -62,14 +62,14 @@ module DataEditing
 
     returns - list of names that have not been mapped
     """
-    function addonscodesto!( data :: DataFrame, cname :: Symbol, ccode :: Symbol, rcode :: Symbol )
+    function add_ons_codes_to!( data :: DataFrame, cname :: Symbol, ccode :: Symbol, rcode :: Symbol )
         println( data[cname] )
         data[ccode]=map( c->codefromname(c), data[cname])
         data[rcode]=map( c->regioncodefromname(c), data[cname])
     end
 
 
-    function makeediteddatasets()
+    function make_edited_datasets()
         path = DATADIR*"edited/"
         addonscodesto!( PRE_PAYMENT_DATA, :council, :ccode, :rcode )
         CSV.write( path*"PAYMENT_DATA.csv", PRE_PAYMENT_DATA )
@@ -77,7 +77,7 @@ module DataEditing
         CSV.write( path*"OFDATA.csv", PRE_OFDATA )
     end
 
-    function makeditedhbdata( year )
+    function make_edited_hb_data( year )
         # just for reference ..
         if year == 2019
             hbdata =  load( DATADIR*"2019-20_LHA_TABLES.csv" ) |> DataFrame

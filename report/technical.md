@@ -39,7 +39,7 @@ Our modelling strategy was:
 
 By comparing the the modelled Fostering Network payments with the reformed payments for each young person and carer, we could then produce a large amount of output on the gross and net costs of each scheme, at the local authority, regional or national level.
 
-We need to make a lot of assumptions for this to work. We discuss some of these assumptions below. Often in modelling work the best strategy is to give a variety of results for different assumptions, and to futher account for uncertainty by randomly perturbing the model in various ways and showing average results, as well as the range of possible results. We return to this below.
+We need to make a lot of assumptions for this to work. We discuss some of these assumptions below. Often in modelling work the best strategy is to give a variety of results for different assumptions, and to further account for uncertainty by randomly perturbing the model in various ways and showing average results, as well as the range of possible results. We return to this below.
 
 The model is written in the Julia programming language [@bezanson_julia:_2017]. Julia is designed to be easily read by non-specialists so it should in principle be possible to refer directly to the source code.
 

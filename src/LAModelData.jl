@@ -9,11 +9,11 @@ module LAModelData
     using Utils
     using ONSCodes
 
-    export isaggregate, payclassfromregioncode
-    export getstayingrates, gettargetla, doexitratequery
-    export UDATA, get18slevelfromdoe
+    export is_aggregate, get_pay_class_from_region_code
+    export get_staying_put_rates, get_target_la, do_exit_rate_query
+    export UDATA, get_18s_level_from_doe
 
-    function loadone( name :: AbstractString ) :: DataFrame
+    function load_one( name :: AbstractString ) :: DataFrame
         df = CSV.File(
             name,
             delim=',',
@@ -29,26 +29,26 @@ module LAModelData
     # DFE Raw data on care movements 2015-2018; see
     # only 2017 and 2018 have Staying Put data
     #
-    function getunderlyingdata()::NamedTuple
+    function get_underlying_data()::NamedTuple
         (
-        c17_18_2017=loadone(
+        c17_18_2017=load_one(
                 DATADIR*"underlying_data/2017/SFR50_CareLeavers17182017.csv" ),
-        c19_21_2017 = loadone(
+        c19_21_2017 = load_one(
                 DATADIR*"underlying_data/2017/SFR50_CareLeavers19to212017.csv" ),
-        c17_18_2018 = loadone(
+        c17_18_2018 = load_one(
                 DATADIR*"underlying_data/2018/CareLeavers17182018_amended.csv" ),
-        c19_21_2018 = loadone(
+        c19_21_2018 = load_one(
                 DATADIR*"underlying_data/2018/CareLeavers_Acc_StayPut19to212018.csv" )
         )
     end
 
-    UDATA = getunderlyingdata()
+    UDATA = get_underlying_data()
 
     """
     get the number of 18s leaving care from the DoE underlying data as an
     alternative to a calculation from OFSTED data and ageing rates
     """
-    function get18slevelfromdoe( target :: AbstractString )
+    function get_18s_level_from_doe( target :: AbstractString )
         which = UDATA.c17_18_2018.new_geog_code .== target
         v = UDATA.c17_18_2018[which,:cl_stayput_18][1]
         #if( ismissing( v ))
@@ -70,7 +70,7 @@ module LAModelData
     for the given target (LA, country, etc.)
     age (18,19,20) and year (2017,2018)
     """
-    function doexitratequery(
+    function do_exit_rate_query(
         year   :: Integer,
         target :: AbstractString,
         age    :: Integer )
@@ -92,7 +92,7 @@ module LAModelData
     """
      return ONS code of either the LA, its region, or England, depending on `AggLevel`
     """
-    function gettargetla(
+    function get_target_la(
         lacode :: AbstractString,
         agglev :: AggLevel ) :: AbstractString
         target = lacode
@@ -110,13 +110,13 @@ module LAModelData
       will be the regional one if the calculation is not possible for an LA
       rates are proportions for that age - so 0.5,0.5,0.5 means 50% stay 1 year, 25% 2 12.5% 3 and so on
     """
-    function getstayingrates(
+    function get_staying_put_rates(
         lacode    :: AbstractString,
         agglev    :: AggLevel,
         poolyears :: Bool  ) :: Vector
         # println( "getexitrates for lacode $lacode agglev $agglev" );
         avprop = zeros(3)
-        target = gettargetla( lacode, agglev )
+        target = get_target_la( lacode, agglev )
         ages = [18,19,20]
         years = poolyears ? [2017,2018] : [2018]
         for year in years
@@ -126,12 +126,12 @@ module LAModelData
             prop=zeros(3)
             for age in ages
                 i+=1
-                q = doexitratequery( year, target, age )
+                q = do_exit_rate_query( year, target, age )
                 if zeroormissing( q )
                     @assert agglev == local_authority
-                    target = gettargetla( lacode, regional )
+                    target = get_target_la( lacode, regional )
                     println( "zeros detected! lacode $lacode new target $target $year age $age " );
-                    q = doexitratequery( year, target, age )
+                    q = do_exit_rate_query( year, target, age )
                 end
                 @assert (! zeroormissing( q ))
                 numreachingage[i] += get(q[1],0)
@@ -165,7 +165,7 @@ module LAModelData
     # df meta example:
     # @linq las |> where( :LAD19NM.=="City of London" ) |> select( :LAD19CD )
 
-    function payclassfromregioncode( regcode :: AbstractString ) :: Region
+    function get_pay_class_from_region_code( regcode :: AbstractString ) :: Region
         # E12000001  #	A 	North East England
         # E12000002  # 	B 	North West England
         # E12000003  #	D 	Yorkshire and the Humber
@@ -184,7 +184,7 @@ module LAModelData
         r
     end
 
-    function isaggregate( name )
+    function is_aggregate( name )
         return name in [
             "East of England",
             "England",
