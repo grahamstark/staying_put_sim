@@ -26,8 +26,6 @@ module ONSCodes
         df
     end
 
-
-
     function createbrlookup()
         las = loadlas( DATADIR*"las/all_las.tab" )
         brmap = CSV.File( DATADIR*"las/brmas/ladistrict_2_brma.csv" ) |> DataFrame
@@ -70,12 +68,11 @@ module ONSCodes
         (brlook=brlook,brvalues=brvalues)
     end
 
-
     LAMAPPINGS = loadlas( DATADIR*"las/all_las.tab" )
-    BRVALUES = CSV.File( DATADIR*"las/brmas/2019-20_LHA_TABLES_EDITED.csv" ) |> DataFrame
+    BRVALUES_2019 = CSV.File( DATADIR*"las/brmas/2019-20_LHA_TABLES_EDITED.csv" ) |> DataFrame
+    BRVALUES_2020 = CSV.File( DATADIR*"las/brmas/2020-21_LHA_TABLES_EDITED.csv" ) |> DataFrame
+    BRVALUES = BRVALUES_2020
     BRLOOKUP = CSV.File( DATADIR*"las/brmas/brma_lookup.csv" ) |> DataFrame
-
-
 
     function makebrmalookup( n :: Integer ) :: DataFrame
         DataFrame(
@@ -170,15 +167,15 @@ module ONSCodes
     """
     function codefromname( name :: AbstractString )
         # println( "name $name " )
-        q = @from i in LAMAPPINGS begin
-               @where basiccensor(i.name) == basiccensor(name)
-               @select lad = i.new_gss_code
-           end
-           s=missing
-           for i in q
-               s = i
-           end
-           s
+       q = @from i in LAMAPPINGS begin
+           @where basiccensor(i.name) == basiccensor(name)
+           @select lad = i.new_gss_code
+       end
+       s=missing
+       for i in q
+           s = i
+       end
+       s
     end
 
     """

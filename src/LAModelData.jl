@@ -118,7 +118,7 @@ module LAModelData
         avprop = zeros(3)
         target = get_target_la( lacode, agglev )
         ages = [18,19,20]
-        years = poolyears ? [2017,2018] : [2018]
+        years = poolyears ? [2017,2018,2019] : [GlobalDecls.SIMULATION_YEAR]
         for year in years
             i = 0
             numreachingage=zeros(3)

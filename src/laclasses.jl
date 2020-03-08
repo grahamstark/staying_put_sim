@@ -3,17 +3,16 @@ using CSV
 using DataFramesMeta
 using Query
 using DataFramesMeta
-
-
-include( "utils.jl" )
-
+using GlobalDecls
+using Utils
+using ONSCodes
 @enum AggLevel national regional la
 
 function loadone( name :: AbstractString ) :: DataFrame
-    df = CSV.File(  
-        name, 
-        delim=',', 
-        missingstrings=["x","","-"], 
+    df = CSV.File(
+        name,
+        delim=',',
+        missingstrings=["x","","-"],
         types=maketypeblock(6:1000)) |> DataFrame
     lcnames = Symbol.(lowercase.(string.(names(df))))
     names!(df,lcnames)
@@ -34,7 +33,11 @@ function getunderlyingdata()::NamedTuple
     c17_18_2018 = loadone(
             DATADIR*"underlying_data/2018/CareLeavers17182018_amended.csv" ),
     c19_21_2018 = loadone(
-            DATADIR*"underlying_data/2018/CareLeavers_Acc_StayPut19to212018.csv" )
+            DATADIR*"underlying_data/2018/CareLeavers_Acc_StayPut19to212018.csv" ),
+    c17_18_2019 = loadone(
+            DATADIR*"underlying_data/2019/Care_Leavers_17182019.csv" ),
+    c19_21_2019 = loadone(
+            DATADIR*"underlying_data/2019/CareLeavers_Acc_StayPut19to212019.csv" )
     )
 end
 
@@ -42,16 +45,17 @@ UDATA = getunderlyingdata()
 
 
 """
-extract the number leaving care and the number staying put 
+extract the number leaving care and the number staying put
 for the given target (LA, country, etc.)
 age (18,19,20) and year (2017,2018)
 """
-function doquery( 
-    year   :: Integer, 
-    target :: AbstractString, 
+function doquery(
+    year   :: Integer,
+    target :: AbstractString,
     age    :: Integer )
     as = age == 18 ? "17_18" : "19_21"
-    field = Symbol( "c"*as*"_"*"$year" ) 
+    # e.g. c17_18_2017
+    field = Symbol( "c$(as)_$(year)" )
     f1 = Symbol( "cl_stayput_$age" )
     f2 = Symbol( "cl_stayput_ffc_$age" )
     println( "f1 $f1 f2 $f2 field $field" )
@@ -62,17 +66,18 @@ function doquery(
     end
     # @assert length( q ) == 1 no - 3 londons ffs we use London not Inner/Outer London
     println( "q1 $q[1]" )
+    # return 1st row
     q[1]
 end
 
 """
  return ONS code of either the LA, its region, or UK, depending on `AggLevel`
 """
-function gettargetla( 
-    lacode :: AbstractString, 
+function gettargetla(
+    lacode :: AbstractString,
     agglev :: AggLevel ) :: AbstractString
     target = lacode
-    if agglev == regional 
+    if agglev == regional
         target = regioncodefromcode( lacode )
     elseif agglev == national
         target = "E92000001" # england
@@ -85,15 +90,15 @@ return the exit rates for the given LA - a named tuple a18,a19,a20
   will be the regional one if the calculation is not possible for an LA
   rates are proportions for that age - so 0.5,0.5,0.5 means 50% stay 1 year, 25% 2 12.5% 3 and so on
 """
-function getexitrates( 
-    lacode    :: AbstractString, 
-    agglev    :: AggLevel, 
+function getexitrates(
+    lacode    :: AbstractString,
+    agglev    :: AggLevel,
     poolyears :: Bool  ) :: Vector
     println( "getexitrates for lacode $lacode agglev $agglev" );
     avprop = zeros(3)
     target = gettargetla( lacode, agglev )
     ages = [18,19,20]
-    years = poolyears ? [2017,2018] : [2018]
+    years = poolyears ? [2017,2018,2019] : [GlobalDecls.SIMULATION_YEAR]
     for year in years
         i = 0
         numleaving=zeros(3)
@@ -139,9 +144,9 @@ function payclassfromregioncode( regcode :: AbstractString ) :: Region
     # E12000004  #	E 	East Midlands
     # E12000005  # 	F 	West Midlands
     # E12000006  # 	G 	East of England
-    if regcode == "E12000007" 
-        r = london # 	H 	London 
-    elseif regcode == "E12000008" 
+    if regcode == "E12000007"
+        r = london # 	H 	London
+    elseif regcode == "E12000008"
         r = se
         # J 	South East England
     else
@@ -152,20 +157,20 @@ function payclassfromregioncode( regcode :: AbstractString ) :: Region
 end
 
 function isaggregate( ccode )
-    if ccode === missing 
+    if ccode === missing
         return true
     end
     if ccode == Nothing
         return true
     end
-    if length(ccode)==0 
+    if length(ccode)==0
         return true
     end
-    if ccode[1:3] in ["E12", "E92" ] 
+    if ccode[1:3] in ["E12", "E92" ]
         return true
     end
     return false
-    
+
 #     return name in [
 #         "East of England",
 #         "England",
@@ -181,4 +186,3 @@ function isaggregate( ccode )
 #         "South West England",
 #         "London Tri-borough" ]
 end
-
