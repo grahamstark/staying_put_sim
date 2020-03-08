@@ -79,7 +79,7 @@ module load
         StayingPutModelDriver.createmaintables_by_region( outdir, nparams )
     end
 
-    function mainrun( ds :: DataPublisher, pc :: Real, numiter :: Integer )
+    function do_main_run( ds :: DataPublisher, pc :: Real, numiter :: Integer )
         settings = CareData.default_data_settings()
         settings.name = "using-$ds-$pc-pct"
         settings.dataset = "ds-$ds-$pc-pct"
@@ -89,7 +89,7 @@ module load
         settings.reaching_18s_source = ds
         createdata = true
         if createdata
-            DataCreationDriver.createdata( settings )
+            DataCreationDriver.create_data( settings )
         end
         params = Array{Params}(undef,0)
         params1 = Parameters.getdefaultparams()
@@ -114,10 +114,10 @@ module load
     end #  function
 
     numiter = 200
-    # mainrun( OFSTED, 0.0, numiter )
-    # mainrun( OFSTED, 0.01, numiter )
-    # mainrun( DFE, 0.0, numiter )
-    # mainrun( DFE, 0.01, numiter )
+    # do_main_run( OFSTED, 0.0, numiter )
+    # do_main_run( OFSTED, 0.01, numiter )
+    do_main_run( DFE, 0.0, numiter )
+    # do_main_run( DFE, 0.01, numiter )
     DEFAULT_DATA = "ds-DFE-0.01-pct"
 
     datasets = [

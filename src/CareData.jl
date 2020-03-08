@@ -125,11 +125,11 @@ module CareData
     # Approved for four or more types of care	5,575
     # then (Main Table, col1 4920 new approved - assume level 0 )
     SKILLS_LEVELS_2018 = [5000, 20060.0-5000,12735.0,4905.0,5575.0]
-    SKILLS_PROPS_2018 = cumsum(SKILLS_LEVELS)/sum(SKILLS_LEVELS)
+    SKILLS_PROPS_2018 = cumsum(SKILLS_LEVELS_2018)/sum(SKILLS_LEVELS_2018)
 
     # 5_110 is 8400 approved - 3290 friends and family
     SKILLS_LEVELS_2019 = [5_110, 20_755.0-5000,13_510.0,5_200.0,4_985.0]
-    SKILLS_PROPS_2019 = cumsum(SKILLS_LEVELS)/sum(SKILLS_LEVELS)
+    SKILLS_PROPS_2019 = cumsum(SKILLS_LEVELS_2019)/sum(SKILLS_LEVELS_2019)
 
     SKILLS_LEVELS=SKILLS_LEVELS_2019
     SKILLS_PROPS=SKILLS_PROPS_2019

@@ -1,18 +1,48 @@
+┌ Warning: `getindex(df::DataFrame, col_ind::ColumnIndex)` is deprecated, use `df[!, col_ind]` instead.
+│   caller = loadlas(::String) at ONSCodes.jl:24
+└ @ ONSCodes ~/VirtualWorlds/projects/action_for_children/england/src/ONSCodes.jl:24
 ┌ Warning: `setindex!(df::DataFrame, v::AbstractVector, col_ind::ColumnIndex)` is deprecated, use `begin
 │     df[!, col_ind] = v
 │     df
 │ end` instead.
-│   caller = add_modelled_grants_to_region!(::DataFrames.DataFrame, ::String) at StayingPutModelDriver.jl:71
-└ @ StayingPutModelDriver ~/VirtualWorlds/projects/action_for_children/england/src/StayingPutModelDriver.jl:71
-┌ Warning: `getindex(df::DataFrame, col_ind::ColumnIndex)` is deprecated, use `df[!, col_ind]` instead.
-│   caller = add_modelled_grants_to_region!(::DataFrames.DataFrame, ::String) at StayingPutModelDriver.jl:80
-└ @ StayingPutModelDriver ~/VirtualWorlds/projects/action_for_children/england/src/StayingPutModelDriver.jl:80
-┌ Warning: `getindex(df::DataFrame, col_ind::ColumnIndex)` is deprecated, use `df[!, col_ind]` instead.
-│   caller = cleanup_main_frame_regional(::DataFrames.DataFrame) at StayingPutModelDriver.jl:114
-└ @ StayingPutModelDriver ~/VirtualWorlds/projects/action_for_children/england/src/StayingPutModelDriver.jl:114
-┌ Warning: `setindex!(df::DataFrame, v::AbstractVector, col_ind::ColumnIndex)` is deprecated, use `begin
-│     df[!, col_ind] = v
-│     df
-│ end` instead.
-│   caller = cleanup_main_frame_regional(::DataFrames.DataFrame) at StayingPutModelDriver.jl:114
-└ @ StayingPutModelDriver ~/VirtualWorlds/projects/action_for_children/england/src/StayingPutModelDriver.jl:114
+│   caller = loadlas(::String) at ONSCodes.jl:24
+└ @ ONSCodes ~/VirtualWorlds/projects/action_for_children/england/src/ONSCodes.jl:24
+WARNING: could not import LAModelData.getstayingrates into CareData
+ERROR: LoadError: UndefVarError: payclassfromregioncode not defined
+Stacktrace:
+ [1] include at ./boot.jl:328 [inlined]
+ [2] include_relative(::Module, ::String) at ./loading.jl:1105
+ [3] include(::Module, ::String) at ./Base.jl:31
+ [4] top-level scope at none:2
+ [5] eval at ./boot.jl:330 [inlined]
+ [6] eval(::Expr) at ./client.jl:425
+ [7] top-level scope at ./none:3
+in expression starting at /home/graham_s/VirtualWorlds/projects/action_for_children/england/src/StayingPutSim.jl:30
+ERROR: LoadError: Failed to precompile StayingPutSim [top-level] to /home/graham_s/.julia/compiled/v1.3/StayingPutSim.ji.
+Stacktrace:
+ [1] error(::String) at ./error.jl:33
+ [2] compilecache(::Base.PkgId, ::String) at ./loading.jl:1283
+ [3] _require(::Base.PkgId) at ./loading.jl:1024
+ [4] require(::Base.PkgId) at ./loading.jl:922
+ [5] require(::Module, ::Symbol) at ./loading.jl:917
+ [6] include at ./boot.jl:328 [inlined]
+ [7] include_relative(::Module, ::String) at ./loading.jl:1105
+ [8] include(::Module, ::String) at ./Base.jl:31
+ [9] top-level scope at none:2
+ [10] eval at ./boot.jl:330 [inlined]
+ [11] eval(::Expr) at ./client.jl:425
+ [12] top-level scope at ./none:3
+in expression starting at /home/graham_s/VirtualWorlds/projects/action_for_children/england/src/StayingPutModelDriver.jl:15
+ERROR: LoadError: Failed to precompile StayingPutModelDriver [top-level] to /home/graham_s/.julia/compiled/v1.3/StayingPutModelDriver.ji.
+Stacktrace:
+ [1] error(::String) at ./error.jl:33
+ [2] compilecache(::Base.PkgId, ::String) at ./loading.jl:1283
+ [3] _require(::Base.PkgId) at ./loading.jl:1024
+ [4] require(::Base.PkgId) at ./loading.jl:922
+ [5] require(::Module, ::Symbol) at ./loading.jl:917
+ [6] include at ./boot.jl:328 [inlined]
+ [7] include_relative(::Module, ::String) at ./loading.jl:1105
+ [8] include(::Module, ::String) at ./Base.jl:31
+ [9] exec_options(::Base.JLOptions) at ./client.jl:287
+ [10] _start() at ./client.jl:460
+in expression starting at /home/graham_s/VirtualWorlds/projects/action_for_children/england/src/load.jl:4

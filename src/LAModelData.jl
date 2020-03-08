@@ -20,7 +20,7 @@ module LAModelData
             missingstrings=["x","","-"],
             types=maketypeblock(6:1000)) |> DataFrame
         lcnames = Symbol.(lowercase.(string.(names(df))))
-        names!(df,lcnames)
+        rename!(df,lcnames)
         df
     end
 

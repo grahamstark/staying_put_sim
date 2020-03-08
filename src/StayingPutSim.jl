@@ -867,7 +867,7 @@ end
             end
         end
         if params.payment == min_payment
-            reg = payclassfromregioncode( council_data.rcode )
+            reg = get_pay_class_from_region_code( council_data.rcode )
             minp = getAllowances( reg, year ).age_16_17
             outcomes.allowance = max( outcomes.allowance, minp )
         end

@@ -19,9 +19,9 @@ module ONSCodes
             name,
             delim='\t' ) |> DataFrame
         lcnames = Symbol.(lowercase.(basiccensor.(string.(names(df)))))
-        names!(df,lcnames)
+        rename!(df,lcnames)
         for n in names(df)
-            df[n]=map( n->strip(n), df[n])
+            df[!,n]=map( n->strip(n), df[n])
         end
         df
     end
@@ -30,7 +30,7 @@ module ONSCodes
         las = loadlas( DATADIR*"las/all_las.tab" )
         brmap = CSV.File( DATADIR*"las/brmas/ladistrict_2_brma.csv" ) |> DataFrame
         lcnames = Symbol.(lowercase.(basiccensor.(string.(names(brmap)))))
-        names!(brmap,lcnames)
+        rename!(brmap,lcnames)
         for n in names(brmap)
             if typeof( brmap[n])==String
                 brmap[n]=map( n->strip(n), brmap[n])
@@ -59,7 +59,7 @@ module ONSCodes
         # FIXME general load of this sort
         brvalues = CSV.File( DATADIR*"las/brmas/2019-20_LHA_TABLES.csv" ) |> DataFrame
         lcnames = Symbol.(lowercase.(basiccensor.(string.(names(brvalues)))))
-        names!(brvalues,lcnames)
+        rename!(brvalues,lcnames)
         brvalues[:brma]=map( n->basiccensor(n), brvalues[:brma])
 
         CSV.write( DATADIR*"las/brmas/2019-20_LHA_TABLES_EDITED.csv", brvalues )
