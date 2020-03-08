@@ -14,9 +14,9 @@ module DataCreationDriver
     #settings.agglevel = national
 
     function create_data( settings :: DataSettings )
-        run_data_dir = DATADIR*"/populations/"*settings.dataset*"/"
+        run_data_dir = DATADIR*"/populations/$(settings.datayear)/$(settings.dataset)/"
         mkpath( run_data_dir )
-        alldata = CareData.loadall()
+        alldata = CareData.loadall( settings.datayear )
         for k in 1:settings.num_iterations
             println( "creating iteration $k")
             created = CareData.create_base_datasets(
@@ -25,6 +25,6 @@ module DataCreationDriver
             CSVFiles.save( run_data_dir*"/yp_data_$k.csv", created.yp_data )
             CSVFiles.save( run_data_dir*"/carer_data_$k.csv", created.carer_data )
         end
-    end
+    end # create data
 
-end
+end # module

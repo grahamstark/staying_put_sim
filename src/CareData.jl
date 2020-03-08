@@ -13,16 +13,19 @@ module CareData
     using GlobalDecls
     using ONSCodes
     using Utils
-    import LAModelData: getstayingrates, get18slevelfromdoe
+    import LAModelData: getstayingrates, get_18s_level_from_doe
 
-    export loadall
-    export getyp, makeypframe, makecarerframe
+    export load_all
+    export get_yp, make_yp_frame, make_carer_frame
     export Carer, YP
     export create_base_datasets, addcarertoframe!
     export DataSettings, default_data_settings
     export CPIINDEX, AFC_SURVEY_YEAR, THIS_YEAR, uprate
     export CarerOutcomes, addcareroutcomestoframe!, makecareroutcomesframe
     export fillcomponents!
+
+    THIS_YEAR=2020
+    AFC_SURVEY_YEAR=2018
 
     MINIMUM_WAGE_2019 = 6.15*40 # 18-20
  	JSA_IS_2019 = 57.90
@@ -96,11 +99,12 @@ module CareData
         #  Percentage of care leavers in the year ending 31 March 2018 aged 19 to 21 for whom local authority does not have activity information
         :CL_Act_NoInf19to21_pc => 9.0 ) #No inf 10
 
-    ED_PCS = ED_PCS_2019
+    ED_PCS = ED_PCS_2019 # FIXME move this to a function
     CL_All_19to21 = CL_All_19to21_2019
 
     function educstatus( ccode :: AbstractString ) :: EmploymentStatus
         # FIXME should use LA level stuff and a search
+        # FIXME 2020 needed
         e ::EmploymentStatus = NEET
         r = rand(1:90)
         if( r <= 25)
@@ -139,9 +143,6 @@ module CareData
             end
         end
     end
-
-    THIS_YEAR=2020
-    AFC_SURVEY_YEAR=2018
 
     # actual and forecast CPI index rebased to 2019=100; from ONS chart 3.18
     # FIXME unchanged for update
@@ -195,7 +196,7 @@ module CareData
 
 
 
-    function makeypframe( n::Integer )
+    function make_yp_frame( n::Integer )
         DataFrame(
             year          = zeros( Integer, n ),
             ccode         = Vector{AbstractString}(undef,n),
@@ -207,7 +208,7 @@ module CareData
             employment_status = Vector{EmploymentStatus}(undef, n ))
     end
 
-    function makecarerframe( n::Integer )
+    function make_carer_frame( n::Integer )
         DataFrame(
             year              = zeros( Integer, n ),
             ccode             = Vector{AbstractString}(undef,n),
@@ -330,7 +331,7 @@ module CareData
         push!( out_dataset, d )
     end
 
-    function makecouncilframe( n::Integer )
+    function make_council_frame( n::Integer )
         DataFrame(
             name  = Vector{AbstractString}(undef,n),
             ccode = Vector{AbstractString}(undef,n),
@@ -371,7 +372,7 @@ module CareData
         carer.benefits = uprate(carer.benefits, year)
     end
 
-    function getyp(
+    function get_yp(
         yp_dataset,
         year       :: Integer,
         carer      :: Carer,
@@ -409,7 +410,7 @@ module CareData
 
 
 
-    function getyp2( yp_dataset, year :: Integer, carer :: Carer ) :: Union{YP,Nothing}
+    function get_yp2( yp_dataset, year :: Integer, carer :: Carer ) :: Union{YP,Nothing}
         @assert isiterabletable( yp_dataset ) "data needs to implement IterableTables"
         q = @from i in yp_dataset begin
             @where i.carer == carer.id && i.year == year
@@ -448,6 +449,7 @@ module CareData
         num_iterations :: Integer
         targets   :: Array{AbstractString}
         reaching_18s_source :: DataPublisher
+        datayear  :: Integer
     end
 
     function default_data_settings()::DataSettings
@@ -460,11 +462,12 @@ module CareData
             mean(growth),
             (total_reaching_18./total_in_placements)[ny],
             2017,
-            2025,
+            2026,
             0.0,
             1,
             [],
-            OFSTED )
+            OFSTED,
+            THIS_YEAR )
     end
 
     function addageddata!(
@@ -528,9 +531,9 @@ module CareData
         end
         println( "settings $settings")
         ncouncils = size( ofdata )[1]
-        councils = makecouncilframe( ncouncils )
-        carer_data = makecarerframe(0)
-        yp_data = makeypframe(0)
+        councils = make_council_frame( ncouncils )
+        carer_data = make_carer_frame(0)
+        yp_data = make_yp_frame(0)
         nc = 0
         pid = 0
         r = 0
@@ -553,7 +556,7 @@ module CareData
                 if settings.reaching_18s_source == OFSTED
                     new_reached_18_base = settings.prp_reach_18 * total_fostered
                 else
-                    new_reached_18_base = get18slevelfromdoe( ccode )
+                    new_reached_18_base = get_18s_level_from_doe( ccode )
                     if ismissing( new_reached_18_base )
                         new_reached_18_base = settings.prp_reach_18 * total_fostered # fallback
                     end
@@ -592,17 +595,16 @@ module CareData
             year_matches = year_matches )
     end
 
-    function loadall()
-        ofdata = load( DATADIR*"edited/OFDATA.csv" ) |> DataFrame
+    function load_all( year :: Integer )::NamedTuple
+        ofdata = load( DATADIR*"edited/$(year)/OFDATA.csv" ) |> DataFrame
         lcnames = Symbol.(Utils.basiccensor.(string.(names(ofdata))))
-        names!(ofdata, lcnames )
+        rename!(ofdata, lcnames )
         # loadtable( DATADIR*"edited/OFDATA.csv", indexcols=[:ccode] )
-        grantdata = load( DATADIR*"edited/GRANTS_2019.csv" ) |> DataFrame
+        grantdata = load( DATADIR*"edited/$(year)GRANTS_$(year).csv" ) |> DataFrame
         # loadtable(  DATADIR*"edited/GRANTS_2019.csv", indexcols=[:ccode] )
         lcnames = Symbol.(Utils.basiccensor.(string.(names(grantdata))))
-        names!(grantdata, lcnames )
-
+        rename!(grantdata, lcnames )
         (ofdata=ofdata, grantdata=grantdata )
-    end
+    end # load_all
 
 end
