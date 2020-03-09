@@ -27,7 +27,7 @@ module StayingPutSim
 
     using CareData
     using FosterParameters
-    using LAModelData: payclassfromregioncode
+    using LAModelData: get_pay_class_from_region_code
     export maincalc, doonecalc, overrideoutcomes!, basiccalc, trackseries
 
     function basiccalc(
