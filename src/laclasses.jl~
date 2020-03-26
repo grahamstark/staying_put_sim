@@ -137,7 +137,7 @@ end
 
 @enum Region london se rest_of_england
 
-function pay_class_from_region_code( regcode :: AbstractString ) :: Region
+function payclassfromregioncode( regcode :: AbstractString ) :: Region
     # E12000001  #	A 	North East England
     # E12000002  # 	B 	North West England
     # E12000003  #	D 	Yorkshire and the Humber

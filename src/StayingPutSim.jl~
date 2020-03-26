@@ -27,10 +27,10 @@ module StayingPutSim
 
     using CareData
     using FosterParameters
-    using LAModelData: pay_class_from_region_code
-    export do_one_calc, override_outcomes!, do_basic_calc, trackseries
+    using LAModelData: payclassfromregioncode
+    export maincalc, doonecalc, overrideoutcomes!, basiccalc, trackseries
 
-    function do_basic_calc(
+    function basiccalc(
         ccode        :: AbstractString,
         year         :: Integer,
         carer        :: Carer,
@@ -54,7 +54,7 @@ module StayingPutSim
             allowance    = allow1,
             housing_cont = 0.0,
             other_cont   = 0.0 )
-    end # do_basic_calc
+    end
 
     FUNCS = Dict()
 
@@ -96,7 +96,7 @@ module StayingPutSim
         yp           :: YP,
         council_data :: DataFrameRow,
         params       :: Params ) :: CarerOutcomes
-        outcomes = do_basic_calc( ccode, year, carer, yp, council_data, params )
+        outcomes = basiccalc( ccode, year, carer, yp, council_data, params )
         hcontrib = uprate( 50.0, year, AFC_SURVEY_YEAR )
         if yp.employment_status == NEET
             outcomes.housing_cont = min( hcontrib, yp.housing_costs )
@@ -105,7 +105,7 @@ module StayingPutSim
         outcomes
     end
 
-    function oldham_style_fee(
+    function oldhamstylefee(
         year         :: Integer,
         carer        :: Carer,
         yp           :: YP,
@@ -120,12 +120,12 @@ module StayingPutSim
         fee
     end
 
-    function random_oldham_fee(
+    function randomoldhamfee(
         year         :: Integer,
         carer        :: Carer,
         yp           :: YP,
         fees         :: Vector ) :: Real
-        fee = oldham_style_fee( year, carer, yp, fees )
+        fee = oldhamstylefee( year, carer, yp, fees )
         prop = 0.86 # see AFC note
         if rand() > prop
             fee = 0.0
@@ -145,7 +145,7 @@ module StayingPutSim
         yp           :: YP,
         council_data :: DataFrameRow,
         params       :: Params ) :: CarerOutcomes
-        outcomes = do_basic_calc( ccode, year, carer, yp, council_data, params )
+        outcomes = basiccalc( ccode, year, carer, yp, council_data, params )
         fees = uprate.( [0, 78.38, 158.76, 237.23, 340.76], AFC_SURVEY_YEAR  )
         fee = fees[carer.skill_level]
         if yp.age == 19
@@ -186,7 +186,7 @@ module StayingPutSim
         yp           :: YP,
         council_data :: DataFrameRow,
         params       :: Params ) :: CarerOutcomes
-        outcomes = do_basic_calc( ccode, year, carer, yp, council_data, params )
+        outcomes = basiccalc( ccode, year, carer, yp, council_data, params )
         # Staying Put is paid at the same rate as supported
         # lodging which is £177.76 plus £22 contribution from the
         # young person Total £199.76
@@ -201,7 +201,7 @@ module StayingPutSim
         yp           :: YP,
         council_data :: DataFrameRow,
         params       :: Params ) :: CarerOutcomes
-        outcomes = do_basic_calc( ccode, year, carer, yp, council_data, params )
+        outcomes = basiccalc( ccode, year, carer, yp, council_data, params )
         paylim = uprate( 50.0, year,  AFC_SURVEY_YEAR )
         outcomes.other_cont = max(0.0, 0.5*(yp.earnings - paylim))
         outcomes
@@ -214,7 +214,7 @@ module StayingPutSim
         yp           :: YP,
         council_data :: DataFrameRow,
         params       :: Params ) :: CarerOutcomes
-        outcomes = do_basic_calc( ccode, year, carer, yp, council_data, params )
+        outcomes = basiccalc( ccode, year, carer, yp, council_data, params )
         outcomes.other_cont = uprate( 12.0, year, AFC_SURVEY_YEAR )
         # 241.72 less YP & HB payments
         if yp.employment_status == NEET
@@ -235,7 +235,7 @@ module StayingPutSim
         yp           :: YP,
         council_data :: DataFrameRow,
         params       :: Params ) :: CarerOutcomes
-        outcomes = do_basic_calc( ccode, year, carer, yp, council_data, params )
+        outcomes = basiccalc( ccode, year, carer, yp, council_data, params )
         outcomes.other_cont = uprate( 23.0, year, AFC_SURVEY_YEAR )
         if yp.employment_status == NEET
             outcomes.housing_cont = yp.housing_costs
@@ -255,7 +255,7 @@ module StayingPutSim
         yp           :: YP,
         council_data :: DataFrameRow,
         params       :: Params ) :: CarerOutcomes
-        outcomes = do_basic_calc( ccode, year, carer, yp, council_data, params )
+        outcomes = basiccalc( ccode, year, carer, yp, council_data, params )
         if yp.employment_status == NEET
             outcomes.housing_cont = yp.housing_costs
         end
@@ -274,7 +274,7 @@ module StayingPutSim
         yp           :: YP,
         council_data :: DataFrameRow,
         params       :: Params ) :: CarerOutcomes
-        outcomes = do_basic_calc( ccode, year, carer, yp, council_data, params )
+        outcomes = basiccalc( ccode, year, carer, yp, council_data, params )
         outcomes.other_cont = uprate( 30.0, year, AFC_SURVEY_YEAR )
         if yp.employment_status == NEET
             outcomes.housing_cont = yp.housing_costs
@@ -292,7 +292,7 @@ module StayingPutSim
         yp           :: YP,
         council_data :: DataFrameRow,
         params       :: Params ) :: CarerOutcomes
-        outcomes = do_basic_calc( ccode, year, carer, yp, council_data, params )
+        outcomes = basiccalc( ccode, year, carer, yp, council_data, params )
         hcontrib = uprate( 92.0, year, AFC_SURVEY_YEAR )
         if yp.employment_status == NEET
             outcomes.housing_cont = min( hcontrib, yp.housing_costs )
@@ -332,7 +332,7 @@ module StayingPutSim
         yp           :: YP,
         council_data :: DataFrameRow,
         params       :: Params ) :: CarerOutcomes
-        outcomes = do_basic_calc( ccode, year, carer, yp, council_data, params )
+        outcomes = basiccalc( ccode, year, carer, yp, council_data, params )
         othcontrib = uprate( 25.13, year, AFC_SURVEY_YEAR )
         if yp.employment_status == NEET
             outcomes.housing_cont = yp.housing_costs
@@ -351,7 +351,7 @@ module StayingPutSim
         yp           :: YP,
         council_data :: DataFrameRow,
         params       :: Params ) :: CarerOutcomes
-        outcomes = do_basic_calc( ccode, year, carer, yp, council_data, params )
+        outcomes = basiccalc( ccode, year, carer, yp, council_data, params )
         hcontrib = uprate( 60.0, year, AFC_SURVEY_YEAR )
         if yp.employment_status == NEET
             outcomes.housing_cont = min( hcontrib, yp.housing_costs )
@@ -371,7 +371,7 @@ module StayingPutSim
         yp           :: YP,
         council_data :: DataFrameRow,
         params       :: Params ) :: CarerOutcomes
-        outcomes = do_basic_calc( ccode, year, carer, yp, council_data, params )
+        outcomes = basiccalc( ccode, year, carer, yp, council_data, params )
         if yp.employment_status == NEET
             outcomes.housing_cont = yp.housing_costs
         end
@@ -389,7 +389,7 @@ module StayingPutSim
         yp           :: YP,
         council_data :: DataFrameRow,
         params       :: Params ) :: CarerOutcomes
-        outcomes = do_basic_calc( ccode, year, carer, yp, council_data, params )
+        outcomes = basiccalc( ccode, year, carer, yp, council_data, params )
         if yp.earnings > 0.0
             outcomes.other_cont = yp.earnings * 0.5 # FIXME completely made up number
         end
@@ -410,7 +410,7 @@ module StayingPutSim
             yp           :: YP,
             council_data :: DataFrameRow,
             params       :: Params ) :: CarerOutcomes
-            outcomes = do_basic_calc( ccode, year, carer, yp, council_data, params )
+            outcomes = basiccalc( ccode, year, carer, yp, council_data, params )
             if carer.skill_level > 3
                 outcomes.allowance = uprate( 331.50, year, AFC_SURVEY_YEAR )
             end
@@ -435,7 +435,7 @@ module StayingPutSim
         yp           :: YP,
         council_data :: DataFrameRow,
         params       :: Params ) :: CarerOutcomes
-        outcomes = do_basic_calc( ccode, year, carer, yp, council_data, params )
+        outcomes = basiccalc( ccode, year, carer, yp, council_data, params )
         hcontrib = uprate( 60.0, year, AFC_SURVEY_YEAR )
         if yp.employment_status == NEET
             outcomes.housing_cont = min( hcontrib, yp.housing_costs )
@@ -457,7 +457,7 @@ module StayingPutSim
         yp           :: YP,
         council_data :: DataFrameRow,
         params       :: Params ) :: CarerOutcomes
-        outcomes = do_basic_calc( ccode, year, carer, yp, council_data, params )
+        outcomes = basiccalc( ccode, year, carer, yp, council_data, params )
         if yp.employment_status == NEET
             outcomes.housing_cont = yp.housing_costs
         end
@@ -480,7 +480,7 @@ module StayingPutSim
         yp           :: YP,
         council_data :: DataFrameRow,
         params       :: Params ) :: CarerOutcomes
-        outcomes = do_basic_calc( ccode, year, carer, yp, council_data, params )
+        outcomes = basiccalc( ccode, year, carer, yp, council_data, params )
         outcomes
     end
 
@@ -511,7 +511,7 @@ module StayingPutSim
         yp           :: YP,
         council_data :: DataFrameRow,
         params       :: Params ) :: CarerOutcomes
-        outcomes = do_basic_calc( ccode, year, carer, yp, council_data, params )
+        outcomes = basiccalc( ccode, year, carer, yp, council_data, params )
         othcontrib = uprate( 34.41, year, AFC_SURVEY_YEAR )
         if yp.employment_status == NEET
             outcomes.housing_cont = yp.housing_costs
@@ -546,7 +546,7 @@ module StayingPutSim
         yp           :: YP,
         council_data :: DataFrameRow,
         params       :: Params ) :: CarerOutcomes
-        outcomes = do_basic_calc( ccode, year, carer, yp, council_data, params )
+        outcomes = basiccalc( ccode, year, carer, yp, council_data, params )
         othcontrib = uprate( 20.0, year, AFC_SURVEY_YEAR )
         outcomes.other_cont = othcontrib
         outcomes
@@ -562,7 +562,7 @@ module StayingPutSim
         yp           :: YP,
         council_data :: DataFrameRow,
         params       :: Params ) :: CarerOutcomes
-        outcomes = do_basic_calc( ccode, year, carer, yp, council_data, params )
+        outcomes = basiccalc( ccode, year, carer, yp, council_data, params )
         othcontrib = uprate( 20.0, year, AFC_SURVEY_YEAR )
         outcomes.other_cont = othcontrib
         outcomes
@@ -570,7 +570,7 @@ module StayingPutSim
 
     ## FIXME random band fee took middle
     FUNCS["XXHerefordshire"]=function( cohort :: Vector, data :: DataFrameRow, params :: Params )
-        frame = do_basic_calc( "Herefordshire", cohort, data, params )
+        frame = basiccalc( "Herefordshire", cohort, data, params )
         # £118.00 per week. £210 (£118.00 + £92.00) if the young person does not receive housing benefits.
     end
 
@@ -581,7 +581,7 @@ module StayingPutSim
         yp           :: YP,
         council_data :: DataFrameRow,
         params       :: Params ) :: CarerOutcomes
-        outcomes = do_basic_calc( ccode, year, carer, yp, council_data, params )
+        outcomes = basiccalc( ccode, year, carer, yp, council_data, params )
         othcontrib = uprate( 10.0, year, AFC_SURVEY_YEAR )
         outcomes.other_cont = othcontrib
         outcomes
@@ -594,7 +594,7 @@ module StayingPutSim
         yp           :: YP,
         council_data :: DataFrameRow,
         params       :: Params ) :: CarerOutcomes
-        outcomes = do_basic_calc( ccode, year, carer, yp, council_data, params )
+        outcomes = basiccalc( ccode, year, carer, yp, council_data, params )
         othcontrib = uprate( 13.0, year, AFC_SURVEY_YEAR )
         outcomes.other_cont = othcontrib
         outcomes
@@ -602,7 +602,7 @@ module StayingPutSim
 
     ## FIXME come back & see if I can make some sense out of Wigan
     FUNCS["XXWigan"]=function( cohort :: Vector, data :: DataFrameRow, params :: Params )
-        frame = do_basic_calc( "Wigan", cohort, data, params )
+        frame = basiccalc( "Wigan", cohort, data, params )
         # Year 1. We have 2 rates within the first year 1 – Standard Staying Put Rate of £170.00
         # per week 2 – Providers are paid their current Fostering rate until the end of the Academic Year – these fees range between £307 and £586 per week dependant on what Tier they are on as a foster carer.
         # Years 2 & 3. We pay all Staying Put arrangements standard fee of £170.00 per week.
@@ -631,7 +631,7 @@ module StayingPutSim
         yp           :: YP,
         council_data :: DataFrameRow,
         params       :: Params ) :: CarerOutcomes
-        outcomes = do_basic_calc( ccode, year, carer, yp, council_data, params )
+        outcomes = basiccalc( ccode, year, carer, yp, council_data, params )
         hcontrib = uprate( 66.70, year, AFC_SURVEY_YEAR )
         othcontrib = uprate( 30.0, year, AFC_SURVEY_YEAR )
         if yp.employment_status == NEET
@@ -648,7 +648,7 @@ module StayingPutSim
         yp           :: YP,
         council_data :: DataFrameRow,
         params       :: Params ) :: CarerOutcomes
-        outcomes = do_basic_calc( ccode, year, carer, yp, council_data, params )
+        outcomes = basiccalc( ccode, year, carer, yp, council_data, params )
         if yp.employment_status == NEET
             outcomes.other_cont = yp.benefits
         end
@@ -703,7 +703,7 @@ module StayingPutSim
         council_data :: DataFrameRow,
         params       :: Params ) :: CarerOutcomes
 
-        outcomes = do_basic_calc( ccode, year, carer, yp, council_data, params )
+        outcomes = basiccalc( ccode, year, carer, yp, council_data, params )
         othcontrib = uprate( 10.0, year, AFC_SURVEY_YEAR )
         if yp.employment_status == NEET
             outcomes.housing_cont = yp.housing_costs
@@ -728,7 +728,7 @@ module StayingPutSim
         council_data :: DataFrameRow,
         params       :: Params ) :: CarerOutcomes
         othcontrib = uprate( 10.0, year, AFC_SURVEY_YEAR )
-        outcomes = do_basic_calc( ccode, year, carer, yp, council_data, params )
+        outcomes = basiccalc( ccode, year, carer, yp, council_data, params )
         if yp.age == 19
             outcomes.allowance *= 0.75
         elseif yp.age == 20
@@ -754,7 +754,7 @@ module StayingPutSim
         yp           :: YP,
         council_data :: DataFrameRow,
         params       :: Params ) :: CarerOutcomes
-        fee = oldham_style_fee( year, carer, yp, [0, 78.38, 158.76, 237.23, 340.76] )
+        fee = oldhamstylefee( year, carer, yp, [0, 78.38, 158.76, 237.23, 340.76] )
         CarerOutcomes( fee=fee, allowance=0.0, housing_cont =0, other_cont=0)
     end
 
@@ -773,7 +773,7 @@ module StayingPutSim
         yp           :: YP,
         council_data :: DataFrameRow,
         params       :: Params ) :: CarerOutcomes
-    outcomes = do_basic_calc( ccode, year, carer, yp, council_data, params )
+    outcomes = basiccalc( ccode, year, carer, yp, council_data, params )
     othcontrib = uprate( 11.0, year, AFC_SURVEY_YEAR )
     if yp.employment_status == NEET
         outcomes.housing_cont = yp.housing_costs
@@ -837,7 +837,7 @@ end
     # @enum UpratingType no_uprating by_benefits by_cpi
 
     # now override
-    function override_outcomes!(
+    function overrideoutcomes!(
         outcomes     :: CarerOutcomes,
         ccode        :: AbstractString,
         year         :: Integer,
@@ -889,7 +889,7 @@ end
         outcomes
     end
 
-    function do_one_calc(
+    function doonecalc(
         ccode        :: AbstractString,
         year         :: Integer,
         carer        :: Carer,
@@ -906,7 +906,7 @@ end
                 council_data,
                 params )
         else
-            outcomes = do_basic_calc(
+            outcomes = basiccalc(
                 ccode,
                 year,
                 carer,
@@ -914,7 +914,7 @@ end
                 council_data,
                 params )
         end
-        override_outcomes!(
+        overrideoutcomes!(
             outcomes,
             ccode,
             year,
@@ -924,7 +924,7 @@ end
             params )
         fillcomponents!( outcomes )
         outcomes
-    end # do_one_calc
+    end # doonecalc
 
 
     function trackseries(

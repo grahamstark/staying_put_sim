@@ -470,7 +470,7 @@ module CareData
             THIS_YEAR )
     end
 
-    function add_aged_data!(
+    function addageddata!(
         ;
         yp_dataset,
         carer_dataset,
@@ -517,7 +517,7 @@ module CareData
             agecarer!( carer, thisyear )
             thisyear += 1
         end
-    end # add_aged_data!
+    end # addageddata!
 
     function create_base_datasets(
         ofdata   :: DataFrame,
@@ -571,7 +571,7 @@ module CareData
                     println( "adding $new_reached_18 people for council $ccode total fostered $total_fostered y=$y g=$g new_reached_18_base=$new_reached_18_base")
                     for i in 1:new_reached_18
                         pid += 1
-                        add_aged_data!(
+                        addageddata!(
                             yp_dataset = yp_data,
                             carer_dataset = carer_data,
                             pid=pid,

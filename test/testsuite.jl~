@@ -114,7 +114,7 @@ module testsuite
             for year in 2019:2030
                 for i in 1:1000
                     pid += 1
-                    CareData.add_aged_data!(
+                    CareData.addageddata!(
                         yp_dataset = yp_data,
                         carer_dataset = carer_data,
                         pid=pid,
@@ -152,10 +152,10 @@ module testsuite
         println( council.rcode )
         outcomes = CarerOutcomes( 100.0, 50.0, 25.0, 150.0 )
         baseoutcomes = CarerOutcomes( 100.0, 50.0, 25.0, 150.0 )
-        params = get_default_params()
+        params = getdefaultparams()
         settings = default_data_settings()
         year = 2019
-        StayingPutSim.override_outcomes!(
+        StayingPutSim.overrideoutcomes!(
             outcomes,
             council.ccode,
             year,#         :: Integer,
@@ -165,10 +165,10 @@ module testsuite
             params ) #       :: Params )
         @test outcomes ≈ baseoutcomes
         baseoutcomes = CarerOutcomes( 100.0, 50.0, 25.0, 150.0 )
-        params = get_default_params()
+        params = getdefaultparams()
         settings = default_data_settings()
         year = 2019
-        StayingPutSim.override_outcomes!(
+        StayingPutSim.overrideoutcomes!(
             outcomes,
             council.ccode,
             year,#         :: Integer,
@@ -178,7 +178,7 @@ module testsuite
             params ) #       :: Params )
         params.yp_contrib_type = no_contribution
         println( "outcomees before no_yp_contrib=$outcomes")
-        StayingPutSim.override_outcomes!(
+        StayingPutSim.overrideoutcomes!(
             outcomes,
             council.ccode,
             year,#         :: Integer,
@@ -187,14 +187,14 @@ module testsuite
             council, # :: DataFrameRow,
             params ) #       :: Params )
 
-        println( "outcomes after no_yp_contrib=$outcomes")
+        println( "outcomees after no_yp_contrib=$outcomes")
         @test outcomes.contributions_from_yp == 0
         @test outcomes.income_recieved == baseoutcomes.income_recieved
         @test outcomes.payments_from_la == baseoutcomes.income_recieved
 
         params.yp_contrib_type = flat_rate
         params.yp_contrib = 10.0
-        StayingPutSim.override_outcomes!(
+        StayingPutSim.overrideoutcomes!(
             outcomes,
             council.ccode,
             year,#         :: Integer,
@@ -207,10 +207,10 @@ module testsuite
         @test outcomes.income_recieved == baseoutcomes.income_recieved
         @test outcomes.payments_from_la == baseoutcomes.income_recieved-10.0
 
-        params = get_default_params()
+        params = getdefaultparams()
         params.payment = min_payment
-        rcode = pay_class_from_region_code( council.rcode )
-        StayingPutSim.override_outcomes!(
+        rcode = payclassfromregioncode( council.rcode )
+        StayingPutSim.overrideoutcomes!(
             outcomes,
             council.ccode,
             year,#         :: Integer,

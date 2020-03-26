@@ -177,7 +177,7 @@ module StayingPutModelDriver
                     council_data = ofdata[1,:]
                     # println(mainrun_dfe ofdata.council )
                     for sysno in 1:numsystems
-                        outcomes = StayingPutSim.do_one_calc(
+                        outcomes = StayingPutSim.doonecalc(
                             ccode,
                             year,
                             carer,
