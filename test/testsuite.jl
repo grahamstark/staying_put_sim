@@ -33,7 +33,7 @@ module testsuite
         rcc3 = region_code_from_name( name )
         @test rcc3 == regionc
 
-        cc = codefromname( name )
+        cc = code_from_name( name )
         @test cc == code
 
         rcc = region_code_from_name( name  )

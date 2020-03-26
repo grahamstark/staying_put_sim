@@ -9,7 +9,7 @@ module ONSCodes
     using Utils
 
     export loadlas, regionnamefromcode, region_name_from_name, region_code_from_code, rcodefromccode
-    export region_code_from_name, codefromname, isaggregate, createbrlookup, pickbratrandom
+    export region_code_from_name, code_from_name, isaggregate, createbrlookup, pickbratrandom
 
     """
     This loads the file of ONS codes and names I downloaded from [here]().
@@ -146,26 +146,26 @@ module ONSCodes
 
     function region_code_from_code( name :: AbstractString )
         region = regionnamefromcode( name )
-        return codefromname( region )
+        return code_from_name( region )
     end
 
     function region_code_from_name( name :: AbstractString )
         region = region_name_from_name( name )
-        return codefromname( region )
+        return code_from_name( region )
     end
 
-    function codefromname( name :: Missing )
+    function code_from_name( name :: Missing )
         missing
     end
 
-    function codefromname( name :: Nothing )
+    function code_from_name( name :: Nothing )
         missing
     end
 
     """
     returns the ONS code for the given LA/Region name
     """
-    function codefromname( name :: AbstractString )
+    function code_from_name( name :: AbstractString )
         # println( "name $name " )
        q = @from i in LAMAPPINGS begin
            @where basiccensor(i.name) == basiccensor(name)
