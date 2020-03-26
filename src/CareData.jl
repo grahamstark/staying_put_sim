@@ -7,6 +7,7 @@ module CareData
     using Query
     using IterableTables
     using CSVFiles
+    using CSV
     using IteratorInterfaceExtensions
     import TableTraits: isiterabletable
 
@@ -596,11 +597,11 @@ module CareData
     end
 
     function load_all( year :: Integer )::NamedTuple
-        ofdata = load( DATADIR*"edited/$(year)/OFDATA.csv" ) |> DataFrame
+        ofdata = CSV.File( DATADIR*"edited/$(year)/OFDATA.csv" ) |> DataFrame
         lcnames = Symbol.(Utils.basiccensor.(string.(names(ofdata))))
         rename!(ofdata, lcnames )
         # loadtable( DATADIR*"edited/OFDATA.csv", indexcols=[:ccode] )
-        grantdata = load( DATADIR*"edited/$(year)GRANTS_$(year).csv" ) |> DataFrame
+        grantdata = load( DATADIR*"edited/$(year)/GRANTS_$(year).csv" ) |> DataFrame
         # loadtable(  DATADIR*"edited/GRANTS_2019.csv", indexcols=[:ccode] )
         lcnames = Symbol.(Utils.basiccensor.(string.(names(grantdata))))
         rename!(grantdata, lcnames )
