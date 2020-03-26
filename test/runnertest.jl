@@ -20,7 +20,7 @@ module runnertest
     grantdata = CSV.File( DATADIR*"edited/GRANTS_2019.csv" ) |> DataFrame
 
     @testset "SP Sim" begin
-        alldata = CareData.loadall()
+        alldata = CareData.load_all()
         iterations = 200
         for iteration in 1:iterations
             yp_data = CSV.File( DATADIR*"created_doe/yp_data_$iteration.csv" ) |> DataFrame

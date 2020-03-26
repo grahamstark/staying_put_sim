@@ -13,8 +13,8 @@ using DataFrames
 using CareData
 using Query
 import CareData:
-    loadall,
-    get_yp, makeypframe, makecarerframe,
+    load_all,
+    get_yp, make_yp_frame, make_carer_frame,
     Carer, YP,
     create_base_datasets, add_carer_to_frame!,
     DataSettings, default_data_settings,

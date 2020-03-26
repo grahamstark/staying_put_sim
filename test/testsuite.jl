@@ -51,10 +51,10 @@ module testsuite
         exits = get_staying_rates( "E09000003", local_authority, true )
     end
 
-    alldata = CareData.loadall()
+    alldata = CareData.load_all()
 
-    carer_dataset = CareData.makecarerframe(0)
-    yp_dataset = CareData.makeypframe(0)
+    carer_dataset = CareData.make_carer_frame(0)
+    yp_dataset = CareData.make_yp_frame(0)
 
     @testset "Population Creation" begin
         settings = CareData.default_data_settings()
@@ -100,8 +100,8 @@ module testsuite
         end
 
         for t = 1:3
-            carer_data = CareData.makecarerframe(0)
-            yp_data = CareData.makeypframe(0)
+            carer_data = CareData.make_carer_frame(0)
+            yp_data = CareData.make_yp_frame(0)
             ladata = Dict()
             if t == 1
                 stayingrates = [0.0,0.0,0.0]
@@ -146,7 +146,7 @@ module testsuite
         carer = CareData.Carer( -1, 40,0.0,0.1,0.2, 1,3 )
         yp = CareData.YP( 18, 1.0, 2.0, 3.0, OtherEd )
 
-        cq = CareData.loadall()
+        cq = CareData.load_all()
         council = cq.ofdata[50,:]
         println(typeof( council ))
         println( council.rcode )

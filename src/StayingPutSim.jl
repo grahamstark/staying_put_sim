@@ -21,8 +21,8 @@ module StayingPutSim
     using Utils
     using GlobalDecls
 
-    #import CareData: Carer, YP, create_base_datasets, DataSettings, get_yp, makeypframe,
-#        makecarerframe,  DataSettings, CPIINDEX, CarerOutcomes, uprate,  AFC_SURVEY_YEAR,
+    #import CareData: Carer, YP, create_base_datasets, DataSettings, get_yp, make_yp_frame,
+#        make_carer_frame,  DataSettings, CPIINDEX, CarerOutcomes, uprate,  AFC_SURVEY_YEAR,
 #        EmploymentStatus
 
     using CareData
