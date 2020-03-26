@@ -1,0 +1,29 @@
+ERROR: LoadError: File has multiple column headers with the same name, specify `colnames` by hand
+along with `header_exists=false`
+Stacktrace:
+ [1] error(::String) at ./error.jl:33
+ [2] #_csvread_internal#26(::Bool, ::Char, ::Char, ::Nothing, ::Type, ::Type, ::Bool, ::Int64, ::Nothing, ::Nothing, ::Int64, ::Nothing, ::Bool, ::Array{String,1}, ::Array{String,1}, ::OrderedCollections.OrderedDict{Union{Int64, String},AbstractArray{T,1} where T}, ::Int64, ::Nothing, ::Array{Any,1}, ::String, ::Int64, ::typeof(TextParse._csvread_internal), ::TextParse.VectorBackedUTF8String, ::Char) at /home/graham_s/.julia/packages/TextParse/tFXtC/src/csv.jl:239
+ [3] (::TextParse.var"#kw##_csvread_internal")(::NamedTuple{(:filename, :stringarraytype),Tuple{String,UnionAll}}, ::typeof(TextParse._csvread_internal), ::TextParse.VectorBackedUTF8String, ::Char) at ./none:0
+ [4] (::TextParse.var"#22#24"{Base.Iterators.Pairs{Symbol,UnionAll,Tuple{Symbol},NamedTuple{(:stringarraytype,),Tuple{UnionAll}}},String,Char})(::IOStream) at /home/graham_s/.julia/packages/TextParse/tFXtC/src/csv.jl:110
+ [5] #open#271(::Base.Iterators.Pairs{Union{},Union{},Tuple{},NamedTuple{,Tuple{}}}, ::typeof(open), ::TextParse.var"#22#24"{Base.Iterators.Pairs{Symbol,UnionAll,Tuple{Symbol},NamedTuple{(:stringarraytype,),Tuple{UnionAll}}},String,Char}, ::String, ::Vararg{String,N} where N) at ./io.jl:298
+ [6] open at ./io.jl:296 [inlined]
+ [7] #_csvread_f#20 at /home/graham_s/.julia/packages/TextParse/tFXtC/src/csv.jl:107 [inlined]
+ [8] #_csvread_f at ./none:0 [inlined]
+ [9] #csvread#16(::Base.Iterators.Pairs{Symbol,UnionAll,Tuple{Symbol},NamedTuple{(:stringarraytype,),Tuple{UnionAll}}}, ::typeof(TextParse.csvread), ::String, ::Char) at /home/graham_s/.julia/packages/TextParse/tFXtC/src/csv.jl:78
+ [10] (::TextParse.var"#kw##csvread")(::NamedTuple{(:stringarraytype,),Tuple{UnionAll}}, ::typeof(TextParse.csvread), ::String, ::Char) at ./none:0
+ [11] _loaddata(::CSVFiles.CSVFile) at /home/graham_s/.julia/packages/CSVFiles/bzcDf/src/CSVFiles.jl:103
+ [12] get_columns_copy_using_missing(::CSVFiles.CSVFile) at /home/graham_s/.julia/packages/CSVFiles/bzcDf/src/CSVFiles.jl:116
+ [13] columns at /home/graham_s/.julia/packages/Tables/1IgAk/src/fallbacks.jl:225 [inlined]
+ [14] #DataFrame#453(::Bool, ::Type{DataFrames.DataFrame}, ::CSVFiles.CSVFile) at /home/graham_s/.julia/packages/DataFrames/S3ZFo/src/other/tables.jl:40
+ [15] DataFrames.DataFrame(::CSVFiles.CSVFile) at /home/graham_s/.julia/packages/DataFrames/S3ZFo/src/other/tables.jl:31
+ [16] |>(::CSVFiles.CSVFile, ::Type) at ./operators.jl:854
+ [17] load_all(::Int64) at /home/graham_s/VirtualWorlds/projects/action_for_children/england/src/CareData.jl:599
+ [18] create_data(::CareData.DataSettings) at /home/graham_s/VirtualWorlds/projects/action_for_children/england/src/DataCreationDriver.jl:19
+ [19] do_main_run(::CareData.DataPublisher, ::Float64, ::Int64) at /home/graham_s/VirtualWorlds/projects/action_for_children/england/src/load.jl:92
+ [20] top-level scope at /home/graham_s/VirtualWorlds/projects/action_for_children/england/src/load.jl:119
+ [21] include at ./boot.jl:328 [inlined]
+ [22] include_relative(::Module, ::String) at ./loading.jl:1105
+ [23] include(::Module, ::String) at ./Base.jl:31
+ [24] exec_options(::Base.JLOptions) at ./client.jl:287
+ [25] _start() at ./client.jl:460
+in expression starting at /home/graham_s/VirtualWorlds/projects/action_for_children/england/src/load.jl:119
