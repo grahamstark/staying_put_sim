@@ -27,28 +27,28 @@ module testsuite
 
     @testset "Data Edit Tests" begin
 
-        rc = regioncodefromcode( code )
+        rc = region_code_from_code( code )
         @test rc == regionc
 
-        rcc3 = regioncodefromname( name )
+        rcc3 = region_code_from_name( name )
         @test rcc3 == regionc
 
         cc = codefromname( name )
         @test cc == code
 
-        rcc = regioncodefromname( name  )
+        rcc = region_code_from_name( name  )
         @test rcc == regionc
 
-        rcc2 = regioncodefromname( regionn  )
+        rcc2 = region_code_from_name( regionn  )
         @test rcc2 == regionc
 
-        rcn = regionnamefromname( name )
+        rcn = region_name_from_name( name )
         @test rcn == regionn
     end
 
     @testset "ladata tests" begin
-        x=doexitratequery( 2017, "E09000002", 18 )
-        exits = getstayingrates( "E09000003", local_authority, true )
+        x=do_exit_rate_query( 2017, "E09000002", 18 )
+        exits = get_staying_rates( "E09000003", local_authority, true )
     end
 
     alldata = CareData.loadall()
@@ -67,8 +67,8 @@ module testsuite
             for cno in 1:npy
                 cn = cno <= 200 ? "C1" : "C2"
                 carer.id = cno
-                CareData.addcarertoframe!( carer_dataset,  year, cn, carer )
-                CareData.addyptoframe!( yp_dataset, year, cn, carer.id, yp )
+                CareData.add_carer_to_frame!( carer_dataset,  year, cn, carer )
+                CareData.add_yp_to_frame!( yp_dataset, year, cn, carer.id, yp )
             end
         end
         println( size(carer_dataset))
@@ -76,10 +76,10 @@ module testsuite
         # println( carer_dataset )
         @assert size( carer_dataset )[1] == no
         @time for year in 2019:2025
-            carers = CareData.getcarers( carer_dataset, "C1", year )
+            carers = CareData.get_carers( carer_dataset, "C1", year )
             @test size( carers )[1] == 200
             for c in carers
-                yp = CareData.getyp( yp_dataset, year, c )
+                yp = CareData.get_yp( yp_dataset, year, c )
                 if( c.id % 10 ) == 0
                     @test yp.age == 18
                 end
@@ -89,10 +89,10 @@ module testsuite
         tcarer_dataset = JuliaDB.table( carer_dataset, pkey=[:year,:id])
         typ_dataset = JuliaDB.table( yp_dataset, pkey=[:year,:carer])
         @time for year in 2019:2025
-            carers = CareData.getcarers( tcarer_dataset, "C1", year )
+            carers = CareData.get_carers( tcarer_dataset, "C1", year )
             @test size( carers )[1] == 200
             for c in carers
-                yp = CareData.getyp2( typ_dataset, year, c )
+                yp = CareData.get_yp2( typ_dataset, year, c )
                 if( c.id % 200 ) == 0
                     @test yp.age == 18
                 end

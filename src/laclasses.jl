@@ -78,7 +78,7 @@ function gettargetla(
     agglev :: AggLevel ) :: AbstractString
     target = lacode
     if agglev == regional
-        target = regioncodefromcode( lacode )
+        target = region_code_from_code( lacode )
     elseif agglev == national
         target = "E92000001" # england
     end

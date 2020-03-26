@@ -14,9 +14,9 @@ using CareData
 using Query
 import CareData:
     loadall,
-    getyp, makeypframe, makecarerframe,
+    get_yp, makeypframe, makecarerframe,
     Carer, YP,
-    create_base_datasets, addcarertoframe!,
+    create_base_datasets, add_carer_to_frame!,
     DataSettings, default_data_settings,
     CPIINDEX, AFC_SURVEY_YEAR, THIS_YEAR, uprate,
     CarerOutcomes, addcareroutcomestoframe!, makecareroutcomesframe,
@@ -30,7 +30,7 @@ import GlobalDecls
 import ONSCodes
 import Utils
 using LAModelData
-import LAModelData: getstayingrates, get18slevelfromdoe
+import LAModelData: get_staying_rates, get18slevelfromdoe
 
 export test1,loadeng
 
@@ -64,7 +64,7 @@ end
 function testiterate()
     @time for carer_r in eachrow(created.carer_data)
         carer = CareData.carerfromrow( carer_r )
-        yp = CareData.getyp(
+        yp = CareData.get_yp(
             created.yp_data,
             carer_r.year,
             carer,
@@ -72,7 +72,7 @@ function testiterate()
     end
     @time for carer_r in eachrow(created.carer_data)
         carer = CareData.carerfromrow( carer_r )
-        yp = CareData.getyp(
+        yp = CareData.get_yp(
             created.yp_data,
             carer_r.year,
             carer,

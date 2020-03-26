@@ -8,8 +8,8 @@ module ONSCodes
     using GlobalDecls
     using Utils
 
-    export loadlas, regionnamefromcode, regionnamefromname, regioncodefromcode, rcodefromccode
-    export regioncodefromname, codefromname, isaggregate, createbrlookup, pickbratrandom
+    export loadlas, regionnamefromcode, region_name_from_name, region_code_from_code, rcodefromccode
+    export region_code_from_name, codefromname, isaggregate, createbrlookup, pickbratrandom
 
     """
     This loads the file of ONS codes and names I downloaded from [here]().
@@ -120,7 +120,7 @@ module ONSCodes
         v
     end
 
-    function regionnamefromname( name :: AbstractString )
+    function region_name_from_name( name :: AbstractString )
            q = @from i in LAMAPPINGS begin
                @where (i.name == name )
                @select lad = i.region
@@ -144,13 +144,13 @@ module ONSCodes
            s
     end
 
-    function regioncodefromcode( name :: AbstractString )
+    function region_code_from_code( name :: AbstractString )
         region = regionnamefromcode( name )
         return codefromname( region )
     end
 
-    function regioncodefromname( name :: AbstractString )
-        region = regionnamefromname( name )
+    function region_code_from_name( name :: AbstractString )
+        region = region_name_from_name( name )
         return codefromname( region )
     end
 
@@ -185,7 +185,7 @@ module ONSCodes
     function makeregionlookup( LAS :: DataFrame ) :: Dict
         d = Dict()
         for i in eachrow( LAS )
-            d[i.new_gss_code] = regioncodefromcode( i.new_gss_code )
+            d[i.new_gss_code] = region_code_from_code( i.new_gss_code )
         end
         d
     end

@@ -365,7 +365,7 @@ module StayingPutModelDriver
         by_region_sys_and_year = []
 
         main_results[!,:rcode] = map( ccode->rcodefromccode( ccode ), main_results[!,:ccode ] )
-        # data[rcode]=map( c->regioncodefromname(c), data[cname])
+        # data[rcode]=map( c->region_code_from_name(c), data[cname])
         for sysno in 1:num_systems
             by_region_sys_iteration_and_year = main_results |>
                 @filter( _.year > 2018 && _.year < 2025  && _.sysno == sysno ) |>

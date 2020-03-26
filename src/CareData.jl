@@ -13,12 +13,12 @@ module CareData
     using GlobalDecls
     using ONSCodes
     using Utils
-    import LAModelData: getstayingrates, get_18s_level_from_doe
+    import LAModelData: get_staying_rates, get_18s_level_from_doe
 
     export load_all
     export get_yp, make_yp_frame, make_carer_frame
     export Carer, YP
-    export create_base_datasets, addcarertoframe!
+    export create_base_datasets, add_carer_to_frame!
     export DataSettings, default_data_settings
     export CPIINDEX, AFC_SURVEY_YEAR, THIS_YEAR, uprate
     export CarerOutcomes, addcareroutcomestoframe!, makecareroutcomesframe
@@ -240,7 +240,7 @@ module CareData
      end
 
 
-     function getcarers(
+     function get_carers(
         carer_dataset,
         ccode :: AbstractString,
         year  :: Integer ) :: Array{Carer}
@@ -259,9 +259,9 @@ module CareData
             carers[j] = Carer( i.id, i.age, i.housing_costs, i.earnings, i.benefits, i.employment_status, i.skill_level )
         end
         carers
-     end # getcarers
+     end # get_carers
 
-    function addcarertoframe!( yp_dataset, year ::Integer, ccode :: AbstractString, carer :: Carer )
+    function add_carer_to_frame!( yp_dataset, year ::Integer, ccode :: AbstractString, carer :: Carer )
         @assert isiterabletable( yp_dataset ) "data needs to implement IterableTables; is "*typeof(yp_dataset)
         d = [ year, ccode, carer.id, carer.age, carer.housing_costs,
              carer.earnings, carer.benefits, carer.employment_status, carer.skill_level]
@@ -512,7 +512,7 @@ module CareData
                 break
             end
             addyptoframe!( yp_dataset, thisyear, ccode, carer.id, yp )
-            addcarertoframe!( carer_dataset, thisyear, ccode, carer )
+            add_carer_to_frame!( carer_dataset, thisyear, ccode, carer )
             ageyp!( yp, thisyear )
             agecarer!( carer, thisyear )
             thisyear += 1
@@ -548,7 +548,7 @@ module CareData
                 councils[:name][nc] = ofdat[:council]
                 councils[:ccode][nc] = ccode
                 councils[:rcode][nc] = ofdat[:rcode]
-                base_staying_rates = getstayingrates(
+                base_staying_rates = get_staying_rates(
                     ccode,
                     settings.agglevel,
                     settings.poolyears )

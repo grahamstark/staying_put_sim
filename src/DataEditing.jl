@@ -86,7 +86,7 @@ module DataEditing
     function add_ons_codes_to!( data :: DataFrame, cname :: Symbol, ccode :: Symbol, rcode :: Symbol )
         println( data[cname] )
         data[ccode]=map( c->codefromname(c), data[cname])
-        data[rcode]=map( c->regioncodefromname(c), data[cname])
+        data[rcode]=map( c->region_code_from_name(c), data[cname])
     end
 
 
