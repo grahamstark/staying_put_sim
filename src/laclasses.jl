@@ -13,7 +13,7 @@ function loadone( name :: AbstractString ) :: DataFrame
         name,
         delim=',',
         missingstrings=["x","","-"],
-        types=maketypeblock(6:1000)) |> DataFrame
+        types=make_type_block(6:1000)) |> DataFrame
     lcnames = Symbol.(lowercase.(string.(names(df))))
     names!(df,lcnames)
     df
@@ -78,7 +78,7 @@ function gettargetla(
     agglev :: AggLevel ) :: AbstractString
     target = lacode
     if agglev == regional
-        target = regioncodefromcode( lacode )
+        target = region_code_from_code( lacode )
     elseif agglev == national
         target = "E92000001" # england
     end
@@ -90,11 +90,11 @@ return the exit rates for the given LA - a named tuple a18,a19,a20
   will be the regional one if the calculation is not possible for an LA
   rates are proportions for that age - so 0.5,0.5,0.5 means 50% stay 1 year, 25% 2 12.5% 3 and so on
 """
-function getexitrates(
+function get_exit_rates(
     lacode    :: AbstractString,
     agglev    :: AggLevel,
     poolyears :: Bool  ) :: Vector
-    println( "getexitrates for lacode $lacode agglev $agglev" );
+    println( "get_exit_rates for lacode $lacode agglev $agglev" );
     avprop = zeros(3)
     target = gettargetla( lacode, agglev )
     ages = [18,19,20]
@@ -137,7 +137,7 @@ end
 
 @enum Region london se rest_of_england
 
-function payclassfromregioncode( regcode :: AbstractString ) :: Region
+function pay_class_from_region_code( regcode :: AbstractString ) :: Region
     # E12000001  #	A 	North East England
     # E12000002  # 	B 	North West England
     # E12000003  #	D 	Yorkshire and the Humber
@@ -156,7 +156,7 @@ function payclassfromregioncode( regcode :: AbstractString ) :: Region
     r
 end
 
-function isaggregate( ccode )
+function is_aggregate( ccode )
     if ccode === missing
         return true
     end

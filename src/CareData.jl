@@ -18,7 +18,7 @@ module CareData
     export load_all
     export get_yp, make_yp_frame, make_carer_frame
     export Carer, YP
-    export create_base_datasets, addcarertoframe!
+    export create_base_datasets, add_carer_to_frame!
     export DataSettings, default_data_settings
     export CPIINDEX, AFC_SURVEY_YEAR, THIS_YEAR, uprate
     export CarerOutcomes, addcareroutcomestoframe!, makecareroutcomesframe
@@ -240,7 +240,7 @@ module CareData
      end
 
 
-     function getcarers(
+     function get_carers(
         carer_dataset,
         ccode :: AbstractString,
         year  :: Integer ) :: Array{Carer}
@@ -259,9 +259,9 @@ module CareData
             carers[j] = Carer( i.id, i.age, i.housing_costs, i.earnings, i.benefits, i.employment_status, i.skill_level )
         end
         carers
-     end # getcarers
+     end # get_carers
 
-    function addcarertoframe!( yp_dataset, year ::Integer, ccode :: AbstractString, carer :: Carer )
+    function add_carer_to_frame!( yp_dataset, year ::Integer, ccode :: AbstractString, carer :: Carer )
         @assert isiterabletable( yp_dataset ) "data needs to implement IterableTables; is "*typeof(yp_dataset)
         d = [ year, ccode, carer.id, carer.age, carer.housing_costs,
              carer.earnings, carer.benefits, carer.employment_status, carer.skill_level]
@@ -401,7 +401,7 @@ module CareData
     see: http://sticerd.lse.ac.uk/case/ for what we really want to do here
     """
     function get_shared_accommodation_rate( ccode :: AbstractString )::Real
-        v = ONSCodes.getbravalue( ccode )
+        v = ONSCodes.get_brma_value( ccode )
         if v < 0.0
             v = 69.16
         end
@@ -470,7 +470,7 @@ module CareData
             THIS_YEAR )
     end
 
-    function addageddata!(
+    function add_aged_data!(
         ;
         yp_dataset,
         carer_dataset,
@@ -512,12 +512,12 @@ module CareData
                 break
             end
             addyptoframe!( yp_dataset, thisyear, ccode, carer.id, yp )
-            addcarertoframe!( carer_dataset, thisyear, ccode, carer )
+            add_carer_to_frame!( carer_dataset, thisyear, ccode, carer )
             ageyp!( yp, thisyear )
             agecarer!( carer, thisyear )
             thisyear += 1
         end
-    end # addageddata!
+    end # add_aged_data!
 
     function create_base_datasets(
         ofdata   :: DataFrame,
@@ -540,7 +540,7 @@ module CareData
         for ofdat in eachrow(ofdata)
             r += 1
             ccode = ofdat.ccode
-            if (! ONSCodes.isaggregate( ccode )) && (! (ccode in SKIPLIST ) )
+            if (! ONSCodes.is_aggregate( ccode )) && (! (ccode in SKIPLIST ) )
                 nc += 1
                 if nc > 2000 # test break if needed
                     break
@@ -571,7 +571,7 @@ module CareData
                     println( "adding $new_reached_18 people for council $ccode total fostered $total_fostered y=$y g=$g new_reached_18_base=$new_reached_18_base")
                     for i in 1:new_reached_18
                         pid += 1
-                        addageddata!(
+                        add_aged_data!(
                             yp_dataset = yp_data,
                             carer_dataset = carer_data,
                             pid=pid,

@@ -147,7 +147,7 @@ module StayingPutModelDriver
         settings :: DataSettings )
         main_results =  CareData.makecareroutcomesframe(0)
         grantdata = CSV.File( DATADIR*"edited/GRANTS_2019.csv" ) |> DataFrame
-        alldata = CareData.loadall()
+        alldata = CareData.load_all()
         run_data_dir = DATADIR*"/populations/"*settings.dataset*"/"
         output_dir = RESULTSDIR*"/"*settings.name*"/"
         println( "writing output to |$output_dir|")
@@ -164,9 +164,9 @@ module StayingPutModelDriver
             @time for r in 1:rc
                 year = yp_data[r,:year]
                 ccode = yp_data[r,:ccode]
-                rcode = rcodefromccode( ccode ) # yp_data[r,:rcode]
+                rcode = region_code_from_ccode( ccode ) # yp_data[r,:rcode]
                 # this test isn't strictly needed since we only create for live councils
-                if (! ONSCodes.isaggregate( ccode )) && (! ( ccode in SKIPLIST ))
+                if (! ONSCodes.is_aggregate( ccode )) && (! ( ccode in SKIPLIST ))
                     carer = CareData.carerfromrow( carer_data[r,:] )
                     yp = CareData.ypfromrow( yp_data[r,:])
                     @assert carer.id == yp_data[r,:carer]
@@ -177,7 +177,7 @@ module StayingPutModelDriver
                     council_data = ofdata[1,:]
                     # println(mainrun_dfe ofdata.council )
                     for sysno in 1:numsystems
-                        outcomes = StayingPutSim.doonecalc(
+                        outcomes = StayingPutSim.do_one_calc(
                             ccode,
                             year,
                             carer,
@@ -364,8 +364,8 @@ module StayingPutModelDriver
         main_results = CSVFiles.load( output_dir*"/main_results.csv" ) |> DataFrame
         by_region_sys_and_year = []
 
-        main_results[!,:rcode] = map( ccode->rcodefromccode( ccode ), main_results[!,:ccode ] )
-        # data[rcode]=map( c->regioncodefromname(c), data[cname])
+        main_results[!,:rcode] = map( ccode->region_code_from_ccode( ccode ), main_results[!,:ccode ] )
+        # data[rcode]=map( c->region_code_from_name(c), data[cname])
         for sysno in 1:num_systems
             by_region_sys_iteration_and_year = main_results |>
                 @filter( _.year > 2018 && _.year < 2025  && _.sysno == sysno ) |>

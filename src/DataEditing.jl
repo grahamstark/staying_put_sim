@@ -45,7 +45,7 @@ module DataEditing
             DATADIR*"Fostering_in_England_$(ys)_dataset_transposed_extended.csv",
             delim=',',
             missingstrings=["-999","",".."],
-            types=maketypeblock(3:1000,Float64)
+            types=make_type_block(3:1000,Float64)
              ) |> DataFrame
     end
 
@@ -85,8 +85,8 @@ module DataEditing
     """
     function add_ons_codes_to!( data :: DataFrame, cname :: Symbol, ccode :: Symbol, rcode :: Symbol )
         println( data[cname] )
-        data[ccode]=map( c->codefromname(c), data[cname])
-        data[rcode]=map( c->regioncodefromname(c), data[cname])
+        data[ccode]=map( c->code_from_name(c), data[cname])
+        data[rcode]=map( c->region_code_from_name(c), data[cname])
     end
 
 

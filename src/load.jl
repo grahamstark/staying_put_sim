@@ -18,12 +18,12 @@ module load
         settings.name = runname
 
         params = Array{Params}(undef,0)
-        params1 = Parameters.getdefaultparams()
+        params1 = Parameters.get_default_params()
         params1.name = "Current System"
 
         push!( params, params1 )
 
-        params2a1 = Parameters.getdefaultparams()
+        params2a1 = Parameters.get_default_params()
         params2a1.yp_contrib_type = no_contribution
         params2a1.contrib_hb = no_contribution
         params2a1.name = "option 2(a) with Oldham style fee"
@@ -31,7 +31,7 @@ module load
         params2a1.fee = [0, 78.38, 158.76, 237.23, 340.76] # oldham
         push!( params, params2a1 )
 
-        params2a2 = Parameters.getdefaultparams()
+        params2a2 = Parameters.get_default_params()
         params2a2.yp_contrib_type = no_contribution
         params2a2.contrib_hb = no_contribution
         params2a2.name = "option 2(a) without fee"
@@ -39,7 +39,7 @@ module load
         params2a2.fee = []
         push!( params, params2a2 )
 
-        params2b = Parameters.getdefaultparams()
+        params2b = Parameters.get_default_params()
         params2b.name = "option 2(b) with HB from all benefit recipients"
         params2b.payment = min_payment
         params2b.yp_contrib_type = no_contribution
@@ -47,7 +47,7 @@ module load
         params2b.contrib_hb = benefits_only
         push!( params, params2b )
 
-        params3 = Parameters.getdefaultparams()
+        params3 = Parameters.get_default_params()
         params3.yp_contrib_type = no_contribution
         params3.contrib_hb = no_contribution
         params3.name = "option 3 - 2(a) with taper"
@@ -69,7 +69,7 @@ module load
     FIXME this is a HORRIBLE hack
     see the FIXMEs in StayingPutModelDriver
     """
-    function createregiontables(
+    function create_region_tables(
         ;
         runname   :: AbstractString,
         whichdata :: AbstractString,
@@ -92,15 +92,15 @@ module load
             DataCreationDriver.create_data( settings )
         end
         params = Array{Params}(undef,0)
-        params1 = Parameters.getdefaultparams()
+        params1 = Parameters.get_default_params()
 
         push!( params, params1 )
 
-        params2 = Parameters.getdefaultparams()
+        params2 = Parameters.get_default_params()
         params2.payment = min_payment
         push!( params, params2 )
 
-        params3 = Parameters.getdefaultparams()
+        params3 = Parameters.get_default_params()
         params3.yp.yp_contrib_type = no_contribution
         push!( params, params3 )
 
@@ -140,13 +140,13 @@ module load
 #            whichdata = dsname,
 #            numiter   = 200 )
 #    end
-createregiontables(
+create_region_tables(
             runname   = "main-results-$(DEFAULT_DATA)",
             whichdata = DEFAULT_DATA,
             numiter   = 200 )
 
 #for dsname in datasets
-#        createregiontables(
+#        create_region_tables(
 #            runname   = "main-results-"*dsname,
 #            whichdata = dsname,
 #            numiter   = 200 )

@@ -8,13 +8,13 @@ module ONSCodes
     using GlobalDecls
     using Utils
 
-    export loadlas, regionnamefromcode, regionnamefromname, regioncodefromcode, rcodefromccode
-    export regioncodefromname, codefromname, isaggregate, createbrlookup, pickbratrandom
+    export load_las, region_name_from_code, region_name_from_name, region_code_from_code, region_code_from_ccode
+    export region_code_from_name, code_from_name, is_aggregate, create_brma_lookup, pick_brma_at_random
 
     """
     This loads the file of ONS codes and names I downloaded from [here]().
     """
-    function loadlas( name :: AbstractString ) :: DataFrame
+    function load_las( name :: AbstractString ) :: DataFrame
         df = CSV.File(
             name,
             delim='\t' ) |> DataFrame
@@ -26,8 +26,11 @@ module ONSCodes
         df
     end
 
-    function createbrlookup()
-        las = loadlas( DATADIR*"las/all_las.tab" )
+    """
+    Broad Rental Market Areas (BRMA)
+    """
+    function create_brma_lookup()
+        las = load_las( DATADIR*"las/all_las.tab" )
         brmap = CSV.File( DATADIR*"las/brmas/ladistrict_2_brma.csv" ) |> DataFrame
         lcnames = Symbol.(lowercase.(basiccensor.(string.(names(brmap)))))
         rename!(brmap,lcnames)
@@ -37,7 +40,7 @@ module ONSCodes
             end
         end
         println( brmap )
-        brlook = makebrmalookup(0)
+        brlook = make_brma_lookup(0)
         nlas = size(las)[1]
         for r in 1:nlas
             la = las[r,:]
@@ -68,13 +71,13 @@ module ONSCodes
         (brlook=brlook,brvalues=brvalues)
     end
 
-    LAMAPPINGS = loadlas( DATADIR*"las/all_las.tab" )
+    LAMAPPINGS = load_las( DATADIR*"las/all_las.tab" )
     BRVALUES_2019 = CSV.File( DATADIR*"las/brmas/2019-20_LHA_TABLES_EDITED.csv" ) |> DataFrame
     BRVALUES_2020 = CSV.File( DATADIR*"las/brmas/2020-21_LHA_TABLES_EDITED.csv" ) |> DataFrame
     BRVALUES = BRVALUES_2020
     BRLOOKUP = CSV.File( DATADIR*"las/brmas/brma_lookup.csv" ) |> DataFrame
 
-    function makebrmalookup( n :: Integer ) :: DataFrame
+    function make_brma_lookup( n :: Integer ) :: DataFrame
         DataFrame(
             ccode     = Vector{AbstractString}(undef,n),
             n         = Vector{Integer}(undef,n),
@@ -90,7 +93,7 @@ module ONSCodes
             brma10     = Vector{Union{AbstractString,Missing}}(missing,n))
     end
 
-    function pickbratrandom( ccode :: AbstractString ) :: AbstractString
+    function pick_brma_at_random( ccode :: AbstractString ) :: AbstractString
         which =BRLOOKUP.ccode .== ccode
         row = BRLOOKUP[which,:]
         # println(typeof(row))
@@ -105,8 +108,8 @@ module ONSCodes
         return ""
     end
 
-    function getbravalue( ccode :: AbstractString, field :: Symbol = :cat_a ) :: Real
-        name = pickbratrandom( ccode )
+    function get_brma_value( ccode :: AbstractString, field :: Symbol = :cat_a ) :: Real
+        name = pick_brma_at_random( ccode )
         v = -1.0
         if( name != "")
             which = BRVALUES.brma .== name
@@ -120,7 +123,7 @@ module ONSCodes
         v
     end
 
-    function regionnamefromname( name :: AbstractString )
+    function region_name_from_name( name :: AbstractString )
            q = @from i in LAMAPPINGS begin
                @where (i.name == name )
                @select lad = i.region
@@ -132,7 +135,7 @@ module ONSCodes
            s
     end
 
-    function regionnamefromcode( code :: AbstractString )
+    function region_name_from_code( code :: AbstractString )
            q = @from i in LAMAPPINGS begin
                @where (i.new_gss_code == code )
                @select lad = i.region
@@ -144,28 +147,28 @@ module ONSCodes
            s
     end
 
-    function regioncodefromcode( name :: AbstractString )
-        region = regionnamefromcode( name )
-        return codefromname( region )
+    function region_code_from_code( name :: AbstractString )
+        region = region_name_from_code( name )
+        return code_from_name( region )
     end
 
-    function regioncodefromname( name :: AbstractString )
-        region = regionnamefromname( name )
-        return codefromname( region )
+    function region_code_from_name( name :: AbstractString )
+        region = region_name_from_name( name )
+        return code_from_name( region )
     end
 
-    function codefromname( name :: Missing )
+    function code_from_name( name :: Missing )
         missing
     end
 
-    function codefromname( name :: Nothing )
+    function code_from_name( name :: Nothing )
         missing
     end
 
     """
     returns the ONS code for the given LA/Region name
     """
-    function codefromname( name :: AbstractString )
+    function code_from_name( name :: AbstractString )
         # println( "name $name " )
        q = @from i in LAMAPPINGS begin
            @where basiccensor(i.name) == basiccensor(name)
@@ -182,26 +185,26 @@ module ONSCodes
     Another hack - faster lookup for ccode->region since the Query version
     is paralyising things.
     """
-    function makeregionlookup( LAS :: DataFrame ) :: Dict
+    function make_region_lookup( LAS :: DataFrame ) :: Dict
         d = Dict()
         for i in eachrow( LAS )
-            d[i.new_gss_code] = regioncodefromcode( i.new_gss_code )
+            d[i.new_gss_code] = region_code_from_code( i.new_gss_code )
         end
         d
     end
 
-    CCODE_TO_RCODE_LOOKUP = makeregionlookup( LAMAPPINGS )
+    CCODE_TO_RCODE_LOOKUP = make_region_lookup( LAMAPPINGS )
 
     """
     faster version of below, using a simple Dict
     """
-    function rcodefromccode( ccode :: AbstractString ) :: AbstractString
+    function region_code_from_ccode( ccode :: AbstractString ) :: AbstractString
         return CCODE_TO_RCODE_LOOKUP[ccode]
     end
 
-    function isaggregate( ccode :: Union{Missing,AbstractString} )
+    function is_aggregate( ccode :: Union{Missing,AbstractString} )
         ctype = typeof( ccode )
-        # println( "isaggregate; ccode $ccode type $ctype " )
+        # println( "is_aggregate; ccode $ccode type $ctype " )
         if ccode === missing
             return true
         end

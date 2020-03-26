@@ -20,7 +20,7 @@ module runnertest
     grantdata = CSV.File( DATADIR*"edited/GRANTS_2019.csv" ) |> DataFrame
 
     @testset "SP Sim" begin
-        alldata = CareData.loadall()
+        alldata = CareData.load_all()
         iterations = 200
         for iteration in 1:iterations
             yp_data = CSV.File( DATADIR*"created_doe/yp_data_$iteration.csv" ) |> DataFrame
@@ -29,13 +29,13 @@ module runnertest
             rc = size( carer_data )[1]
             ry = size( yp_data )[1]
             @test rc == ry
-            params = StayingPutSim.getdefaultparams()
+            params = StayingPutSim.get_default_params()
             outcomes = CareData.CarerOutcomes(0.0,0.0,0.0)
             @time for r in 1:rc
                 year = yp_data[r,:year]
                 ccode = yp_data[r,:ccode]
                 # this test isn't strictly needed since we only create for live councils
-                if (! ONSCodes.isaggregate( ccode )) && (! ( ccode in SKIPLIST ))
+                if (! ONSCodes.is_aggregate( ccode )) && (! ( ccode in SKIPLIST ))
                     carer = CareData.carerfromrow( carer_data[r,:] )
                     yp = CareData.ypfromrow( yp_data[r,:])
                     @assert carer.id == yp_data[r,:carer]
@@ -54,7 +54,7 @@ module runnertest
                             ofdatar,
                             params )
                     else
-                        outcomes = StayingPutSim.basiccalc(
+                        outcomes = StayingPutSim.do_basic_calc(
                             ccode,
                             year,
                             carer,

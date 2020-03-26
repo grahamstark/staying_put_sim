@@ -2,15 +2,16 @@ module FosterParameters
 
     using GlobalDecls
     using CareData: CPIINDEX
+    using Parameters
 
-    export getdefaultparams, Params, Minimum_Allowances, AllowancesDict, makeAllowances, getAllowances
+    export get_default_params, Params, Minimum_Allowances, AllowancesDict, makeAllowances, getAllowances
     export DEFAULT_UPRATE_FACTOR
 
     export ContributionType, actual_contribution, no_contribution, benefits_only, flat_rate, all_people
     export PaymentType, actual_payment, min_payment, age_16_17
     export UpratingType, no_uprating, by_benefits, by_cpi
 
-    mutable struct Minimum_Allowances
+    @with_kw  mutable struct Minimum_Allowances
         babies :: Real
         pre_primary :: Real
         primary :: Real
@@ -79,7 +80,7 @@ module FosterParameters
         fee             :: Array{Real}
     end
 
-    function getdefaultparams()
+    function get_default_params()
         Params(
             "default parameters",
             actual_contribution,
