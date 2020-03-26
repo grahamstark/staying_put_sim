@@ -48,7 +48,7 @@ module testsuite
 
     @testset "ladata tests" begin
         x=do_exit_rate_query( 2017, "E09000002", 18 )
-        exits = get_staying_rates( "E09000003", local_authority, true )
+        exits = get_staying_put_rates( "E09000003", local_authority, true )
     end
 
     alldata = CareData.load_all()

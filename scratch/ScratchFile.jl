@@ -30,7 +30,7 @@ import GlobalDecls
 import ONSCodes
 import Utils
 using LAModelData
-import LAModelData: get_staying_rates, get18slevelfromdoe
+import LAModelData: get_staying_put_rates, get18slevelfromdoe
 
 export test1,loadeng
 

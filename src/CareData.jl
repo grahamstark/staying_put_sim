@@ -13,7 +13,7 @@ module CareData
     using GlobalDecls
     using ONSCodes
     using Utils
-    import LAModelData: get_staying_rates, get_18s_level_from_doe
+    import LAModelData: get_staying_put_rates, get_18s_level_from_doe
 
     export load_all
     export get_yp, make_yp_frame, make_carer_frame
@@ -548,7 +548,7 @@ module CareData
                 councils[:name][nc] = ofdat[:council]
                 councils[:ccode][nc] = ccode
                 councils[:rcode][nc] = ofdat[:rcode]
-                base_staying_rates = get_staying_rates(
+                base_staying_rates = get_staying_put_rates(
                     ccode,
                     settings.agglevel,
                     settings.poolyears )
