@@ -45,7 +45,7 @@ module DataEditing
             DATADIR*"Fostering_in_England_$(ys)_dataset_transposed_extended.csv",
             delim=',',
             missingstrings=["-999","",".."],
-            types=maketypeblock(3:1000,Float64)
+            types=make_type_block(3:1000,Float64)
              ) |> DataFrame
     end
 

@@ -13,7 +13,7 @@ function loadone( name :: AbstractString ) :: DataFrame
         name,
         delim=',',
         missingstrings=["x","","-"],
-        types=maketypeblock(6:1000)) |> DataFrame
+        types=make_type_block(6:1000)) |> DataFrame
     lcnames = Symbol.(lowercase.(string.(names(df))))
     names!(df,lcnames)
     df
@@ -90,11 +90,11 @@ return the exit rates for the given LA - a named tuple a18,a19,a20
   will be the regional one if the calculation is not possible for an LA
   rates are proportions for that age - so 0.5,0.5,0.5 means 50% stay 1 year, 25% 2 12.5% 3 and so on
 """
-function getexitrates(
+function get_exit_rates(
     lacode    :: AbstractString,
     agglev    :: AggLevel,
     poolyears :: Bool  ) :: Vector
-    println( "getexitrates for lacode $lacode agglev $agglev" );
+    println( "get_exit_rates for lacode $lacode agglev $agglev" );
     avprop = zeros(3)
     target = gettargetla( lacode, agglev )
     ages = [18,19,20]

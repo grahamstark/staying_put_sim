@@ -2,13 +2,13 @@ module Utils
 
         using DataValues
 
-        export maketypeblock, counter, basiccensor, averagegain, zeroormissing, assignrand
+        export make_type_block, counter, basiccensor, averagegain, zeroormissing, assignrand
 
         function Vec( n :: Integer, initial :: Real ) :: Vector
             zeros(n) .+ initial
         end
 
-        function maketypeblock( r::UnitRange, thistype::DataType=Int) :: Dict{Int64,DataType}
+        function make_type_block( r::UnitRange, thistype::DataType=Int) :: Dict{Int64,DataType}
                 d = Dict{Int64, DataType}()
                 for i in r
                         d[i]=thistype

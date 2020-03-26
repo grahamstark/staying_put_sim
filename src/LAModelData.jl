@@ -18,7 +18,7 @@ module LAModelData
             name,
             delim=',',
             missingstrings=["x","","-"],
-            types=maketypeblock(6:1000)) |> DataFrame
+            types=make_type_block(6:1000)) |> DataFrame
         lcnames = Symbol.(lowercase.(string.(names(df))))
         rename!(df,lcnames)
         df
@@ -114,7 +114,7 @@ module LAModelData
         lacode    :: AbstractString,
         agglev    :: AggLevel,
         poolyears :: Bool  ) :: Vector
-        # println( "getexitrates for lacode $lacode agglev $agglev" );
+        # println( "get_exit_rates for lacode $lacode agglev $agglev" );
         avprop = zeros(3)
         target = get_target_la( lacode, agglev )
         ages = [18,19,20]
