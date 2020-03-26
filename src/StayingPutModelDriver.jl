@@ -164,9 +164,9 @@ module StayingPutModelDriver
             @time for r in 1:rc
                 year = yp_data[r,:year]
                 ccode = yp_data[r,:ccode]
-                rcode = rcodefromccode( ccode ) # yp_data[r,:rcode]
+                rcode = region_code_from_ccode( ccode ) # yp_data[r,:rcode]
                 # this test isn't strictly needed since we only create for live councils
-                if (! ONSCodes.isaggregate( ccode )) && (! ( ccode in SKIPLIST ))
+                if (! ONSCodes.is_aggregate( ccode )) && (! ( ccode in SKIPLIST ))
                     carer = CareData.carerfromrow( carer_data[r,:] )
                     yp = CareData.ypfromrow( yp_data[r,:])
                     @assert carer.id == yp_data[r,:carer]
@@ -364,7 +364,7 @@ module StayingPutModelDriver
         main_results = CSVFiles.load( output_dir*"/main_results.csv" ) |> DataFrame
         by_region_sys_and_year = []
 
-        main_results[!,:rcode] = map( ccode->rcodefromccode( ccode ), main_results[!,:ccode ] )
+        main_results[!,:rcode] = map( ccode->region_code_from_ccode( ccode ), main_results[!,:ccode ] )
         # data[rcode]=map( c->region_code_from_name(c), data[cname])
         for sysno in 1:num_systems
             by_region_sys_iteration_and_year = main_results |>

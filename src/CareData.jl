@@ -401,7 +401,7 @@ module CareData
     see: http://sticerd.lse.ac.uk/case/ for what we really want to do here
     """
     function get_shared_accommodation_rate( ccode :: AbstractString )::Real
-        v = ONSCodes.getbravalue( ccode )
+        v = ONSCodes.get_brma_value( ccode )
         if v < 0.0
             v = 69.16
         end
@@ -540,7 +540,7 @@ module CareData
         for ofdat in eachrow(ofdata)
             r += 1
             ccode = ofdat.ccode
-            if (! ONSCodes.isaggregate( ccode )) && (! (ccode in SKIPLIST ) )
+            if (! ONSCodes.is_aggregate( ccode )) && (! (ccode in SKIPLIST ) )
                 nc += 1
                 if nc > 2000 # test break if needed
                     break

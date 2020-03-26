@@ -156,7 +156,7 @@ function pay_class_from_region_code( regcode :: AbstractString ) :: Region
     r
 end
 
-function isaggregate( ccode )
+function is_aggregate( ccode )
     if ccode === missing
         return true
     end

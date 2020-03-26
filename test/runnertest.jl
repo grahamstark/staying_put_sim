@@ -35,7 +35,7 @@ module runnertest
                 year = yp_data[r,:year]
                 ccode = yp_data[r,:ccode]
                 # this test isn't strictly needed since we only create for live councils
-                if (! ONSCodes.isaggregate( ccode )) && (! ( ccode in SKIPLIST ))
+                if (! ONSCodes.is_aggregate( ccode )) && (! ( ccode in SKIPLIST ))
                     carer = CareData.carerfromrow( carer_data[r,:] )
                     yp = CareData.ypfromrow( yp_data[r,:])
                     @assert carer.id == yp_data[r,:carer]
