@@ -114,7 +114,7 @@ module load
     end #  function
 
     numiter = 200
-    # do_main_run( OFSTED, 0.0, numiter )
+    do_main_run( OFSTED, 0.0, numiter )
     # do_main_run( OFSTED, 0.01, numiter )
     do_main_run( DFE, 0.0, numiter )
     # do_main_run( DFE, 0.01, numiter )

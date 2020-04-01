@@ -531,6 +531,8 @@ module CareData
             ofdata = ofdata[targets,:]
         end
         println( "settings $settings")
+        ofdata.number_of_children_or_young_people_in_placements_at_31_march =
+            Missings.replace( ofdata[!,:number_of_children_or_young_people_in_placements_at_31_march],0)
         ncouncils = size( ofdata )[1]
         councils = make_council_frame( ncouncils )
         carer_data = make_carer_frame(0)
@@ -559,6 +561,8 @@ module CareData
                 else
                     new_reached_18_base = get_18s_level_from_doe( ccode )
                     if ismissing( new_reached_18_base )
+                        tf = typeof(total_fostered )
+                        println( "typeof total_fostered $tf" )
                         new_reached_18_base = settings.prp_reach_18 * total_fostered # fallback
                     end
                 end
@@ -597,7 +601,8 @@ module CareData
     end
 
     function load_all( year :: Integer )::NamedTuple
-        ofdata = CSV.File( DATADIR*"edited/$(year)/OFDATA.csv" ) |> DataFrame
+        ofdata = CSV.File( DATADIR*"edited/$(year)/OFDATA.csv", missingstrings=["x","","-", "c",".", ""],
+        types=make_type_block(4:1000)) |> DataFrame
         lcnames = Symbol.(Utils.basiccensor.(string.(names(ofdata))))
         rename!(ofdata, lcnames )
         # loadtable( DATADIR*"edited/OFDATA.csv", indexcols=[:ccode] )
