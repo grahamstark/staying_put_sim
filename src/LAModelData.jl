@@ -11,13 +11,13 @@ module LAModelData
 
     export is_aggregate, get_pay_class_from_region_code
     export get_staying_put_rates, get_target_la, do_exit_rate_query
-    export UDATA, get_18s_level_from_doe
+    export UDATA, get_18s_level_from_doe, load_one
 
     function load_one( name :: AbstractString ) :: DataFrame
         df = CSV.File(
             name,
             delim=',',
-            missingstrings=["x","","-"],
+            missingstrings=["x","","-", "c","."],
             types=make_type_block(6:1000)) |> DataFrame
         lcnames = Symbol.(lowercase.(string.(names(df))))
         rename!(df,lcnames)
@@ -27,7 +27,7 @@ module LAModelData
 
     #
     # DFE Raw data on care movements 2015-2018; see
-    # only 2017 and 2018 have Staying Put data
+    # only 2017 and 2018, 2019 have Staying Put data
     #
     function get_underlying_data()::NamedTuple
         (
@@ -38,25 +38,29 @@ module LAModelData
         c17_18_2018 = load_one(
                 DATADIR*"underlying_data/2018/CareLeavers17182018_amended.csv" ),
         c19_21_2018 = load_one(
-                DATADIR*"underlying_data/2018/CareLeavers_Acc_StayPut19to212018.csv" )
+                DATADIR*"underlying_data/2018/CareLeavers_Acc_StayPut19to212018.csv" ),
+        c17_18_2019 = load_one(
+                DATADIR*"underlying_data/2019/Care_Leavers_17182019.csv" ),
+        c19_21_2019 = load_one(
+                DATADIR*"underlying_data/2019/CareLeavers_Acc_StayPut19to212019.csv" )
         )
     end
 
     UDATA = get_underlying_data()
 
     """
-    get the number of 18s leaving care from the DoE underlying data as an
+    get the number of 18s leaving care into staying put from the DoE underlying data as an
     alternative to a calculation from OFSTED data and ageing rates
     """
     function get_18s_level_from_doe( target :: AbstractString )
-        which = UDATA.c17_18_2018.new_geog_code .== target
-        v = UDATA.c17_18_2018[which,:cl_stayput_18][1]
+        which = UDATA.c17_18_2019.new_geog_code .== target
+        v = UDATA.c17_18_2019[which,:cl_stayput_18][1]
         #if( ismissing( v ))
     #        v=-1
         #end
         return v
 
-        q = @from i in UDATA.c17_18_2018 begin
+        q = @from i in UDATA.c17_18_2019 begin
             @where i.new_geog_code == target
             @select i.cl_stayput_18
             @collect
@@ -68,7 +72,7 @@ module LAModelData
     """
     extract the number leaving care and the number staying put
     for the given target (LA, country, etc.)
-    age (18,19,20) and year (2017,2018)
+    age (18,19,20) and year (2017,2018,2019)
     """
     function do_exit_rate_query(
         year   :: Integer,
