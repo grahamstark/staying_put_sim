@@ -144,12 +144,13 @@ module StayingPutModelDriver
 
     function doonerun(
         params   :: Array{Params},
-        settings :: DataSettings )
+        settings :: DataSettings,
+        year     :: Integer )
         main_results =  CareData.makecareroutcomesframe(0)
-        grantdata = CSV.File( DATADIR*"edited/GRANTS_2019.csv" ) |> DataFrame
-        alldata = CareData.load_all()
-        run_data_dir = DATADIR*"/populations/"*settings.dataset*"/"
-        output_dir = RESULTSDIR*"/"*settings.name*"/"
+        grantdata = CSV.File( "$(DATADIR)/edited/$(year)/GRANTS_$(year).csv" ) |> DataFrame
+        alldata = CareData.load_all(year)
+        run_data_dir = "$(DATADIR)/populations/$(year)/$(settings.dataset)/"
+        output_dir = "$(RESULTSDIR)/$(year)/$(settings.name)/"
         println( "writing output to |$output_dir|")
         mkpath( output_dir )
         numsystems = size( params )[1]
