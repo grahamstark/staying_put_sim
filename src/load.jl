@@ -81,7 +81,7 @@ module load
         StayingPutModelDriver.createmaintables_by_region( outdir, nparams )
     end
 
-    function do_main_run( ds :: DataPublisher, pc :: Real, numiter :: Integer, createdata :: Bool )
+    function do_main_run( ds :: DataPublisher, pc :: Real, numiter :: Integer, createdata :: Bool, year :: Integer )
         settings = CareData.default_data_settings()
         settings.name = "using-$ds-$pc-pct"
         settings.dataset = "ds-$ds-$pc-pct"
