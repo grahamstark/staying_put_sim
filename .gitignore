@@ -3,4 +3,5 @@ docs
 *.xlsx
 *.ods
 *.odt
+data/populations/
 .~lock*

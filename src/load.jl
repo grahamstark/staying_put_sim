@@ -92,15 +92,15 @@ module load
             DataCreationDriver.create_data( settings )
         end
         params = Array{Params}(undef,0)
-        params1 = Parameters.get_default_params()
+        params1 = FosterParameters.get_default_params()
 
         push!( params, params1 )
 
-        params2 = Parameters.get_default_params()
+        params2 = FosterParameters.get_default_params()
         params2.payment = min_payment
         push!( params, params2 )
 
-        params3 = Parameters.get_default_params()
+        params3 = FosterParameters.get_default_params()
         params3.yp.yp_contrib_type = no_contribution
         push!( params, params3 )
 
@@ -115,9 +115,10 @@ module load
 
     numiter = 200
     do_main_run( OFSTED, 0.0, numiter )
-    # do_main_run( OFSTED, 0.01, numiter )
+    do_main_run( OFSTED, 0.01, numiter )
     do_main_run( DFE, 0.0, numiter )
-    # do_main_run( DFE, 0.01, numiter )
+    do_main_run( DFE, 0.01, numiter )
+
     DEFAULT_DATA = "ds-DFE-0.01-pct"
 
     datasets = [
@@ -152,7 +153,7 @@ create_region_tables(
 #            numiter   = 200 )
 #end
 
-    # pdir = "/home/graham_s/VirtualWorlds/projects/action_for_children/england/results/"
+    pdir = "/home/graham_s/VirtualWorlds/projects/action_for_children/england/results/2020/"
     # outdir = pdir*"/test1/"
     # num_systems = 5
     # StayingPutModelDriver.createmaintables( outdir, num_systems, :ccode )
