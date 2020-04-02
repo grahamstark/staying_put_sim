@@ -147,7 +147,7 @@ module StayingPutModelDriver
         settings :: DataSettings,
         year     :: Integer )
         main_results =  CareData.makecareroutcomesframe(0)
-        grantdata = CSV.File( "$(DATADIR)/edited/$(year)/GRANTS_$(year).csv" ) |> DataFrame
+        # grantdata = CSV.File( "$(DATADIR)/edited/$(year)/GRANTS_$(year).csv" ) |> DataFrame
         alldata = CareData.load_all(year)
         run_data_dir = "$(DATADIR)/populations/$(year)/$(settings.dataset)/"
         output_dir = "$(RESULTSDIR)/$(year)/$(settings.name)/"

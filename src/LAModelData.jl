@@ -17,7 +17,7 @@ module LAModelData
         df = CSV.File(
             name,
             delim=',',
-            missingstrings=["x","","-", "c","."],
+            missingstrings=["x","","-", "c",".", "..", "*"],
             types=make_type_block(6:1000)) |> DataFrame
         lcnames = Symbol.(lowercase.(string.(names(df))))
         rename!(df,lcnames)

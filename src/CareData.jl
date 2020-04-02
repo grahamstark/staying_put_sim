@@ -601,10 +601,22 @@ module CareData
     end
 
     function load_all( year :: Integer )::NamedTuple
-        ofdata = CSV.File( DATADIR*"edited/$(year)/OFDATA.csv", missingstrings=["x","","-", "c",".", ""],
-        types=make_type_block(4:1000)) |> DataFrame
+        ofdata = CSV.File( DATADIR*"edited/$(year)/OFDATA.csv", missingstrings=["x","","-", "c",".", "", "..", "*"],
+        types=make_type_block(14:1000)) |> DataFrame
         lcnames = Symbol.(Utils.basiccensor.(string.(names(ofdata))))
         rename!(ofdata, lcnames )
+        col = 0
+        ofs = size( ofdata )[1]
+        for name in lcnames
+            col+=1
+            if( col >13 )
+                for row in 1:ofs
+                    if ofdata[row,name] === missing
+                        ofdata[row,name] = 0
+                    end
+                end
+            end
+        end
         # loadtable( DATADIR*"edited/OFDATA.csv", indexcols=[:ccode] )
         grantdata = load( DATADIR*"edited/$(year)/GRANTS_$(year).csv" ) |> DataFrame
         # loadtable(  DATADIR*"edited/GRANTS_2019.csv", indexcols=[:ccode] )
