@@ -60,10 +60,10 @@ module load
         nparams = length( params )[1]
         outdir = StayingPutModelDriver.doonerun( params, settings, year )
         StayingPutModelDriver.dumpruninfo( outdir, params, settings )
-        StayingPutModelDriver.createmaintables( outdir, nparams, :ccode )
-        StayingPutModelDriver.createmaintables( outdir, nparams, :rcode )
-        StayingPutModelDriver.createnglandtables( outdir, params, settings )
-        StayingPutModelDriver.createnglandtablesbyage( outdir, params, settings )
+        StayingPutModelDriver.createmaintables( outdir, nparams, :ccode, year )
+        StayingPutModelDriver.createmaintables( outdir, nparams, :rcode, year )
+        StayingPutModelDriver.createnglandtables( outdir, params, settings, year )
+        StayingPutModelDriver.createnglandtablesbyage( outdir, params, settings, year )
     end
 
     """
@@ -109,10 +109,10 @@ module load
         num_systems = size( params )[1]
 
         outdir = StayingPutModelDriver.doonerun( params, settings, year )
-        StayingPutModelDriver.createmaintables( outdir, num_systems, :rcode )
-        StayingPutModelDriver.createmaintables( outdir, num_systems, :ccode )
-        StayingPutModelDriver.createnglandtables( outdir, params, settings )
-        StayingPutModelDriver.createnglandtablesbyage( outdir, params, settings )
+        StayingPutModelDriver.createmaintables( outdir, num_systems, :rcode, year )
+        StayingPutModelDriver.createmaintables( outdir, num_systems, :ccode, year )
+        StayingPutModelDriver.createnglandtables( outdir, params, settings, year )
+        StayingPutModelDriver.createnglandtablesbyage( outdir, params, settings, year )
     end #  function
 
     numiter = 200

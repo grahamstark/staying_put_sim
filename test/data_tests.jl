@@ -14,6 +14,7 @@ using LAModelData: get_underlying_data, get_18s_level_from_doe, get_staying_put_
 using StayingPutSim
 using CareData
 using ONSCodes
+using StayingPutModelDriver
 
 @testset "LADataTests" begin
     nt = get_underlying_data()
@@ -33,5 +34,10 @@ using ONSCodes
     all = CareData.load_all(2020)
     @test all.ofdata[1,:council] == "England"
     @test all.ofdata[24,:sp_fee_2] ≈ 207.3314285714
-    @test all.ofdata[149,:total_complaints_complaints_not_upheld] == 25
+end
+
+@testset "Output Tests" begin
+    outdir = "/home/graham_s/VirtualWorlds/projects/action_for_children/england/results/testcase/"
+    num_systems = 3
+    StayingPutModelDriver.createmaintables( outdir, num_systems, :rcode, year )
 end

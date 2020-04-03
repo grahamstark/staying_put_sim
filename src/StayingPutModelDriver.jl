@@ -156,8 +156,8 @@ module StayingPutModelDriver
         numsystems = size( params )[1]
         for iteration in 1:settings.num_iterations
 
-            yp_data = CSV.File( run_data_dir*"yp_data_$iteration.csv" ) |> DataFrame
-            carer_data = CSV.File( run_data_dir*"carer_data_$iteration.csv" ) |> DataFrame
+            yp_data = CSV.File( "$(run_data_dir)/yp_data_$iteration.csv" ) |> DataFrame
+            carer_data = CSV.File( "$(run_data_dir)/carer_data_$iteration.csv" ) |> DataFrame
 
             rc = size( carer_data )[1]
             ry = size( yp_data )[1]
@@ -165,6 +165,7 @@ module StayingPutModelDriver
             @time for r in 1:rc
                 year = yp_data[r,:year]
                 ccode = yp_data[r,:ccode]
+                println( "computing for council with ccode $ccode")
                 rcode = region_code_from_ccode( ccode ) # yp_data[r,:rcode]
                 # this test isn't strictly needed since we only create for live councils
                 if (! ONSCodes.is_aggregate( ccode )) && (! ( ccode in SKIPLIST ))
@@ -173,6 +174,7 @@ module StayingPutModelDriver
                     @assert carer.id == yp_data[r,:carer]
                     @assert year == carer_data[r,:year]
                     which = alldata.ofdata.ccode .== ccode
+                    println( "which = $which")
                     ofdata = alldata.ofdata[which,:]
                     @assert size(ofdata)[1] == 1
                     council_data = ofdata[1,:]
@@ -258,15 +260,16 @@ module StayingPutModelDriver
     function createmaintables(
         output_dir  :: AbstractString,
         num_systems :: Integer,
-        target      :: Symbol )
+        target      :: Symbol,
+        start_year :: Integer )
         # whichgroup :: Symbol
-        main_results = CSVFiles.load( output_dir*"/main_results.csv" ) |> DataFrame # don't really need the cast
+        main_results = CSV.File( output_dir*"/main_results.csv" ) |> DataFrame # don't really need the cast
         targetpos = getposoftarget( main_results, target )
         by_target_sys_and_year = []
         println( "createmaintables; target is $target")
         for sysno in 1:num_systems
             by_target_sys_iteration_and_year = main_results |>
-                @filter( _.year > 2018 && _.year < 2025  && _.sysno == sysno ) |>
+                @filter( _.year > start_year && _.year < 2025  && _.sysno == sysno ) |>
                 @groupby( [_[target],  _.year, _.sysno, _.iteration ] ) |>
                 @map({ index=key(_),
                     year=first(_.year),
@@ -360,7 +363,8 @@ module StayingPutModelDriver
     """
     function createmaintables_by_region(
         output_dir :: AbstractString,
-        num_systems :: Integer )
+        num_systems :: Integer,
+        start_year :: Integer )
 
         main_results = CSVFiles.load( output_dir*"/main_results.csv" ) |> DataFrame
         by_region_sys_and_year = []
@@ -369,7 +373,7 @@ module StayingPutModelDriver
         # data[rcode]=map( c->region_code_from_name(c), data[cname])
         for sysno in 1:num_systems
             by_region_sys_iteration_and_year = main_results |>
-                @filter( _.year > 2018 && _.year < 2025  && _.sysno == sysno ) |>
+                @filter( _.year > start_year && _.year < 2025  && _.sysno == sysno ) |>
                 @groupby( [_.rcode,  _.year, _.sysno, _.iteration ] ) |>
                 @map({
                     index=key(_),
@@ -496,7 +500,7 @@ module StayingPutModelDriver
 #         for sysno in 1:num_systems
 #             by_la_sys_iteration_and_year =
 #                 @from mr in mr100k begin # main_results
-#                 @where mr.year > 2018 && mr.year < 2025  && mr.sysno == sysno
+#                 @where mr.year > start_year && mr.year < 2025  && mr.sysno == sysno
 #                 @group mr by mr[agglevel], mr.year, mr.sysno, mr.iteration into mrg
 #                 @select {
 #                     index=key(mrg),
@@ -569,14 +573,15 @@ module StayingPutModelDriver
     function createnglandtables(
         output_dir :: AbstractString,
         params     :: Array{Params},
-        settings   :: DataSettings  )
+        settings   :: DataSettings,
+        start_year :: Integer )
 
         num_systems = size( params )[1]
         main_results = CSVFiles.load( output_dir*"/main_results.csv" )
         by_sys_and_year = []
         for sysno in 1:num_systems
             by_sys_iteration_and_year = main_results |>
-                @filter( _.year > 2018 && _.year < 2025  && _.sysno == sysno ) |>
+                @filter( _.year > start_year && _.year < 2025  && _.sysno == sysno ) |>
                 @groupby( [_.year, _.sysno, _.iteration ] ) |>
                 @map({
                     index=key(_),
@@ -664,14 +669,15 @@ module StayingPutModelDriver
     function createnglandtablesbyage(
         output_dir :: AbstractString,
         params     :: Array{Params},
-        settings   :: DataSettings  )
+        settings   :: DataSettings,
+        start_year :: Integer  )
 
         num_systems = size( params )[1]
         main_results = CSVFiles.load( output_dir*"/main_results.csv" )
         by_sys_yp_age_and_year = []
         for sysno in 1:num_systems
             by_sys_yp_age_iteration_and_year = main_results |>
-                @filter( _.year > 2018 && _.year < 2025  && _.sysno == sysno ) |>
+                @filter( _.year > start_year && _.year < 2025  && _.sysno == sysno ) |>
                 @groupby( [_.year, _.sysno, _.yp_age, _.iteration ] ) |>
                 @map({
                     index=key(_),
