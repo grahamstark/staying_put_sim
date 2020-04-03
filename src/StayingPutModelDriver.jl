@@ -92,6 +92,7 @@ module StayingPutModelDriver
 
     function cleanup_main_frame( by_la :: DataFrame, target :: Symbol )
         newframe=DataFrame()
+        print( names( by_la ))
         newframe[!,:Year]=by_la[:year]
         newframe[!,:Council]=by_la[!,:council]
         newframe[!,:Number]=round.(Integer,by_la[!,:avg_cnt_sys_1])
@@ -263,13 +264,14 @@ module StayingPutModelDriver
         target      :: Symbol,
         start_year :: Integer )
         # whichgroup :: Symbol
+        all_base_data = CareData.load_all(2020)
         main_results = CSV.File( output_dir*"/main_results.csv" ) |> DataFrame # don't really need the cast
         targetpos = getposoftarget( main_results, target )
         by_target_sys_and_year = []
         println( "createmaintables; target is $target")
         for sysno in 1:num_systems
             by_target_sys_iteration_and_year = main_results |>
-                @filter( _.year > start_year && _.year < 2025  && _.sysno == sysno ) |>
+                @filter( _.year >= start_year && _.year < 2025  && _.sysno == sysno ) |>
                 @groupby( [_[target],  _.year, _.sysno, _.iteration ] ) |>
                 @map({ index=key(_),
                     year=first(_.year),
@@ -285,6 +287,7 @@ module StayingPutModelDriver
                 DataFrame
 
             CSVFiles.save( output_dir*"by_$(target)_sys_iteration_and_year.csv", by_target_sys_iteration_and_year, delim='\t' )
+            # the sorting things fail because of some
 
             by_target_sys_and_year_tmp = by_target_sys_iteration_and_year |>
                 @groupby( [_.targetcode,  _.year, _.sysno] ) |>
@@ -296,34 +299,35 @@ module StayingPutModelDriver
                            avg_cnt=mean( _.cnt  ),
                            min_cnt=minimum( _.cnt ),
                            max_cnt=maximum( _.cnt ),
-                           pct_10_cnt=quantile( _.cnt, [0.10] )[1],
-                           pct_25_cnt=quantile( _.cnt, [0.25] )[1],
-                           pct_75_cnt=quantile( _.cnt, [0.75] )[1],
-                           pct_90_cnt=quantile( _.cnt, [0.90] )[1],
+                           # pct_10_cnt=quantile( _.cnt, [0.10] )[1],
+                           # pct_25_cnt=quantile( _.cnt, [0.25] )[1],
+                           # pct_75_cnt=quantile( _.cnt, [0.75] )[1],
+                           # pct_90_cnt=quantile( _.cnt, [0.90] )[1],
 
                            avg_income=mean( _.income  ),
                            min_income=minimum( _.income ),
                            max_income=maximum( _.income ),
-                           pct_10_income=quantile( _.income, [0.10] )[1],
-                           pct_25_income=quantile( _.income, [0.25] )[1],
-                           pct_75_income=quantile( _.income, [0.75] )[1],
-                           pct_90_income=quantile( _.income, [0.90] )[1],
+                           # pct_10_income=quantile( _.income, [0.10] )[1],
+                           # pct_25_income=quantile( _.income, [0.25] )[1],
+                           # pct_75_income=quantile( _.income, [0.75] )[1],
+                           # pct_90_income=quantile( _.income, [0.90] )[1],
 
                            avg_contribs = mean( _.contribs ),
                            min_contribs = minimum( _.contribs ),
                            max_contribs = maximum( _.contribs ),
-                           pct_10_contribs=quantile( _.contribs, [0.10] )[1],
-                           pct_25_contribs=quantile( _.contribs, [0.25] )[1],
-                           pct_75_contribs=quantile( _.contribs, [0.75] )[1],
-                           pct_90_contribs=quantile( _.contribs, [0.90] )[1],
+
+                           # pct_10_contribs=quantile( _.contribs, [0.10] )[1],
+                           # pct_25_contribs=quantile( _.contribs, [0.25] )[1],
+                           # pct_75_contribs=quantile( _.contribs, [0.75] )[1],
+                           # pct_90_contribs=quantile( _.contribs, [0.90] )[1],
 
                            avg_payments = mean( _.payments  ),
                            min_payments = minimum( _.payments ),
-                           max_payments = maximum( _.payments ),
-                           pct_10_payments=quantile( _.payments, [0.10] )[1],
-                           pct_25_payments=quantile( _.payments, [0.25] )[1],
-                           pct_75_payments=quantile( _.payments, [0.75] )[1],
-                           pct_90_payments=quantile( _.payments, [0.90] )[1]
+                           max_payments = maximum( _.payments )
+                           # pct_10_payments=quantile( _.payments, [0.10] )[1],
+                           # pct_25_payments=quantile( _.payments, [0.25] )[1],
+                           # pct_75_payments=quantile( _.payments, [0.75] )[1],
+                           # pct_90_payments=quantile( _.payments, [0.90] )[1]
                         }
                     ) |>
                 @orderby( [ _.targetcode, _.year,_.sysno] ) |>
@@ -334,7 +338,8 @@ module StayingPutModelDriver
             push!(by_target_sys_and_year, by_target_sys_and_year_tmp )
         end
 
-        grantdata = CSV.File( DATADIR*"edited/GRANTS_2019.csv" ) |> DataFrame
+        # grantdata = CSV.File( DATADIR*"edited/GRANTS_2019.csv" ) |> DataFrame
+        grantdata = all_base_data.grantdata
         if target == :rcode # aggregate grants into regions
             grantdata = mergegrantstoregions( grantdata )
         else

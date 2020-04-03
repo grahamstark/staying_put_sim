@@ -21,7 +21,7 @@ module ONSCodes
         lcnames = Symbol.(lowercase.(basiccensor.(string.(names(df)))))
         rename!(df,lcnames)
         for n in names(df)
-            df[!,n]=map( n->strip(n), df[n])
+            df[!,n]=map( n->strip(n), df[!,n])
         end
         df
     end
@@ -204,11 +204,11 @@ module ONSCodes
 
     function is_aggregate( ccode :: Union{Missing,AbstractString} )
         ctype = typeof( ccode )
-        # println( "is_aggregate; ccode $ccode type $ctype " )
+        println( "is_aggregate; ccode $ccode type $ctype " )
         if ccode === missing
             return true
         end
-        if length( ccode ) <= 1 # different ways of loading a dataframe produce either missing or 0 length string
+        if length( ccode ) <= 1 || ccode=="NA" # different ways of loading a dataframe produce either missing or 0 length string
             return true
         end
         (ccode[1:3] in ["E92","E12"])

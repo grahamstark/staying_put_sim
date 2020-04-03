@@ -81,6 +81,17 @@ module load
         StayingPutModelDriver.createmaintables_by_region( outdir, nparams )
     end
 
+    function create_data( ds :: DataPublisher, pc :: Real, numiter :: Integer, createdata :: Bool, year :: Integer )
+        settings = CareData.default_data_settings()
+        settings.name = "using-$ds-$pc-pct"
+        settings.dataset = "ds-$ds-$pc-pct"
+        settings.annual_sp_increment = pc # 1% inrease in all SP rates per year
+        settings.description = "Main run, with $pc annual increase in rates of retention data $ds; iterations $numiter"
+        settings.num_iterations = numiter
+        settings.reaching_18s_source = ds
+        DataCreationDriver.create_data( settings )
+    end
+
     function do_main_run( ds :: DataPublisher, pc :: Real, numiter :: Integer, createdata :: Bool, year :: Integer )
         settings = CareData.default_data_settings()
         settings.name = "using-$ds-$pc-pct"
@@ -117,10 +128,15 @@ module load
 
     numiter = 200
     year = 2020
-    do_main_run( OFSTED, 0.0, numiter, false, year )
-    do_main_run( DFE, 0.0, numiter, false, year )
-    do_main_run( OFSTED, 0.01, numiter, true, year )
-    do_main_run( DFE, 0.01, numiter, true, year )
+    #do_main_run( OFSTED, 0.0, numiter, false, year )
+    #do_main_run( DFE, 0.0, numiter, false, year )
+    #do_main_run( OFSTED, 0.01, numiter, true, year )
+    #do_main_run( DFE, 0.01, numiter, true, year )
+
+    create_data( DFE, 0.0, numiter, false, year )
+    create_data( OFSTED, 0.01, numiter, true, year )
+    create_data( DFE, 0.01, numiter, true, year )
+
 
     DEFAULT_DATA = "ds-DFE-0.01-pct"
 

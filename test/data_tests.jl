@@ -39,5 +39,6 @@ end
 @testset "Output Tests" begin
     outdir = "/home/graham_s/VirtualWorlds/projects/action_for_children/england/results/testcase/"
     num_systems = 3
-    StayingPutModelDriver.createmaintables( outdir, num_systems, :rcode, year )
+    year = 2020
+    StayingPutModelDriver.createmaintables( outdir, num_systems, :ccode, year )
 end
