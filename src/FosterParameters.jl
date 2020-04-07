@@ -78,6 +78,7 @@ module FosterParameters
         uprating        :: UpratingType
         taper           :: Array{Real}
         fee             :: Array{Real}
+        extra_grant     :: Real
     end
 
     function get_default_params()
@@ -89,7 +90,8 @@ module FosterParameters
             actual_payment,
             no_uprating,
             [],
-            [] )
+            [],
+            0.0 )
     end
 
     function getAllowances( reg :: Region, year :: Integer ) :: Minimum_Allowances

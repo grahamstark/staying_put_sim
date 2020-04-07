@@ -161,7 +161,7 @@ for dsname in datasets
        do_reform_runs(
             runname   = "main-results-"*dsname,
             whichdata = dsname,
-            numiter   = 20,
+            numiter   = 200,
             year      = 2020,
             create_data = false )
 end

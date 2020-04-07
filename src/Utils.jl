@@ -1,8 +1,10 @@
 module Utils
 
         using DataValues
+        using Missings
 
-        export make_type_block, counter, basiccensor, averagegain, zeroormissing, assignrand
+        export make_type_block, counter, basiccensor, averagegain, zeroormissing
+        export assignrand, distribute_proportionately
 
         function Vec( n :: Integer, initial :: Real ) :: Vector
             zeros(n) .+ initial
@@ -97,4 +99,12 @@ module Utils
             return any( d->d, d )
         end
 
+        """
+        distribute `total_to_add` proportionately between the elements of v
+        """
+        function distribute_proportionately( v::AbstractArray, total_to_add ::Number )::AbstractArray
+            total = sum( skipmissing( v ))
+            m  = total_to_add/total
+            return v .* (1+m)
+        end
 end
