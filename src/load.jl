@@ -6,12 +6,13 @@ module load
     using FosterParameters
     using GlobalDecls
 
-    function doreformruns(
+    function do_reform_runs(
         ;
         runname   :: AbstractString,
         whichdata :: AbstractString,
         numiter   :: Integer,
-        year      :: Integer )
+        year      :: Integer,
+        create_data :: Bool )
 
         settings = CareData.default_data_settings()
         settings.dataset = whichdata
@@ -25,11 +26,11 @@ module load
         push!( params, params1 )
 
         params2a1 = FosterParameters.get_default_params()
-        params2a1.yp_contrib_type = no_contriWbution
+        params2a1.yp_contrib_type = no_contribution
         params2a1.contrib_hb = no_contribution
         params2a1.name = "option 2(a) with Oldham style fee"
         params2a1.payment = min_payment
-        params2a1.fee = [0, 78.38, 158.76, 237.23, 340.76] # oldham
+        params2a1.fee = [0, 78.38, 158.76, 237.23, 340.76] # oldham FIXME UPRATE
         push!( params, params2a1 )
 
         params2a2 = FosterParameters.get_default_params()
@@ -56,14 +57,16 @@ module load
         params3.fee = [0, 78.38, 158.76, 237.23, 340.76] # oldham
         params3.taper = [1.0, 0.5, 0.25]
         push!( params, params3 )
-
+        if create_data
+            DataCreationDriver.create_data( settings )
+        end
         nparams = length( params )[1]
         outdir = StayingPutModelDriver.doonerun( params, settings, year )
         StayingPutModelDriver.dumpruninfo( outdir, params, settings )
-        StayingPutModelDriver.createmaintables( outdir, nparams, :ccode, year )
-        StayingPutModelDriver.createmaintables( outdir, nparams, :rcode, year )
+        StayingPutModelDriver.createmaintables( outdir, nparams, year )
         StayingPutModelDriver.createnglandtables( outdir, params, settings, year )
         StayingPutModelDriver.createnglandtablesbyage( outdir, params, settings, year )
+        StayingPutModelDriver.createmaintables_by_region( outdir, nparams, year )
     end
 
     """
@@ -78,7 +81,7 @@ module load
         year      :: Integer )
         nparams = 5
         outdir = "$(RESULTSDIR)/main-results-$(whichdata)/"
-        StayingPutModelDriver.createmaintables_by_region( outdir, nparams )
+        StayingPutModelDriver.createmaintables_by_region( outdir, nparams, year )
     end
 
     function create_data( ds :: DataPublisher, pc :: Real, numiter :: Integer, createdata :: Bool, year :: Integer )
@@ -133,9 +136,9 @@ module load
     #do_main_run( OFSTED, 0.01, numiter, true, year )
     #do_main_run( DFE, 0.01, numiter, true, year )
 
-    create_data( DFE, 0.0, numiter, false, year )
-    create_data( OFSTED, 0.01, numiter, true, year )
-    create_data( DFE, 0.01, numiter, true, year )
+    # create_data( DFE, 0.0, numiter, false, year )
+    # create_data( OFSTED, 0.01, numiter, true, year )
+    # create_data( DFE, 0.01, numiter, true, year )
 
 
     DEFAULT_DATA = "ds-DFE-0.01-pct"
@@ -147,23 +150,27 @@ module load
         "ds-OFSTED-0.0-pct"
     ]
 
-    # dsname = datasets[1]
-    # doreformruns(
+    #dsname = datasets[1]
+    #do_reform_runs(
     #     runname   = "test1",
     #     whichdata = DEFAULT_DATA,
-    #     numiter   = 1 )
-    # return
+#         numiter   = 1,
+#         year      = 2020 )
     #
-#    for dsname in datasets
-#        doreformruns(
-#            runname   = "main-results-"*dsname,
-#            whichdata = dsname,
-#            numiter   = 200 )
-#    end
-create_region_tables(
-            runname   = "main-results-$(DEFAULT_DATA)",
-            whichdata = DEFAULT_DATA,
-            numiter   = 200 )
+for dsname in datasets
+       do_reform_runs(
+            runname   = "main-results-"*dsname,
+            whichdata = dsname,
+            numiter   = 20,
+            year      = 2020,
+            create_data = false )
+end
+
+#create_region_tables(
+        #    runname   = "main-results-$(DEFAULT_DATA)",
+        #    whichdata = DEFAULT_DATA,
+        #    numiter   = 1,
+    #        year      = 2020 )
 
 #for dsname in datasets
 #        create_region_tables(
@@ -172,7 +179,7 @@ create_region_tables(
 #            numiter   = 200 )
 #end
 
-    pdir = "/home/graham_s/VirtualWorlds/projects/action_for_children/england/results/2020/"
+    # pdir = "/home/graham_s/VirtualWorlds/projects/action_for_children/england/results/2020/"
     # outdir = pdir*"/test1/"
     # num_systems = 5
     # StayingPutModelDriver.createmaintables( outdir, num_systems, :ccode )

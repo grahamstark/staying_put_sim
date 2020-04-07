@@ -49,6 +49,7 @@ module StayingPutSim
 
         fee1 = uprate( fee1, year, AFC_SURVEY_YEAR )
         allow1 = uprate( allow1, year, AFC_SURVEY_YEAR )
+        @assert (fee1+allow1) > 0.0
         CarerOutcomes(
             fee          = fee1,
             allowance    = allow1,
