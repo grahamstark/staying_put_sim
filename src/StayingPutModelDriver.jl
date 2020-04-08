@@ -18,16 +18,13 @@ module StayingPutModelDriver
     using ONSCodes
     using FosterParameters
 
-    export doonerun, createmaintables, createnglandtablesbyage
-    export dumpruninfo, addallgrantcols!, cleanup_main_frame, mergegrantstoregions
+    export do_one_run, create_main_tables, create_england_tables_by_age
+    export dump_run_info, add_all_grant_cols!, cleanup_main_frame, merge_grants_to_regions
 
     POPN_MEASURES = [
         :avg_cnt_sys_1,:min_cnt_sys_1,:max_cnt_sys_1,
         :pct_10_cnt_sys_1,:pct_25_cnt_sys_1,:pct_75_cnt_sys_1,
         :pct_90_cnt_sys_1]
-    POPN_MEASURES = [
-        :avg_cnt_sys_1,:min_cnt_sys_1,:max_cnt_sys_1]
-
 
     function add_modelled_grants_to_national!( natdata :: DataFrame, which_population_measure :: AbstractString)
         new_population_column = Symbol( which_population_measure )
@@ -36,7 +33,7 @@ module StayingPutModelDriver
         # natdata[1,:].amount
         # grant = uprate( grant, 2019, AFC_SURVEY_YEAR ).*1.02 # hacked 1 year inflation, 1 year growth
         popn = natdata[new_population_column]
-        natdata[grantcol] = track_series(
+        natdata[!,grantcol] = track_series(
             grant,#    :: Real,
             popn ) #  :: Vector,
     end
@@ -138,7 +135,7 @@ module StayingPutModelDriver
 
 
 
-    function addallgrantcols!(
+    function add_all_grant_cols!(
         natdata:: DataFrame,
         by_la :: DataFrame )
          for new_population_column in POPN_MEASURES
@@ -148,7 +145,7 @@ module StayingPutModelDriver
          end
     end
 
-    function doonerun(
+    function do_one_run(
         params   :: Array{Params},
         settings :: DataSettings,
         year     :: Integer )
@@ -213,7 +210,7 @@ module StayingPutModelDriver
         end # iteration
         CSVFiles.save( output_dir*"/main_results.csv", main_results )
         output_dir
-    end # doonerun
+    end # do_one_run
 
     function addsysnotoname( names, sysno ) :: Array{Symbol,1}
         a = Array{Symbol,1}(undef, 0)
@@ -242,7 +239,7 @@ module StayingPutModelDriver
         targetpos
     end
 
-    function dumpruninfo(
+    function dump_run_info(
         output_dir :: AbstractString,
         params     :: Array{Params},
         settings   :: DataSettings )
@@ -263,7 +260,7 @@ module StayingPutModelDriver
 
      targetcode=first( _[1][targetpos])
     """
-    function createmaintables(
+    function create_main_tables(
         output_dir  :: AbstractString,
         num_systems :: Integer,
         start_year :: Integer )
@@ -271,7 +268,7 @@ module StayingPutModelDriver
         all_base_data = CareData.load_all(2020)
         main_results = CSV.File( output_dir*"/main_results.csv" ) |> DataFrame # don't really need the cast
         by_council_sys_and_year = []
-        println( "createmaintables; target is ccol")
+        println( "create_main_tables; target is ccol")
         for sysno in 1:num_systems
             by_council_sys_iteration_and_year = main_results |>
                 @filter( _.year >= start_year && _.year < 2026  && _.sysno == sysno ) |>
@@ -357,15 +354,15 @@ module StayingPutModelDriver
         simple = cleanup_main_frame( merged )
         CSVFiles.save( output_dir*"by_ccode_sys_and_year_merged_with_grant_simple_version.csv", simple, delim='\t' )
         merged
-    end # createmaintables
+    end # create_main_tables
 
 
     """
      FIXME FIXME FIXME FIXME should be no need for this!!!
-     createmaintables above should do everything but has problems so I'm
+     create_main_tables above should do everything but has problems so I'm
      just hacking this near-duplicate
     """
-    function createmaintables_by_region(
+    function create_main_tables_by_region(
         output_dir :: AbstractString,
         num_systems :: Integer,
         start_year :: Integer )
@@ -458,10 +455,10 @@ module StayingPutModelDriver
         simple = cleanup_main_frame_regional( merged )
         CSVFiles.save( output_dir*"by_region_sys_and_year_merged_with_grant_simple_version.csv", simple, delim='\t' )
         merged
-    end # createmaintables_by_region
+    end # create_main_tables_by_region
 
 
-    function mergegrantstoregions( grantdata :: DataFrame ) :: DataFrame
+    function merge_grants_to_regions( grantdata :: DataFrame ) :: DataFrame
         return  grantdata |>
                 @filter( _.amount > 0 ) |>
                 @groupby( [_.rcode ] ) |>
@@ -474,7 +471,7 @@ module StayingPutModelDriver
                 DataFrame
     end
 
-#     function createmaintables_linq(
+#     function create_main_tables_linq(
 #         output_dir :: AbstractString,
 #         params     :: Array{Params},
 #         settings   :: DataSettings,  )
@@ -572,9 +569,9 @@ module StayingPutModelDriver
 #             push# !(by_la_sys_and_year, by_la_sys_and_year_tmp )
 #
 #         end # sysno
-#     end # createmaintables
+#     end # create_main_tables
 #
-    function createnglandtables(
+    function create_england_tables(
         output_dir :: AbstractString,
         params     :: Array{Params},
         settings   :: DataSettings,
@@ -670,7 +667,7 @@ module StayingPutModelDriver
         merged
     end #
 
-    function createnglandtablesbyage(
+    function create_england_tables_by_age(
         output_dir :: AbstractString,
         params     :: Array{Params},
         settings   :: DataSettings,
@@ -774,7 +771,7 @@ module StayingPutModelDriver
         out
     end
 
-    function createmaintablesgrant( latotals, annualtotals)
+    function create_main_tablesgrant( latotals, annualtotals)
         @assert isiterabletable( latotals )
         @assert isiterabletable( annualtotals )
 

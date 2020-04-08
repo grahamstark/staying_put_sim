@@ -61,12 +61,12 @@ module load
             DataCreationDriver.create_data( settings )
         end
         nparams = length( params )[1]
-        outdir = StayingPutModelDriver.doonerun( params, settings, year )
-        StayingPutModelDriver.dumpruninfo( outdir, params, settings )
-        StayingPutModelDriver.createmaintables( outdir, nparams, year )
-        StayingPutModelDriver.createnglandtables( outdir, params, settings, year )
-        StayingPutModelDriver.createnglandtablesbyage( outdir, params, settings, year )
-        StayingPutModelDriver.createmaintables_by_region( outdir, nparams, year )
+        outdir = StayingPutModelDriver.do_one_run( params, settings, year )
+        StayingPutModelDriver.dump_run_info( outdir, params, settings )
+        StayingPutModelDriver.create_main_tables( outdir, nparams, year )
+        StayingPutModelDriver.create_england_tables( outdir, params, settings, year )
+        StayingPutModelDriver.create_england_tables_by_age( outdir, params, settings, year )
+        StayingPutModelDriver.create_main_tables_by_region( outdir, nparams, year )
     end
 
     """
@@ -81,7 +81,7 @@ module load
         year      :: Integer )
         nparams = 5
         outdir = "$(RESULTSDIR)/main-results-$(whichdata)/"
-        StayingPutModelDriver.createmaintables_by_region( outdir, nparams, year )
+        StayingPutModelDriver.create_main_tables_by_region( outdir, nparams, year )
     end
 
     function create_data( ds :: DataPublisher, pc :: Real, numiter :: Integer, createdata :: Bool, year :: Integer )
@@ -122,11 +122,11 @@ module load
 
         num_systems = size( params )[1]
 
-        outdir = StayingPutModelDriver.doonerun( params, settings, year )
-        StayingPutModelDriver.createmaintables( outdir, num_systems, :rcode, year )
-        StayingPutModelDriver.createmaintables( outdir, num_systems, :ccode, year )
-        StayingPutModelDriver.createnglandtables( outdir, params, settings, year )
-        StayingPutModelDriver.createnglandtablesbyage( outdir, params, settings, year )
+        outdir = StayingPutModelDriver.do_one_run( params, settings, year )
+        StayingPutModelDriver.create_main_tables( outdir, num_systems, :rcode, year )
+        StayingPutModelDriver.create_main_tables( outdir, num_systems, :ccode, year )
+        StayingPutModelDriver.create_england_tables( outdir, params, settings, year )
+        StayingPutModelDriver.create_england_tablesbyage( outdir, params, settings, year )
     end #  function
 
     numiter = 200
@@ -188,6 +188,6 @@ end
     # pdir = "/home/graham_s/VirtualWorlds/projects/action_for_children/england/results/2020/"
     # outdir = pdir*"/test1/"
     # num_systems = 5
-    # StayingPutModelDriver.createmaintables( outdir, num_systems, :ccode )
-    # StayingPutModelDriver.createmaintables( outdir, num_systems, :rcode )
+    # StayingPutModelDriver.create_main_tables( outdir, num_systems, :ccode )
+    # StayingPutModelDriver.create_main_tables( outdir, num_systems, :rcode )
 end
