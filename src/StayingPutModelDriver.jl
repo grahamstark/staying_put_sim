@@ -26,10 +26,14 @@ module StayingPutModelDriver
         :pct_10_cnt_sys_1,:pct_25_cnt_sys_1,:pct_75_cnt_sys_1,
         :pct_90_cnt_sys_1]
 
-    function add_modelled_grants_to_national!( natdata :: DataFrame, which_population_measure :: AbstractString)
+    function add_modelled_grants_to_national!(
+        natdata :: DataFrame,
+        which_population_measure :: AbstractString,
+        start_year::Integer )
         new_population_column = Symbol( which_population_measure )
         grantcol = Symbol( which_population_measure * "_grant")
-        grant = 23_765_998.0
+        grantdata = CSV.File( DATADIR*"edited/$(start_year)/GRANTS_BY_REGION_$(start_year).csv" ) |> DataFrame
+        grant = sum( grantdata[!,:amount])
         # natdata[1,:].amount
         # grant = uprate( grant, 2019, AFC_SURVEY_YEAR ).*1.02 # hacked 1 year inflation, 1 year growth
         popn = natdata[new_population_column]
@@ -55,7 +59,7 @@ module StayingPutModelDriver
             one_la_all_periods = by_la[indices_for_this_la,:] # all the rows for 1 LA
             lasize = size( one_la_all_periods )[1]
             grant = one_la_all_periods[1,:].amount # this is the actual grant, for the 1st period (2020,2019 or whenever)
-            popn = one_la_all_periods[new_population_column] # we're expanding the grant to track this popn measure
+            popn = one_la_all_periods[!,new_population_column] # we're expanding the grant to track this popn measure
             tracked_grant = track_series(
                 grant,#    :: Real,
                 popn ) #  :: Vector,
@@ -78,7 +82,7 @@ module StayingPutModelDriver
             rsize = size( later )[1]
             grant = later[1,:].amount
             # grant = uprate( grant, 2019, AFC_SURVEY_YEAR ).*1.02 # hacked 1 year inflation, 1 year growth
-            popn = later[new_population_column]
+            popn = later[!,new_population_column]
             tracked_grant = track_series(
                 grant,#    :: Real,
                 popn ) #  :: Vector,
@@ -137,11 +141,12 @@ module StayingPutModelDriver
 
     function add_all_grant_cols!(
         natdata:: DataFrame,
-        by_la :: DataFrame )
+        by_la :: DataFrame,
+        start_year :: Integer )
          for new_population_column in POPN_MEASURES
              spop = String(new_population_column)
-             add_modelled_grants_to_la!(by_la, spop )
-             add_modelled_grants_to_national!( natdata, spop )
+             add_modelled_grants_to_la!(by_la, spop,start_year )
+             add_modelled_grants_to_national!( natdata, spop, start_year )
          end
     end
 
@@ -271,7 +276,7 @@ module StayingPutModelDriver
         println( "create_main_tables; target is ccol")
         for sysno in 1:num_systems
             by_council_sys_iteration_and_year = main_results |>
-                @filter( _.year >= start_year && _.year < 2026  && _.sysno == sysno ) |>
+                @filter( _.year >= start_year && _.year <= 2026  && _.sysno == sysno ) |>
                 @groupby( [ _.ccode,  _.year, _.sysno, _.iteration] ) |>
                 @map({ index=key(_),
                     year=first(_.year),
@@ -374,7 +379,7 @@ module StayingPutModelDriver
         # data[rcode]=map( c->region_code_from_name(c), data[cname])
         for sysno in 1:num_systems
             by_region_sys_iteration_and_year = main_results |>
-                @filter( _.year >= start_year && _.year <= 2025  && _.sysno == sysno ) |>
+                @filter( _.year >= start_year && _.year <= 2026  && _.sysno == sysno ) |>
                 @groupby( [_.rcode,  _.year, _.sysno, _.iteration ] ) |>
                 @map({
                     index=key(_),
@@ -471,106 +476,6 @@ module StayingPutModelDriver
                 DataFrame
     end
 
-#     function create_main_tables_linq(
-#         output_dir :: AbstractString,
-#         params     :: Array{Params},
-#         settings   :: DataSettings,  )
-#
-#         # whichgroup :: Symbol
-#         f = @from i in df begin
-#                  @group i by i.b into g
-#                  @select {Key=key(g),L=length(g.a),S=median(g.c),Q=first(g.c)}
-#                  @order g.c
-#                  @collect DataFrame
-#                end
-#         agglevel = :ccode
-#         # wierd ...
-#         main_results = CSVFiles.load( output_dir*"/main_results.csv" ) |> DataFrame
-#         agglevelpos = -1
-#         ns = names( main_results )
-#         lns = length(ns)[1]
-#         for i in 1:lns
-#             if ns[i] == agglevel
-#                 agglevelpos = i
-#                 break
-#             end
-#         end
-#
-#         num_systems = size( params )[1]
-#         by_la_sys_and_year = []
-#         for sysno in 1:num_systems
-#             by_la_sys_iteration_and_year =
-#                 @from mr in mr100k begin # main_results
-#                 @where mr.year > start_year && mr.year < 2025  && mr.sysno == sysno
-#                 @group mr by mr[agglevel], mr.year, mr.sysno, mr.iteration into mrg
-#                 @select {
-#                     index=key(mrg),
-#                     year=first(mrg.year),
-#                     aggcode=first(mrg[agglevel]),
-#                     sysno=first(mrg.sysno),
-#                     iteration=first(mrg.iteration),
-#                     cnt=length( mrg ),
-#                     income=sum( mrg.income_recieved )*52.0,
-#                     payments = sum( mrg.payments_from_la )*52.0,
-#                     contribs = sum( mrg.contributions_from_yp )*52.0
-#                 }
-#                 @order mrg.year, mrg[agglevel], mrg.sysno,  mrg.iteration
-#                 @collect DataFrame
-#             end
-#             CSVFiles.save( output_dir*"linq_by_la_sys_iteration_and_year.csv", by_la_sys_iteration_and_year, delim='\t' )
-#             print( by_la_sys_iteration_and_year )
-#             by_la_sys_and_year_tmp =
-#                 @from  blas in by_la_sys_iteration_and_year begin
-#                 @group blas by blas[agglevel],  blas.year, blas.sysno into bla
-#                 @select {  agglevel  = first(bla[agglevelpos]),
-#                            year   = first(bla.year),
-#                            sysno  = first(bla.sysno),
-#                            avg_cnt=mean( bla.cnt  ),
-#                            min_cnt=minimum( bla.cnt ),
-#                            max_cnt=maximum( bla.cnt ),
-#                            pct_10_cnt=quantile( bla.cnt, [0.10] )[1],
-#                            pct_25_cnt=quantile( bla.cnt, [0.25] )[1],
-#                            pct_75_cnt=quantile( bla.cnt, [0.75] )[1],
-#                            pct_90_cnt=quantile( bla.cnt, [0.90] )[1],
-#
-#
-#                            avg_contribs = mean( bla.contribs ),
-#                            min_contribs = minimum( bla.contribs ),
-#                            max_contribs = maximum( bla.contribs ),
-#                            pct_10_contribs=quantile( bla.contribs, [0.10] )[1],
-#                            pct_25_contribs=quantile( bla.contribs, [0.25] )[1],
-#                            pct_75_contribs=quantile( bla.contribs, [0.75] )[1],
-#                            pct_90_contribs=quantile( bla.contribs, [0.90] )[1],
-#
-#                            avg_payments = mean( bla.payments  ),
-#                            min_payments = minimum( bla.payments ),
-#                            max_payments = maximum( bla.payments ),
-#                            pct_10_payments=quantile( bla.payments, [0.10] )[1],
-#                            pct_25_payments=quantile( bla.payments, [0.25] )[1],
-#                            pct_75_payments=quantile( bla.payments, [0.75] )[1],
-#                            pct_90_payments=quantile( bla.payments, [0.90] )[1],
-#                            avg_income=mean( bla.income  ),
-#                            min_income=minimum( bla.income ),
-#                            max_income=maximum( bla.income ),
-#                            pct_10_income=quantile( bla.income, [0.10] )[1],
-#                            pct_25_income=quantile( bla.income, [0.25] )[1],
-#                            pct_75_income=quantile( bla.income, [0.75] )[1],
-#                            pct_90_income=quantile( bla.income, [0.90] )[1]
-#                         }
-#                 @order bla[agglevel], bla.year,bla.sysno
-#                 @collect DataFrame
-#             end
-#             grantdata = CSV.File( DATADIR*"edited/GRANTS_2019.csv" ) |> DataFrame
-#
-#             print( by_la_sys_and_year_tmp )
-#             newnames = addsysnotoname( names( by_la_sys_and_year_tmp ), sysno )
-#             names# !( by_la_sys_and_year_tmp, newnames )
-#             CSVFiles.save( output_dir*"linq_by_la_sys_and_year_sysno_$sysno.csv", by_la_sys_and_year_tmp, delim='\t' )
-#             push# !(by_la_sys_and_year, by_la_sys_and_year_tmp )
-#
-#         end # sysno
-#     end # create_main_tables
-#
     function create_england_tables(
         output_dir :: AbstractString,
         params     :: Array{Params},
@@ -582,7 +487,7 @@ module StayingPutModelDriver
         by_sys_and_year = []
         for sysno in 1:num_systems
             by_sys_iteration_and_year = main_results |>
-                @filter( _.year > start_year && _.year < 2025  && _.sysno == sysno ) |>
+                @filter( _.year >= start_year && _.year <= 2026  && _.sysno == sysno ) |>
                 @groupby( [_.year, _.sysno, _.iteration ] ) |>
                 @map({
                     index=key(_),
@@ -660,12 +565,12 @@ module StayingPutModelDriver
         end
         for new_population_column in POPN_MEASURES
             spop = String(new_population_column)
-            add_modelled_grants_to_national!( merged, spop )
+            add_modelled_grants_to_national!( merged, spop, start_year )
         end
         CSVFiles.save( output_dir*"by_sys_and_year.csv", merged, delim='\t' )
         CSVFiles.save( output_dir*"by_sys_and_year_stacked.csv", stacked, delim='\t' )
         merged
-    end #
+    end # create_england_tables
 
     function create_england_tables_by_age(
         output_dir :: AbstractString,
@@ -678,7 +583,7 @@ module StayingPutModelDriver
         by_sys_yp_age_and_year = []
         for sysno in 1:num_systems
             by_sys_yp_age_iteration_and_year = main_results |>
-                @filter( _.year >= start_year && _.year <= 2025  && _.sysno == sysno ) |>
+                @filter( _.year >= start_year && _.year <= 2026  && _.sysno == sysno ) |>
                 @groupby( [_.year, _.sysno, _.yp_age, _.iteration ] ) |>
                 @map({
                     index=key(_),
