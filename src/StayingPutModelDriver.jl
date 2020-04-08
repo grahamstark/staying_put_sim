@@ -29,47 +29,48 @@ module StayingPutModelDriver
         :avg_cnt_sys_1,:min_cnt_sys_1,:max_cnt_sys_1]
 
 
-    function add_modelled_grants_to_national!( natdata :: DataFrame, popnname :: AbstractString)
-        popcol = Symbol( popnname )
-        grantcol = Symbol( popnname * "_grant")
+    function add_modelled_grants_to_national!( natdata :: DataFrame, which_population_measure :: AbstractString)
+        new_population_column = Symbol( which_population_measure )
+        grantcol = Symbol( which_population_measure * "_grant")
         grant = 23_765_998.0
         # natdata[1,:].amount
         # grant = uprate( grant, 2019, AFC_SURVEY_YEAR ).*1.02 # hacked 1 year inflation, 1 year growth
-        popn = natdata[popcol]
-        natdata[grantcol] = trackseries(
+        popn = natdata[new_population_column]
+        natdata[grantcol] = track_series(
             grant,#    :: Real,
             popn ) #  :: Vector,
     end
 
-    function add_modelled_grants_to_la!( by_la :: DataFrame, popnname :: AbstractString )
-        popcol = Symbol( popnname )
-        grantcol = Symbol( popnname * "_grant")
+    """
+    this adds a column of grants to the data, where the grants track one or other
+    of our generated counts of populations (minimum/maximum/average modelled population - see the
+    constant array POPN_MEASURES above for a lost)
+    """
+    function add_modelled_grants_to_la!( by_la :: DataFrame, indices_for_this_la_population_measure :: AbstractString )
+        new_population_column = Symbol( indices_for_this_la_population_measure )
+        grantcol = Symbol( "$(indices_for_this_la_population_measure)_grant")
         nrows = size( by_la )[1]
         by_la[!,grantcol] .= 0.0
-        ccodes = unique( by_la.ccode )
+        ccodes = unique( by_la.ccode ) # all the lates
         i = 1
-        for ccode in ccodes # FIXME could actually be arcode
-            which = (by_la.ccode .== ccode)
-            later = by_la[which,:]
-            lasize = size( later )[1]
-            grant = later[1,:].amount
-            # grant = uprate( grant, 2019, AFC_SURVEY_YEAR ).*1.02 # hacked 1 year inflation, 1 year growth
-            popn = later[popcol]
-            tracked_grant = trackseries(
+        for ccode in ccodes
+            indices_for_this_la = (by_la.ccode .== ccode)
+            one_la_all_periods = by_la[indices_for_this_la,:] # all the rows for 1 LA
+            lasize = size( one_la_all_periods )[1]
+            grant = one_la_all_periods[1,:].amount # this is the actual grant, for the 1st period (2020,2019 or whenever)
+            popn = one_la_all_periods[new_population_column] # we're expanding the grant to track this popn measure
+            tracked_grant = track_series(
                 grant,#    :: Real,
                 popn ) #  :: Vector,
-                #base_period :: Integer = 1,
-                #base_year   :: Integer = AFC_SURVEY_YEAR
-            # println( "ccode=$ccode tracked_grant=$tracked_grant")
             j = i+lasize-1
             by_la[i:j,grantcol] = tracked_grant
             i += lasize
         end
     end
 
-    function add_modelled_grants_to_region!( by_region :: DataFrame, popnname :: AbstractString )
-        popcol = Symbol( popnname )
-        grantcol = Symbol( popnname * "_grant")
+    function add_modelled_grants_to_region!( by_region :: DataFrame, which_population_measure :: AbstractString )
+        new_population_column = Symbol( which_population_measure )
+        grantcol = Symbol( "$(new_population_column)_grant")
         nrows = size( by_region )[1]
         by_region[!,grantcol] .= 0
         rcodes = unique( by_region.rcode )
@@ -80,8 +81,8 @@ module StayingPutModelDriver
             rsize = size( later )[1]
             grant = later[1,:].amount
             # grant = uprate( grant, 2019, AFC_SURVEY_YEAR ).*1.02 # hacked 1 year inflation, 1 year growth
-            popn = later[popcol]
-            tracked_grant = trackseries(
+            popn = later[new_population_column]
+            tracked_grant = track_series(
                 grant,#    :: Real,
                 popn ) #  :: Vector,
                 #base_period :: Integer = 1,
@@ -140,8 +141,8 @@ module StayingPutModelDriver
     function addallgrantcols!(
         natdata:: DataFrame,
         by_la :: DataFrame )
-         for popcol in POPN_MEASURES
-             spop = String(popcol)
+         for new_population_column in POPN_MEASURES
+             spop = String(new_population_column)
              add_modelled_grants_to_la!(by_la, spop )
              add_modelled_grants_to_national!( natdata, spop )
          end
@@ -326,10 +327,11 @@ module StayingPutModelDriver
                            avg_payments = mean( _.payments  ),
                            min_payments = minimum( _.payments ),
                            max_payments = maximum( _.payments )
-                           # pct_10_payments=quantile( _.payments, [0.10] )[1],
-                           # pct_25_payments=quantile( _.payments, [0.25] )[1],
-                           # pct_75_payments=quantile( _.payments, [0.75] )[1],
-                           # pct_90_payments=quantile( _.payments, [0.90] )[1]
+
+                           pct_10_payments=quantile( _.payments, [0.10] )[1],
+                           pct_25_payments=quantile( _.payments, [0.25] )[1],
+                           pct_75_payments=quantile( _.payments, [0.75] )[1],
+                           pct_90_payments=quantile( _.payments, [0.90] )[1]
                         }
                     ) |>
                 @orderby( [ _.ccode, _.year,_.sysno] ) |>
@@ -347,123 +349,13 @@ module StayingPutModelDriver
             merged = join( merged, by_council_sys_and_year[sysno], on=[:ccode,:year], makeunique=true )
         end
 
-        for popcol in POPN_MEASURES
-            spop = String(popcol)
+        for new_population_column in POPN_MEASURES
+            spop = String(new_population_column)
             add_modelled_grants_to_la!(merged, spop )
         end
         CSVFiles.save( output_dir*"by_ccode_sys_and_year_merged_with_grant.csv", merged, delim='\t' )
         simple = cleanup_main_frame( merged )
         CSVFiles.save( output_dir*"by_ccode_sys_and_year_merged_with_grant_simple_version.csv", simple, delim='\t' )
-        merged
-    end # createmaintables
-
-    """
-     FIXME FIXME FIXME attempt to pass in grouping target as a parameter,
-     so I can add groupings by rcode as well as council
-     has broken this in ways I don't understand. See this line, probably:
-
-     targetcode=first( _[1][targetpos])
-    """
-    function createmaintables_fucked_version(
-        output_dir  :: AbstractString,
-        num_systems :: Integer,
-        target      :: Symbol,
-        start_year :: Integer )
-        # whichgroup :: Symbol
-        all_base_data = CareData.load_all(2020)
-        main_results = CSV.File( output_dir*"/main_results.csv" ) |> DataFrame # don't really need the cast
-        targetpos = getposoftarget( main_results, target )
-        by_target_sys_and_year = []
-        println( "createmaintables; target is $target")
-        for sysno in 1:num_systems
-            by_target_sys_iteration_and_year = main_results |>
-                @filter( _.year >= start_year && _.year <= 2025  && _.sysno == sysno ) |>
-                @groupby( [_[target],  _.year, _.sysno, _.iteration ] ) |>
-                @map({ index=key(_),
-                    year=first(_.year),
-                    targetcode=first( _[targetpos]),
-                    sysno=first(_.sysno),
-                    iteration=first(_.iteration),
-                    cnt=length( _ ),
-                    income=sum( _.income_recieved )*52.0,
-                    contribs = sum( _.contributions_from_yp )*52.0,
-                    payments = sum( _.payments_from_la )*52.0
-                    } ) |>
-                @orderby( [_.year,_.targetcode,_.sysno, _.iteration ] ) |>
-                DataFrame
-
-            CSVFiles.save( output_dir*"by_$(target)_sys_iteration_and_year.csv", by_target_sys_iteration_and_year, delim='\t' )
-            # the sorting things fail because of some
-
-            by_target_sys_and_year_tmp = by_target_sys_iteration_and_year |>
-                @groupby( [_.targetcode,  _.year, _.sysno] ) |>
-                @map(
-                        {
-                           targetcode  = first(_.targetcode),
-                           year   = first(_.year),
-                           sysno  = first(_.sysno),
-                           avg_cnt=mean( _.cnt  ),
-                           min_cnt=minimum( _.cnt ),
-                           max_cnt=maximum( _.cnt ),
-                           # pct_10_cnt=quantile( _.cnt, [0.10] )[1],
-                           # pct_25_cnt=quantile( _.cnt, [0.25] )[1],
-                           # pct_75_cnt=quantile( _.cnt, [0.75] )[1],
-                           # pct_90_cnt=quantile( _.cnt, [0.90] )[1],
-
-                           avg_income=mean( _.income  ),
-                           min_income=minimum( _.income ),
-                           max_income=maximum( _.income ),
-                           # pct_10_income=quantile( _.income, [0.10] )[1],
-                           # pct_25_income=quantile( _.income, [0.25] )[1],
-                           # pct_75_income=quantile( _.income, [0.75] )[1],
-                           # pct_90_income=quantile( _.income, [0.90] )[1],
-
-                           avg_contribs = mean( _.contribs ),
-                           min_contribs = minimum( _.contribs ),
-                           max_contribs = maximum( _.contribs ),
-
-                           # pct_10_contribs=quantile( _.contribs, [0.10] )[1],
-                           # pct_25_contribs=quantile( _.contribs, [0.25] )[1],
-                           # pct_75_contribs=quantile( _.contribs, [0.75] )[1],
-                           # pct_90_contribs=quantile( _.contribs, [0.90] )[1],
-
-                           avg_payments = mean( _.payments  ),
-                           min_payments = minimum( _.payments ),
-                           max_payments = maximum( _.payments )
-                           # pct_10_payments=quantile( _.payments, [0.10] )[1],
-                           # pct_25_payments=quantile( _.payments, [0.25] )[1],
-                           # pct_75_payments=quantile( _.payments, [0.75] )[1],
-                           # pct_90_payments=quantile( _.payments, [0.90] )[1]
-                        }
-                    ) |>
-                @orderby( [ _.targetcode, _.year,_.sysno] ) |>
-                DataFrame
-            newnames = addsysnotoname( names( by_target_sys_and_year_tmp ), sysno )
-            rename!( by_target_sys_and_year_tmp, newnames )
-            CSVFiles.save( output_dir*"by_$(target)_sys_and_year_sysno_$sysno.csv", by_target_sys_and_year_tmp, delim='\t' )
-            push!(by_target_sys_and_year, by_target_sys_and_year_tmp )
-        end
-
-        # grantdata = CSV.File( DATADIR*"edited/GRANTS_2019.csv" ) |> DataFrame
-        grantdata = all_base_data.grantdata
-        if target == :rcode # aggregate grants into regions
-            grantdata = mergegrantstoregions( grantdata )
-        else
-            # Rename cccode to target code
-            rename!( grantdata, Dict( :ccode => :targetcode ))
-        end
-        merged = join( grantdata, by_target_sys_and_year[1], on=:targetcode, makeunique=true )
-        for sysno in 2:num_systems
-            merged = join( merged, by_target_sys_and_year[sysno], on=[:targetcode,:year], makeunique=true )
-        end
-
-        for popcol in POPN_MEASURES
-            spop = String(popcol)
-            add_modelled_grants_to_la!(merged, spop, target )
-        end
-        CSVFiles.save( output_dir*"by_$(target)_sys_and_year_merged_with_grant.csv", merged, delim='\t' )
-        simple = cleanup_main_frame( merged, target )
-        CSVFiles.save( output_dir*"by_$(target)_sys_and_year_merged_with_grant_simple_version.csv", simple, delim='\t' )
         merged
     end # createmaintables
 
@@ -552,14 +444,14 @@ module StayingPutModelDriver
             CSVFiles.save( output_dir*"by_region_sys_and_year_sysno_$sysno.csv", by_region_sys_and_year_tmp, delim='\t' )
             push!(by_region_sys_and_year, by_region_sys_and_year_tmp )
         end
-        grantdata = CSV.File( DATADIR*"edited/GRANTS_BY_REGION_2019.csv" ) |> DataFrame
+        grantdata = CSV.File( DATADIR*"edited/$(start_year)/GRANTS_BY_REGION_$(start_year).csv" ) |> DataFrame
         merged = join( grantdata, by_region_sys_and_year[1], on=:rcode, makeunique=true )
         for sysno in 2:num_systems
             merged = join( merged, by_region_sys_and_year[sysno], on=[:rcode,:year], makeunique=true )
         end
 
-        for popcol in POPN_MEASURES
-            spop = String(popcol)
+        for new_population_column in POPN_MEASURES
+            spop = String(new_population_column)
             add_modelled_grants_to_region!(merged, spop)
         end
         CSVFiles.save( output_dir*"by_region_sys_and_year_merged_with_grant.csv", merged, delim='\t' )
@@ -769,8 +661,8 @@ module StayingPutModelDriver
             rename!( by_sys_and_year[sysno], newnames )
             merged = join( merged, by_sys_and_year[sysno], on=[:year], makeunique=true )
         end
-        for popcol in POPN_MEASURES
-            spop = String(popcol)
+        for new_population_column in POPN_MEASURES
+            spop = String(new_population_column)
             add_modelled_grants_to_national!( merged, spop )
         end
         CSVFiles.save( output_dir*"by_sys_and_year.csv", merged, delim='\t' )

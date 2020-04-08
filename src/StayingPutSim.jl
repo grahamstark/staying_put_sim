@@ -28,7 +28,7 @@ module StayingPutSim
     using CareData
     using FosterParameters
     using LAModelData: get_pay_class_from_region_code
-    export do_one_calc, override_outcomes!, do_basic_calc, trackseries
+    export do_one_calc, override_outcomes!, do_basic_calc, track_series
 
     function do_basic_calc(
         ccode        :: AbstractString,
@@ -927,8 +927,17 @@ end
         outcomes
     end # do_one_calc
 
+    """
+    Given some number `base` and a series of (e.g.) populations `series`,
+    return a vector which starts at base and moves in proportion to `series`
+    useful for (e.g.) forecasting some grant allocation. the `base_period` is the 1st element of
+    series to track from, base year allows the base to represent some period
+    in the past, relative to AFC_SURVEY_YEAR
 
-    function trackseries(
+    so: base = 100 series=[1,2,3] => 100,200,300
+
+    """
+    function track_series(
         base    :: Real,
         series  :: Vector,
         base_period :: Integer = 1,

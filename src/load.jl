@@ -157,11 +157,17 @@ module load
 #         numiter   = 1,
 #         year      = 2020 )
     #
+
+numiter = 1
+if size(ARGS)[1] > 0
+    numiter = parse( Int, ARGS[1])
+end
+
 for dsname in datasets
        do_reform_runs(
             runname   = "main-results-"*dsname,
             whichdata = dsname,
-            numiter   = 200,
+            numiter   = numiter,
             year      = 2020,
             create_data = false )
 end
