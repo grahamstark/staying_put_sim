@@ -7,7 +7,7 @@ module FosterParameters
     export get_default_params, Params, Minimum_Allowances, AllowancesDict, makeAllowances, getAllowances
     export DEFAULT_UPRATE_FACTOR
 
-    export ContributionType, actual_contribution, no_contribution, benefits_only, flat_rate, all_people
+    export ContributionType, actual_contribution, no_contribution, benefits_only, flat_rate, all_people, hb_only
     export PaymentType, actual_payment, min_payment, age_16_17
     export UpratingType, no_uprating, by_benefits, by_cpi
 
@@ -65,7 +65,7 @@ module FosterParameters
         makeAllowances( 2019 )[london].age_16_17
 
 
-    @enum ContributionType actual_contribution no_contribution  benefits_only flat_rate all_people
+    @enum ContributionType actual_contribution no_contribution  benefits_only flat_rate all_people hb_only
     @enum PaymentType actual_payment min_payment age_16_17
     @enum UpratingType no_uprating by_benefits by_cpi
 

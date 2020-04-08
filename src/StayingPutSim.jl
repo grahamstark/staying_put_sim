@@ -857,7 +857,10 @@ end
                     outcomes.other_cont = 0.0
                     outcomes.housing_cont = 0.0
                 end
+        elseif params.yp_contrib_type == hb_only
+
         end
+        
         if params.contrib_hb == no_contribution
             outcomes.housing_cont = 0.0
         elseif params.contrib_hb == all_people
