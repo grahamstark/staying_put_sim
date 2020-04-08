@@ -36,7 +36,7 @@ module StayingPutModelDriver
         grant = sum( grantdata[!,:amount])
         # natdata[1,:].amount
         # grant = uprate( grant, 2019, AFC_SURVEY_YEAR ).*1.02 # hacked 1 year inflation, 1 year growth
-        popn = natdata[new_population_column]
+        popn = natdata[!,new_population_column]
         natdata[!,grantcol] = track_series(
             grant,#    :: Real,
             popn ) #  :: Vector,
