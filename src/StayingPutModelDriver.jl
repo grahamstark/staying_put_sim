@@ -72,7 +72,7 @@ module StayingPutModelDriver
         new_population_column = Symbol( which_population_measure )
         grantcol = Symbol( "$(new_population_column)_grant")
         nrows = size( by_region )[1]
-        by_region[!,grantcol] .= 0
+        by_region[!,grantcol] .= 0.0
         rcodes = unique( by_region.rcode )
         i = 1
         for rcode in rcodes # FIXME could actually be arcode
@@ -97,7 +97,7 @@ module StayingPutModelDriver
     function cleanup_main_frame( by_la :: DataFrame )
         newframe=DataFrame()
         print( names( by_la ))
-        newframe[!,:Year]=by_la[:year]
+        newframe[!,:Year]=by_la[!,:year]
         newframe[!,:Council]=by_la[!,:council]
         newframe[!,:Number]=round.(Integer,by_la[!,:avg_cnt_sys_1])
         newframe[!,:Grants_Option_1] = round.(Integer,by_la[!,:avg_cnt_sys_1_grant])
@@ -117,7 +117,7 @@ module StayingPutModelDriver
 
     function cleanup_main_frame_regional( by_la :: DataFrame )
         newframe=DataFrame()
-        newframe[!,:Year]=by_la[:year]
+        newframe[!,:Year]=by_la[!,:year]
         # if( target == :ccode )
         #     newframe[!,:Council]=by_la[!,:council]
         # end
@@ -326,7 +326,7 @@ module StayingPutModelDriver
 
                            avg_payments = mean( _.payments  ),
                            min_payments = minimum( _.payments ),
-                           max_payments = maximum( _.payments )
+                           max_payments = maximum( _.payments ),
 
                            pct_10_payments=quantile( _.payments, [0.10] )[1],
                            pct_25_payments=quantile( _.payments, [0.25] )[1],
