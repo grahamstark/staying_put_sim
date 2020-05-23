@@ -846,6 +846,8 @@ end
         yp           :: YP,
         council_data :: DataFrameRow,
         params       :: Params ) :: CarerOutcomes
+
+        ## FIXME these two things overlap horribly
         if params.yp_contrib_type == no_contribution
                 outcomes.housing_cont = 0.0
                 outcomes.other_cont = 0.0
@@ -858,9 +860,13 @@ end
                     outcomes.housing_cont = 0.0
                 end
         elseif params.yp_contrib_type == hb_only
+            if yp.benefits == 0.0
+                outcomes.other_cont = 0.0
+                # outcomes.housing_cont = 0.0
+            end
 
         end
-        
+
         if params.contrib_hb == no_contribution
             outcomes.housing_cont = 0.0
         elseif params.contrib_hb == all_people

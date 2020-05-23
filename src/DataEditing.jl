@@ -13,6 +13,48 @@ module DataEditing
     using Utils
 
     export make_edited_datasets, add_ons_codes_to!,make_edited_hb_data, get_ofsted_data
+    export create_actual_2020_allocation, parse_2020_allocation
+
+    function parse_2020_allocation( filename :: String ) :: Dict
+        n = 0
+        key = "x"
+        out=Dict{String,NamedTuple}()
+        oldv = -1
+        newv = -1
+        for line in eachline( filename )
+            n += 1
+            r = (n % 3)
+            if r==1
+                  key = line
+                  if key == "#"
+                      break;
+                  end
+            elseif r == 2
+                oldv = parse(Int64, line )
+            else
+                newv = parse(Int64, line )
+                out[key]=(oldv=oldv,newv=newv)
+            end;
+            print("$key\n");
+        end # loop
+        out
+    end # parse_allocation
+
+    function create_actual_2020_allocation()
+        start_year = 2020
+        dd = DATADIR*"edited/$(start_year)"
+        gfname = "$dd/GRANTS_$(start_year).csv"
+        grantdata = CSV.File( gfname ) |> DataFrame
+        grantdata[!,:my_estimated_amount] .= 0
+        grantdata[!,:my_estimated_amount]= copy(grantdata[!,:amount])
+        new_grants = parse_2020_allocation( "$dd/raw_grant_data_tmp.txt" );
+        for (k,v) in new_grants
+            grantdata[(grantdata.council.==k),:amount] .= v.newv
+        end
+        CSV.write( gfname, grantdata )
+        grantdata
+    end
+
 
     function yearstr( year :: Integer ) :: String
         ys = "?"

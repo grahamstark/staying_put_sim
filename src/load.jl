@@ -66,6 +66,13 @@ module load
         params4.fee = [0, 78.38, 158.76, 237.23, 340.76] # oldham FIXME UPRATE
         push!( params, params4 )
 
+        params5 = FosterParameters.get_default_params()
+        params5.yp_contrib_type = hb_only
+        params5.contrib_hb = = benefits_only
+        params5.name = "option 5: Oldham style fee and contributions via HB from all."
+        params5.payment = min_payment
+        params5.fee = [0, 78.38, 158.76, 237.23, 340.76] # oldham FIXME UPRATE
+        push!( params, params5 )
 
         if create_data
             DataCreationDriver.create_data( settings )
