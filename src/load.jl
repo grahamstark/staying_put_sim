@@ -22,7 +22,7 @@ module load
         params = Array{Params}(undef,0)
         params1 = FosterParameters.get_default_params()
         params1.name = "Current System"
-
+        # sys 1
         push!( params, params1 )
 
         params2a1 = FosterParameters.get_default_params()
@@ -31,6 +31,7 @@ module load
         params2a1.name = "option 2(a) with Oldham style fee"
         params2a1.payment = min_payment
         params2a1.fee = [0, 78.38, 158.76, 237.23, 340.76] # oldham FIXME UPRATE
+        # sys 2
         push!( params, params2a1 )
 
         params2a2 = FosterParameters.get_default_params()
@@ -39,6 +40,7 @@ module load
         params2a2.name = "option 2(a) without fee"
         params2a2.payment = min_payment
         params2a2.fee = []
+        # sys 3
         push!( params, params2a2 )
 
         params2b = FosterParameters.get_default_params()
@@ -47,6 +49,7 @@ module load
         params2b.yp_contrib_type = no_contribution
         params2b.fee = [0, 78.38, 158.76, 237.23, 340.76] # oldham
         params2b.contrib_hb = benefits_only
+        # sys 4
         push!( params, params2b )
 
         params3 = FosterParameters.get_default_params()
@@ -56,6 +59,7 @@ module load
         params3.payment = min_payment
         params3.fee = [0, 78.38, 158.76, 237.23, 340.76] # oldham
         params3.taper = [1.0, 0.5, 0.25]
+        # sys 5
         push!( params, params3 )
 
         params4 = FosterParameters.get_default_params()
@@ -64,6 +68,7 @@ module load
         params4.name = "option 4: Oldham style fee and contributions via HB from all."
         params4.payment = min_payment
         params4.fee = [0, 78.38, 158.76, 237.23, 340.76]
+        # sys 6
         push!( params, params4 )
 
         params5 = FosterParameters.get_default_params()
@@ -73,6 +78,7 @@ module load
         params5.payment = min_payment
         params5.fee = [0, 78.38, 158.76, 237.23, 340.76]
         params5.prop_fees_deleted = 0.84 # see email Vicki Swain 09Jan
+        # sys 7
         push!( params, params5 )
 
         if create_data

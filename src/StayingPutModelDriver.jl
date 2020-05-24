@@ -114,6 +114,8 @@ module StayingPutModelDriver
         newframe[!,:Payments_Option_3] = round.(Integer,by_la[!,:avg_payments_sys_5])
         newframe[!,:Incomes_Option_4] = round.(Integer,by_la[!,:avg_income_sys_6])
         newframe[!,:Payments_Option_4] = round.(Integer,by_la[!,:avg_payments_sys_6])
+        newframe[!,:Incomes_Option_5] = round.(Integer,by_la[!,:avg_income_sys_7])
+        newframe[!,:Payments_Option_5] = round.(Integer,by_la[!,:avg_payments_sys_7])
         newframe[!,:ONS_Code]=by_la[!,:ccode]
         newframe
     end
