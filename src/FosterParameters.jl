@@ -79,6 +79,7 @@ module FosterParameters
         taper           :: Array{Real}
         fee             :: Array{Real}
         extra_grant     :: Real
+        prop_fees_deleted :: Real
     end
 
     function get_default_params()
@@ -91,6 +92,7 @@ module FosterParameters
             no_uprating,
             [],
             [],
+            0.0,
             0.0 )
     end
 

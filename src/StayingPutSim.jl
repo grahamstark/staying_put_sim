@@ -896,6 +896,10 @@ end
             outcomes.housing_cont *= params.taper[p]
             outcomes.other_cont *= params.taper[p]
         end
+        delete_fee = rand() < params.prop_fees_deleted
+        if( delete_fee )
+            outcomes.fee = 0
+        end
         outcomes
     end
 

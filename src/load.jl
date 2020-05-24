@@ -63,15 +63,16 @@ module load
         params4.contrib_hb = all_people
         params4.name = "option 4: Oldham style fee and contributions via HB from all."
         params4.payment = min_payment
-        params4.fee = [0, 78.38, 158.76, 237.23, 340.76] # oldham FIXME UPRATE
+        params4.fee = [0, 78.38, 158.76, 237.23, 340.76]
         push!( params, params4 )
 
         params5 = FosterParameters.get_default_params()
         params5.yp_contrib_type = hb_only
         params5.contrib_hb = benefits_only
-        params5.name = "option 5: Oldham style fee and contributions via HB from all."
+        params5.name = "option 5: option 2(a) with Oldham style fee only for those with no u18 children."
         params5.payment = min_payment
-        params5.fee = [0, 78.38, 158.76, 237.23, 340.76] # oldham FIXME UPRATE
+        params5.fee = [0, 78.38, 158.76, 237.23, 340.76]
+        params5.prop_fees_deleted = 0.84 # see email Vicki Swain 09Jan
         push!( params, params5 )
 
         if create_data
