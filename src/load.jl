@@ -168,8 +168,13 @@ module load
     # create_data( OFSTED, 0.01, numiter, true, year )
     # create_data( DFE, 0.01, numiter, true, year )
 
+    # configure logger; see: https://docs.julialang.org/en/v1/stdlib/Logging/index.html
+    # and: https://github.com/oxinabox/LoggingExtras.jl
+    logger = FileLogger("/home/graham_s/tmp/afc_log.txt")
+    global_logger(logger)
+    LogLevel( Logging.Info )
 
-    DEFAULT_DATA = "ds-DFE-0.01-pct"
+    DEFAULT_DATA = "ds-DFE-0.0-pct"
 
     datasets = [
         "ds-DFE-0.01-pct",
