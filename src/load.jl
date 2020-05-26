@@ -5,6 +5,7 @@ module load
     using CareData
     using FosterParameters
     using GlobalDecls
+    using Logging
 
     function do_reform_runs(
         ;
@@ -18,6 +19,8 @@ module load
         settings.dataset = whichdata
         settings.num_iterations = numiter
         settings.name = runname
+        ### FIXME REMOVE THIS
+        settings.targets = ["E06000047","E0600054"]
 
         params = Array{Params}(undef,0)
         params1 = FosterParameters.get_default_params()
@@ -191,12 +194,14 @@ if size(ARGS)[1] > 1
 end
 
 for dsname in datasets
+    if dsname == "ds-DFE-0.0-pct"
        do_reform_runs(
             runname   = "main-results-"*dsname,
             whichdata = dsname,
             numiter   = numiter,
             year      = 2020,
             create_data = do_create_data )
+    end
 end
 
 #create_region_tables(

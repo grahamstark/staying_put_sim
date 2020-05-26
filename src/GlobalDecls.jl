@@ -15,7 +15,7 @@ module GlobalDecls
     WEEKS_PER_YEAR = 365.25/7
 
     SKIPLIST = [
-        "E07000189" # south somerset missing in underlying data
+        # "E07000189" # south somerset missing in underlying data
     ]
 
     function annualise( m :: Real ) :: Real

@@ -8,6 +8,8 @@ module CareData
     using IterableTables
     using CSVFiles
     using CSV
+    using Logging
+
     using IteratorInterfaceExtensions
     import TableTraits: isiterabletable
 
@@ -520,6 +522,19 @@ module CareData
         end
     end # add_aged_data!
 
+    function include_this( ccode :: AbstractString; settings :: DataSettings ) :: Boolean
+        if ONSCodes.is_aggregate( ccode )
+            return false;
+        end
+        if ccode in SKIPLIST
+            return false;
+        end
+        if size(settings.targets)[1] == 0
+            return true
+        end
+        return ccode in settings.targets
+    end
+
     function create_base_datasets(
         ofdata   :: DataFrame,
         settings :: DataSettings )
@@ -543,7 +558,7 @@ module CareData
         for ofdat in eachrow(ofdata)
             r += 1
             ccode = ofdat.ccode
-            if (! ONSCodes.is_aggregate( ccode )) && (! (ccode in SKIPLIST ) )
+            if include_this( ccode, settings )
                 nc += 1
                 if nc > 2000 # test break if needed
                     break
@@ -561,8 +576,8 @@ module CareData
                 else
                     new_reached_18_base = get_18s_level_from_doe( ccode )
                     if ismissing( new_reached_18_base )
-                        tf = typeof(total_fostered )
-                        @info  "typeof total_fostered $tf"
+                        # tf = typeof(total_fostered )
+                        @warn  "new_reached_18 missing for ccode $ccode"
                         new_reached_18_base = settings.prp_reach_18 * total_fostered # fallback
                     end
                 end
@@ -604,7 +619,7 @@ module CareData
         ofdata = CSV.File( DATADIR*"edited/$(year)/OFDATA.csv", missingstrings=["x","","-", "c",".", "", "..", "*"],
         types=make_type_block(14:1000)) |> DataFrame
         lcnames = Symbol.(Utils.basiccensor.(string.(names(ofdata))))
-        rename!(ofdata, lcnames )
+        rename!( ofdata, lcnames )
         col = 0
         ofs = size( ofdata )[1]
         for name in lcnames

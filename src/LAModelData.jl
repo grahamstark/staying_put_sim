@@ -4,6 +4,7 @@ module LAModelData
     using CSV
     using DataFramesMeta
     using Query
+    using Logging
 
     using GlobalDecls
     using Utils
@@ -84,7 +85,7 @@ module LAModelData
         field = Symbol( "c"*as*"_"*"$year" )
         f1 = Symbol( "cl_stayput_$age" )
         f2 = Symbol( "cl_stayput_ffc_$age" )
-        @info  "target $target age $age f1 $f1 f2 $f2 field $field" 
+        @info  "target $target age $age f1 $f1 f2 $f2 field $field"
         q = @from i in UDATA[field] begin
             @where i.new_geog_code == target
             @select i[f1], i[f2]
