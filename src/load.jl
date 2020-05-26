@@ -154,7 +154,7 @@ module load
     end #  function
 
     numiter = 200
-    create_date = false
+    do_create_data = false
     year = 2020
     #do_main_run( OFSTED, 0.0, numiter, false, year )
     #do_main_run( DFE, 0.0, numiter, false, year )
@@ -187,16 +187,16 @@ if size(ARGS)[1] > 0
 end
 
 if size(ARGS)[1] > 1
-    create_data = parse( Int, ARGS[2]) == 1
+    do_create_data = parse( Int, ARGS[2]) == 1
 end
 
 for dsname in datasets
        do_reform_runs(
             runname   = "main-results-"*dsname,
             whichdata = dsname,
-            numiter   = 1,
+            numiter   = numiter,
             year      = 2020,
-            create_data = true )
+            create_data = do_create_data )
 end
 
 #create_region_tables(

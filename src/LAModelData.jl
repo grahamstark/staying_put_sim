@@ -54,6 +54,7 @@ module LAModelData
     """
     function get_18s_level_from_doe( target :: AbstractString )
         which = UDATA.c17_18_2019.new_geog_code .== target
+        #cl_stayput_18 Care leavers in the year ending 31 March [201X] aged 18 who ceased to be looked after from a foster placement on their 18th birthday
         v = UDATA.c17_18_2019[which,:cl_stayput_18][1]
         #if( ismissing( v ))
     #        v=-1
@@ -77,19 +78,20 @@ module LAModelData
     function do_exit_rate_query(
         year   :: Integer,
         target :: AbstractString,
-        age    :: Integer )
+        age    :: Integer ) :: AbstractArray
         as = age == 18 ? "17_18" : "19_21"
+        # something like :c17_18_2019
         field = Symbol( "c"*as*"_"*"$year" )
         f1 = Symbol( "cl_stayput_$age" )
         f2 = Symbol( "cl_stayput_ffc_$age" )
-        # println( "target $target age $age f1 $f1 f2 $f2 field $field" )
+        @info  "target $target age $age f1 $f1 f2 $f2 field $field" 
         q = @from i in UDATA[field] begin
             @where i.new_geog_code == target
             @select i[f1], i[f2]
             @collect
         end
         # @assert length( q ) == 1 no - 3 londons ffs we use London not Inner/Outer London
-        println( "q1 $q[1]" )
+        @info  "q1 $q[1]"
         q[1]
     end
 
@@ -118,9 +120,10 @@ module LAModelData
         lacode    :: AbstractString,
         agglev    :: AggLevel,
         poolyears :: Bool  ) :: Vector
-        # println( "get_exit_rates for lacode $lacode agglev $agglev" );
+        # poolyears is false by defailt
+        # @info  "get_exit_rates for lacode $lacode agglev $agglev" ;
         avprop = zeros(3)
-        target = get_target_la( lacode, agglev )
+        target = get_target_la( lacode, agglev ) # just swaps region or national code if the agglevel<>council
         ages = [18,19,20]
         years = poolyears ? [2017,2018,2019] : [GlobalDecls.SIMULATION_YEAR]
         for year in years
@@ -134,7 +137,7 @@ module LAModelData
                 if zeroormissing( q )
                     @assert agglev == local_authority
                     target = get_target_la( lacode, regional )
-                    println( "zeros detected! lacode $lacode new target $target $year age $age " );
+                    @info  "zeros detected! lacode $lacode new target $target $year age $age " ;
                     q = do_exit_rate_query( year, target, age )
                 end
                 @assert (! zeroormissing( q ))
@@ -146,7 +149,7 @@ module LAModelData
             # FIXME this goes wrong if 1 year is region and the
             # other is LA
             #
-            println( "got exit data numstaying = $numstaying numreachingage $numreachingage")
+            @info  "got exit data numstaying = $numstaying numreachingage $numreachingage"
 
             # prop[1] = numstaying[1]/numreachingage[1]
             # prop[2] = numstaying[2]/numstaying[1]
@@ -155,8 +158,8 @@ module LAModelData
             prop = numstaying./numreachingage
             prop[2] /= prop[1]
             prop[3] /= (prop[2]*prop[1])
-            # println( "prop $prop " );
-            # println( "numstaying $numstaying numreachingage $numreachingage" )
+            # @info  "prop $prop " ;
+            # @info  "numstaying $numstaying numreachingage $numreachingage"
             avprop .+= prop
         end
         avprop /= length( years )

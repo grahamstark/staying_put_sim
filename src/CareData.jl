@@ -188,7 +188,7 @@ module CareData
     age18_and_remain = [1685, 1750, 1790, 2190, 1570, 1695]
 
     ny = size( total_in_placements )[1]
-    # println( "size $ny" )
+    # @info  "size $ny"
     growth = zeros( ny-1 )
 
     for i in 1:ny-1
@@ -252,7 +252,7 @@ module CareData
             @collect
         end
         lq = length( q )[1]
-        # println( "lq = $lq")
+        # @info  "lq = $lq"
         carers = Array{Carer}( undef, lq )
         j = 0
         for i in q
@@ -504,12 +504,12 @@ module CareData
         benefits = 0.0
         carer = Carer( pid, 40, housing, earnings, benefits, employment_status, skill_level )
         thisyear = startyear
-        println( "stayingrates=$stayingrates")
+        @info  "stayingrates=$stayingrates"
         for p in 1:3 ### FIXME parameterise 3
             r = rand()
             stayr = stayingrates[p]
             if r > stayr
-                println( "exiting; r=$r stayrate $stayr ")
+                @info  "exiting; r=$r stayrate $stayr "
                 break
             end
             addyptoframe!( yp_dataset, thisyear, ccode, carer.id, yp )
@@ -526,11 +526,11 @@ module CareData
         if size(settings.targets)[1] > 0
             targets  = ofdata.ccode .|> [x->x in settings.targets]
             t = settings.targets
-            println( "settings.targets = $t")
-            println( "targets = $targets")
+            @info  "settings.targets = $t"
+            @info  "targets = $targets"
             ofdata = ofdata[targets,:]
         end
-        println( "settings $settings")
+        @info  "settings $settings"
         ofdata.number_of_children_or_young_people_in_placements_at_31_march =
             Missings.replace( ofdata[!,:number_of_children_or_young_people_in_placements_at_31_march],0)
         ncouncils = size( ofdata )[1]
@@ -562,7 +562,7 @@ module CareData
                     new_reached_18_base = get_18s_level_from_doe( ccode )
                     if ismissing( new_reached_18_base )
                         tf = typeof(total_fostered )
-                        println( "typeof total_fostered $tf" )
+                        @info  "typeof total_fostered $tf"
                         new_reached_18_base = settings.prp_reach_18 * total_fostered # fallback
                     end
                 end
@@ -570,10 +570,10 @@ module CareData
                 for year in (settings.startyear-2):settings.endyear # FIXME hack
                     y = year-2019 # fixme make 2019 some sort of parameter
                     stayingrates = base_staying_rates .+ ( settings.annual_sp_increment*y )
-                    println( "at year $year stayingrates = $stayingrates base_staying_rates $base_staying_rates")
+                    @info  "at year $year stayingrates = $stayingrates base_staying_rates $base_staying_rates"
                     g = settings.avggrowth^y
                     new_reached_18 = round(Integer,new_reached_18_base*g)
-                    println( "adding $new_reached_18 people for council $ccode total fostered $total_fostered y=$y g=$g new_reached_18_base=$new_reached_18_base")
+                    @info  "adding $new_reached_18 people for council $ccode total fostered $total_fostered y=$y g=$g new_reached_18_base=$new_reached_18_base"
                     for i in 1:new_reached_18
                         pid += 1
                         add_aged_data!(
